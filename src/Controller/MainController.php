@@ -12,11 +12,11 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
 
 
     /**
-     * @Route ("/", name = "Accueil")
+     * @Route ("/", name = "main_home")
      */
     public function home ()  {
-
-        return $this->render('Accueil.html.twig')  ;
+        echo "coucou";
+        die();
     }
 
 

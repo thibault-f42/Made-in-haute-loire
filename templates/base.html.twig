@@ -13,21 +13,7 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
-
-
     <body>
-
-        <header>
-            <div>Navbar et compagnie</div>
-        </header>
-        
-        <main>
-            {% block body %}
-            {% endblock %}
-        </main>
-
-        <footer>
-            <div>notre entreprise</div>
-        </footer>
+        {% block body %}{% endblock %}
     </body>
 </html>
