@@ -52,5 +52,4 @@
 /.web-server-pid
 .env.local
 *.local
-.idea/
-
+/.idea/
