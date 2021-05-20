@@ -69,7 +69,7 @@ class Utilisateur implements UserInterface
     private $administrateur;
 
     /**
-     * @ORM\OneToMany(targetEntity=entreprise::class, mappedBy="utilisateur", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="utilisateur", orphanRemoval=true)
      */
     private $entreprise;
 

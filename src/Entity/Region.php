@@ -20,13 +20,9 @@ class Region
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255))
      */
-    private $noRegion;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $nom;
 
     /**
@@ -44,17 +40,9 @@ class Region
         return $this->id;
     }
 
-    public function getNoRegion(): ?int
-    {
-        return $this->noRegion;
-    }
 
-    public function setNoRegion(int $noRegion): self
-    {
-        $this->noRegion = $noRegion;
 
-        return $this;
-    }
+
 
     public function getNom(): ?string
     {

@@ -34,19 +34,21 @@ class Departement
      */
     private $cantons;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $relation;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="departements")
      */
     private $region;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ville::class, mappedBy="departement")
+     */
+    private $villes;
+
     public function __construct()
     {
         $this->cantons = new ArrayCollection();
+        $this->villes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +130,36 @@ class Departement
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ville[]
+     */
+    public function getVilles(): Collection
+    {
+        return $this->villes;
+    }
+
+    public function addVille(Ville $ville): self
+    {
+        if (!$this->villes->contains($ville)) {
+            $this->villes[] = $ville;
+            $ville->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVille(Ville $ville): self
+    {
+        if ($this->villes->removeElement($ville)) {
+            // set the owning side to null (unless already changed)
+            if ($ville->getDepartement() === $this) {
+                $ville->setDepartement(null);
+            }
+        }
 
         return $this;
     }

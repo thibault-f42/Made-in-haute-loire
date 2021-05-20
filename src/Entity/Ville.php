@@ -45,6 +45,22 @@ class Ville
      */
     private $canton;
 
+    /**
+     * @ORM\Column(type="decimal")
+     */
+    private $longitude;
+
+    /**
+     * @ORM\Column(type="decimal")
+     */
+    private $latitude;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $departement;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
@@ -162,6 +178,42 @@ class Ville
     public function setCanton(?Canton $canton): self
     {
         $this->canton = $canton;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?int
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(int $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?int
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(int $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): self
+    {
+        $this->departement = $departement;
 
         return $this;
     }

@@ -2,15 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Canton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Canton.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Departement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Departement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Region.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Ville.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Ville.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/inscription.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +139,7 @@
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
     </include_path>
   </component>
   <component name="ProjectId" id="1shhPHa5gSg5gKS58udb0pes9vB" />
@@ -156,8 +167,25 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Made-in-haute-loire\src\Controller" />
+      <recent name="C:\wamp64\www\Made-in-haute-loire\templates\Admins" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\templates" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -174,7 +202,8 @@
       <workItem from="1621426491420" duration="301000" />
       <workItem from="1621427997723" duration="340000" />
       <workItem from="1621432994532" duration="826000" />
-      <workItem from="1621495122864" duration="923000" />
+      <workItem from="1621495122864" duration="6006000" />
+      <workItem from="1621504336482" duration="7158000" />
     </task>
     <servers />
   </component>

@@ -30,7 +30,7 @@ class Canton
     private $villes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="cantons")
+     * @ORM\ManyToMany(targetEntity=Departement::class, inversedBy="cantons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $departement;

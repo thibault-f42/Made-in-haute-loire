@@ -20,4 +20,13 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     }
 
 
+    /**
+     * @Route ("/a", name = "Administration")
+     */
+    public function admin ()  {
+
+        return $this->render('Admins/AdministrationSite.html.twig')  ;
+    }
+
+
 }
