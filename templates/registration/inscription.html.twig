@@ -2,6 +2,7 @@
 
 {% block title %}Register{% endblock %}
 
+
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
@@ -9,13 +10,31 @@
 
     <h1>Register</h1>
 
+    <div class="col-2">
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.telephone) }}
+    {{ form_row(registrationForm.adresse) }}
+        {{ form_row(registrationForm.codePostal) }}
+        {{ form_row(registrationForm.ville) }}
+    {{ form_row(registrationForm.plainPassword, {
+        label: 'Mot de passe : '
+    }) }}
+    {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
+        <script>requeteAjaxGet('#registration_form_codePostal', 'change', '#registration_form_ville')</script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% endblock %}
 {% endblock %}
+
+
+

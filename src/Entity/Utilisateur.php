@@ -30,7 +30,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ADMIN'];
 
     /**
      * @var string The hashed password
@@ -38,10 +38,6 @@ class Utilisateur implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -177,17 +173,7 @@ class Utilisateur implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
 
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
 
     public function getNom(): ?string
     {

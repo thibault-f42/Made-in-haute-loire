@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,30 @@ class VilleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ville::class);
+    }
+
+
+
+
+    public function getVillesByCodePostal(string $value): QueryBuilder
+    {
+
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.codePostal LIKE :value')
+            ->setParameter('value', "%$value%")
+            ->orderBy('v.nom', 'ASC')
+            ;
+    }
+
+    public function getVillesByCodePostalAjax(string $value)
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.codePostal LIKE :value')
+            ->setParameter('value', "%$value%")
+            ->orderBy('v.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
@@ -47,4 +72,6 @@ class VilleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }
