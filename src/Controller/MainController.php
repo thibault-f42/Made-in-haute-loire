@@ -21,7 +21,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
 
 
     /**
-     * @Route ("/a", name = "Administration")
+     * @Route ("/Admin", name = "Administration")
      */
     public function admin ()  {
 
