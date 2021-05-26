@@ -25,6 +25,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -41,6 +42,7 @@ class RegistrationController extends AbstractController
             }
             $user->setVendeur(false);
 
+            dd($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -67,11 +69,7 @@ class RegistrationController extends AbstractController
         return $this->render('registration/inscription.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
-
-
-
     }
-
 }
 
 

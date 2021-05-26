@@ -29,10 +29,6 @@ class Entreprise
      */
     private $adresse;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ville;
 
     /**
      * @ORM\Column(type="string", length=12)
@@ -50,21 +46,29 @@ class Entreprise
      */
     private $produits;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity=Photo::class, mappedBy="entreprise")
+     * @ORM\Column(type="string", length=255)
      */
-    private $photos;
+    private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise")
+     */
+    private $fichier;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="entreprises")
      * @ORM\JoinColumn(nullable=false)
      */
+    private $ville;
+    
 
 
     public function __construct()
     {
         $this->produits = new ArrayCollection();
-        $this->photos = new ArrayCollection();
+        $this->fichier = new ArrayCollection();
     }
 
 
@@ -104,17 +108,6 @@ class Entreprise
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
     public function getTelephone(): ?string
     {
@@ -170,32 +163,63 @@ class Entreprise
         return $this;
     }
 
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Photo[]
+     * @return Collection|Fichier[]
      */
-    public function getPhotos(): Collection
+    public function getFichier(): Collection
     {
-        return $this->photos;
+        return $this->fichier;
     }
 
-    public function addPhoto(Photo $photo): self
+    public function addFichier(Fichier $fichier): self
     {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->addEntreprise($this);
+        if (!$this->fichier->contains($fichier)) {
+            $this->fichier[] = $fichier;
+            $fichier->setEntreprise($this);
         }
 
         return $this;
     }
 
-    public function removePhoto(Photo $photo): self
+    public function removeFichier(Fichier $fichier): self
     {
-        if ($this->photos->removeElement($photo)) {
-            $photo->removeEntreprise($this);
+        if ($this->fichier->removeElement($fichier)) {
+            // set the owning side to null (unless already changed)
+            if ($fichier->getEntreprise() === $this) {
+                $fichier->setEntreprise(null);
+            }
         }
 
         return $this;
     }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+
+
 
 
 }
