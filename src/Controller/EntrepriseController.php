@@ -47,7 +47,8 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            On reucpère le user
+
+            //On recupère le user
             $entreprise->setUtilisateur($this->getUser());
             //On récupère les photos
             $images= $form->get('photos')->getData();
@@ -64,9 +65,24 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 $fichier->setTypeFichier('Photos_Entreprise');
                 //on ajoute le fichier a notre entreprise
                 $entreprise->addFichier($fichier);
-
             }
 
+            //On récupère les pieces justificatives
+            $Kbis= $form->get('justificatifSiret')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($Kbis as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_kbis_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Kbis_Document');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entreprise);

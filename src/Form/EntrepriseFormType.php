@@ -21,7 +21,7 @@ class EntrepriseFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', TextType::class, ['required' => false, 'label' => 'SIRET'])
+            ->add('siret', TextType::class, ['required' => false, 'label' => 'SIRET'])
             ->add('nom', TextType::class, ['required' => false])
             ->add('adresse', TextType::class, ['required' => false])
             ->add('telephone', TextType::class, ['required' => false])
@@ -32,7 +32,9 @@ class EntrepriseFormType extends AbstractType
                 'attr' => ['placeholder' => 'Indiquez votre code postal'],
                 'label' => 'Code Postal',
                 'required' => false
-            ]);
+            ])
+        ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => true])
+        ;
 
         $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,
             function ( FormEvent $saisieCodePostal){

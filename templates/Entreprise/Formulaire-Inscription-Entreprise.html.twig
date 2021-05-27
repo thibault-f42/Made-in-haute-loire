@@ -9,15 +9,16 @@
 
     <div class = "col-2">
         {{ form_start(EntrepriseForm) }}
-        {{ form_row(EntrepriseForm.id) }}
         {{ form_row(EntrepriseForm.nom) }}
+        {{ form_row(EntrepriseForm.siret) }}
         {{ form_row(EntrepriseForm.adresse) }}
         {{ form_row(EntrepriseForm.email) }}
         {{ form_row(EntrepriseForm.telephone) }}
         {{ form_row(EntrepriseForm.codePostal) }}
         {{ form_row(EntrepriseForm.ville) }}
         {{ form_row(EntrepriseForm.photos) }}
-    <button type="submit" class="btn">Inscription</button>
+        {{ form_row(EntrepriseForm.justificatifSiret) }}
+    <button type="submit" class="btn btn-primary">Inscription</button>
     {{ form_end(EntrepriseForm) }}
     </div>
     {% block javascripts %}

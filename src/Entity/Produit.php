@@ -68,15 +68,16 @@ class Produit
     /**
      * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="produit")
      */
-    private $fichier;
+    private $fichiers;
 
 
-
+    
 
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
         $this->fichier = new ArrayCollection();
+        $this->fichiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,15 +208,15 @@ class Produit
     /**
      * @return Collection|Fichier[]
      */
-    public function getFichier(): Collection
+    public function getFichiers(): Collection
     {
-        return $this->fichier;
+        return $this->fichiers;
     }
 
     public function addFichier(Fichier $fichier): self
     {
-        if (!$this->fichier->contains($fichier)) {
-            $this->fichier[] = $fichier;
+        if (!$this->fichiers->contains($fichier)) {
+            $this->fichiers[] = $fichier;
             $fichier->setProduit($this);
         }
 
@@ -224,7 +225,7 @@ class Produit
 
     public function removeFichier(Fichier $fichier): self
     {
-        if ($this->fichier->removeElement($fichier)) {
+        if ($this->fichiers->removeElement($fichier)) {
             // set the owning side to null (unless already changed)
             if ($fichier->getProduit() === $this) {
                 $fichier->setProduit(null);
@@ -233,7 +234,6 @@ class Produit
 
         return $this;
     }
-
 
    
 }

@@ -6,15 +6,19 @@ use App\Repository\EntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
+ * @UniqueEntity(fields={"siret"}, message="Ce numéro de SIRET est déjà utilisé")
  */
 class Entreprise
 {
 
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -53,15 +57,20 @@ class Entreprise
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise")
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise",  cascade={"persist"})
      */
     private $fichier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="entreprises")
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="entreprises",)
      * @ORM\JoinColumn(nullable=false)
      */
     private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $siret;
     
 
 
@@ -218,8 +227,15 @@ class Entreprise
         return $this;
     }
 
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
 
+    public function setSiret(string $siret): self
+    {
+        $this->siret = $siret;
 
-
-
+        return $this;
+    }
 }

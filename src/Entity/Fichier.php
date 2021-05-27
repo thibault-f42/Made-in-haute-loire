@@ -36,14 +36,14 @@ class Fichier
     private $entreprise;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="fichier")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="fichiers")
      */
     private $produit;
+
 
     public function __construct()
     {
         $this->entreprise = new ArrayCollection();
-        $this->produit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,4 +99,5 @@ class Fichier
 
         return $this;
     }
+
 }
