@@ -66,16 +66,17 @@ class Produit
     private $categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Photo::class, mappedBy="produit")
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="produit")
      */
-    private $photos;
+    private $fichier;
+
 
 
 
     public function __construct()
     {
         $this->categorie = new ArrayCollection();
-        $this->photos = new ArrayCollection();
+        $this->fichier = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,31 +205,35 @@ class Produit
     }
 
     /**
-     * @return Collection|Photo[]
+     * @return Collection|Fichier[]
      */
-    public function getPhotos(): Collection
+    public function getFichier(): Collection
     {
-        return $this->photos;
+        return $this->fichier;
     }
 
-    public function addPhoto(Photo $photo): self
+    public function addFichier(Fichier $fichier): self
     {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->addProduit($this);
+        if (!$this->fichier->contains($fichier)) {
+            $this->fichier[] = $fichier;
+            $fichier->setProduit($this);
         }
 
         return $this;
     }
 
-    public function removePhoto(Photo $photo): self
+    public function removeFichier(Fichier $fichier): self
     {
-        if ($this->photos->removeElement($photo)) {
-            $photo->removeProduit($this);
+        if ($this->fichier->removeElement($fichier)) {
+            // set the owning side to null (unless already changed)
+            if ($fichier->getProduit() === $this) {
+                $fichier->setProduit(null);
+            }
         }
 
         return $this;
     }
+
 
    
 }

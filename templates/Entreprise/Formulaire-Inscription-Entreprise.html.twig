@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+
+    <div class = "col-2">
+        {{ form_start(EntrepriseForm) }}
+        {{ form_row(EntrepriseForm.id) }}
+        {{ form_row(EntrepriseForm.nom) }}
+        {{ form_row(EntrepriseForm.adresse) }}
+        {{ form_row(EntrepriseForm.email) }}
+        {{ form_row(EntrepriseForm.telephone) }}
+        {{ form_row(EntrepriseForm.codePostal) }}
+        {{ form_row(EntrepriseForm.ville) }}
+        {{ form_row(EntrepriseForm.photos) }}
+    <button type="submit" class="btn">Inscription</button>
+    {{ form_end(EntrepriseForm) }}
+    </div>
+    {% block javascripts %}
+        <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
+        <script>requeteAjaxGet('#entreprise_form_codePostal', 'change', '#entreprise_form_ville')</script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% endblock %}
+{% endblock %}
+

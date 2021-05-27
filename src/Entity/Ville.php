@@ -35,10 +35,6 @@ class Ville
      */
     private $utilisateurs;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="Ville")
-     */
-    private $entreprises;
 
     /**
      * @ORM\ManyToOne(targetEntity=Canton::class, inversedBy="villes")
@@ -61,6 +57,13 @@ class Ville
      * @ORM\JoinColumn(nullable=false)
      */
     private $departement;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="ville")
+     */
+    private $entreprises;
+
+
 
     public function __construct()
     {
@@ -141,35 +144,7 @@ class Ville
         return $this;
     }
 
-    /**
-     * @return Collection|Entreprise[]
-     */
-    public function getEntreprises(): Collection
-    {
-        return $this->entreprises;
-    }
 
-    public function addEntreprise(Entreprise $entreprise): self
-    {
-        if (!$this->entreprises->contains($entreprise)) {
-            $this->entreprises[] = $entreprise;
-            $entreprise->setVille($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEntreprise(Entreprise $entreprise): self
-    {
-        if ($this->entreprises->removeElement($entreprise)) {
-            // set the owning side to null (unless already changed)
-            if ($entreprise->getVille() === $this) {
-                $entreprise->setVille(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCanton(): ?Canton
     {
@@ -222,6 +197,36 @@ class Ville
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|Entreprise[]
+     */
+    public function getEntreprises(): Collection
+    {
+        return $this->entreprises;
+    }
+
+    public function addEntreprise(Entreprise $entreprise): self
+    {
+        if (!$this->entreprises->contains($entreprise)) {
+            $this->entreprises[] = $entreprise;
+            $entreprise->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntreprise(Entreprise $entreprise): self
+    {
+        if ($this->entreprises->removeElement($entreprise)) {
+            // set the owning side to null (unless already changed)
+            if ($entreprise->getVille() === $this) {
+                $entreprise->setVille(null);
+            }
+        }
+
+        return $this;
     }
 
 

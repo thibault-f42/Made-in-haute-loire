@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Photo;
+use App\Entity\Fichier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Photo|null find($id, $lockMode = null, $lockVersion = null)
- * @method Photo|null findOneBy(array $criteria, array $orderBy = null)
- * @method Photo[]    findAll()
- * @method Photo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Fichier|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Fichier|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Fichier[]    findAll()
+ * @method Fichier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PhotoRepository extends ServiceEntityRepository
+class FichierRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Photo::class);
+        parent::__construct($registry, Fichier::class);
     }
 
     // /**
-    //  * @return Photo[] Returns an array of Photo objects
+    //  * @return Fichier[] Returns an array of Fichier objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class PhotoRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Photo
+    public function findOneBySomeField($value): ?Fichier
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')
