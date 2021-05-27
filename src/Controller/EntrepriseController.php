@@ -46,7 +46,6 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
 
 //            On reucpère le user
             $entreprise->setUtilisateur($this->getUser());

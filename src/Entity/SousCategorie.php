@@ -22,6 +22,12 @@ class SousCategorie
      */
     private $nom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="sousCategories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class SousCategorie
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
