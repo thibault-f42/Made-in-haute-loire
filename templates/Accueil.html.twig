@@ -1,7 +1,43 @@
 
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
+
+    <h1><a href="{{ path('Accueil') }}"><img src="{{ asset('logo/made-in-loire.png') }}" alt="image"></a></h1>
+    <label>Choix de Departement:</label></br>
+    <label for="departement"></label>
+    <select name="Departement" id="departement">
+        <option selected>Choix disponnible</option>
+        <option value="Haute-Loire">Haute-Loire</option>
+        <option value="Loire">Loire</option>
+    </select></br>
+
+    <label for="produits">Choix Produits:</label></br>
+    <select name="Choix Produits" id="produits">
+        <option selected>Choix disponnible</option>
+        <option value="Vetements">Vetements</option>
+        <option value="Fruits">Fruits</option>
+        <option value="Confiture">Confitures</option>
+    </select>
+
+
+        <title>Add Map</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}" />
+        <script src="./index.js"></script>
+
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+            async
+    ></script>
+
+    <h2></h2>
 
 {% endblock %}
 
