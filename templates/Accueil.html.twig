@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1><a href="{{ path('Accueil') }}"><img src="{{ asset('logo/made-in-loire.png') }}" alt="image"></a></h1>
+
     <label>Choix de Departement:</label></br>
     <label for="departement"></label>
     <select name="Departement" id="departement">
@@ -21,23 +21,13 @@
         <option value="Confiture">Confitures</option>
     </select>
 
-
-        <title>Add Map</title>
-
         <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}" />
         <script src="./index.js"></script>
+    <div>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_" width="640" height="480"></iframe>
+    </div>
 
-    <h3>My Google Maps Demo</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
-            async
-    ></script>
-
-    <h2></h2>
 
 {% endblock %}
 
