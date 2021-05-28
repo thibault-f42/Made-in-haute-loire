@@ -17,6 +17,19 @@
             <li class="nav-item ">
                 <a class="nav-link" href="#">Panier</a>
             </li>
+            {% if app.user %}
+                {% if app.user.entreprise%}
+                    <a class="nav-link" href="{{ path('DevenirPartenaire') }}">Mon entreprise </a>
+                {% else%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('DevenirPartenaire') }}">Devenir partenaire </a>
+                </li>
+                {% endif %}
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

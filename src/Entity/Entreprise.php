@@ -39,11 +39,7 @@ class Entreprise
      */
     private $telephone;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="entreprise")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $utilisateur;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="entreprise")
@@ -71,6 +67,12 @@ class Entreprise
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $siret;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Utilisateur::class, inversedBy="entreprise", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $utilisateur;
     
 
 
@@ -129,18 +131,7 @@ class Entreprise
 
         return $this;
     }
-
-    public function getUtilisateur(): ?Utilisateur
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?Utilisateur $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection|Produit[]
@@ -235,6 +226,18 @@ class Entreprise
     public function setSiret(string $siret): self
     {
         $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(Utilisateur $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

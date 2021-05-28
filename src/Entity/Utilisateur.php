@@ -64,10 +64,6 @@ class Utilisateur implements UserInterface
      */
     private $administrateur;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="utilisateur", orphanRemoval=true)
-     */
-    private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,6 +80,11 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Entreprise::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     */
+    private $entreprise;
 
 
 
@@ -235,35 +236,7 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|entreprise[]
-     */
-    public function getEntreprise(): Collection
-    {
-        return $this->entreprise;
-    }
 
-    public function addEntreprise(entreprise $entreprise): self
-    {
-        if (!$this->entreprise->contains($entreprise)) {
-            $this->entreprise[] = $entreprise;
-            $entreprise->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEntreprise(entreprise $entreprise): self
-    {
-        if ($this->entreprise->removeElement($entreprise)) {
-            // set the owning side to null (unless already changed)
-            if ($entreprise->getUtilisateur() === $this) {
-                $entreprise->setUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getAdresse(): ?string
     {
@@ -303,6 +276,23 @@ class Utilisateur implements UserInterface
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(Entreprise $entreprise): self
+    {
+        // set the owning side of the relation if necessary
+        if ($entreprise->getUtilisateur() !== $this) {
+            $entreprise->setUtilisateur($this);
+        }
+
+        $this->entreprise = $entreprise;
+
+        return $this;
     }
 
 }

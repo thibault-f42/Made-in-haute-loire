@@ -54,3 +54,4 @@
 .env.local
 *.local
 
+.idea/workspace.xml
