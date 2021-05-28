@@ -1,5 +1,14 @@
-
 body
 {
-    background-color: black;
+    background-color: lightseagreen;
 }
+img
+{
+    width: 150px;
+}
+
+label
+{
+    color: black;
+}
+
