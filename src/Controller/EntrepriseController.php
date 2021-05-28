@@ -8,6 +8,8 @@ use App\Entity\Ville;
 use App\Entity\Fichier;
 use App\Entity\Utilisateur;
 use App\Form\EntrepriseFormType;
+use App\Repository\FichierRepository;
+use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,17 +22,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use function Symfony\Component\Translation\t;
+
 
 class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
 
 
     /**
-     * @Route ("/Devenir-Partenaire", name = "DevenirPartenaire")
+     * @Route ("/Partenaire", name = "Partenaire")
      */
-    public function AccueilPartenaire ()  {
+    public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository)  {
 
-        return $this->render('/Entreprise/Devenir-Partenaire.html.twig')  ;
+        //préparation des données a afficher
+
+
+        $utilisateur= $utilisateurRepository->find($this->getUser());
+        $entreprise = $utilisateur->getEntreprise();
+
+        //On récupère les fichiers de l'entreprise
+
+        $fichiers = $fichierRepository->findBy(array('entreprise'=>$entreprise->getId()));
+
+        return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers])  ;
     }
 
     /**
@@ -62,7 +76,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_Entreprise');
+                $fichier->setTypeFichier('Photos_presentation_Entreprise');
                 //on ajoute le fichier a notre entreprise
                 $entreprise->addFichier($fichier);
             }
@@ -79,7 +93,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Kbis_Document');
+                $fichier->setTypeFichier('Document_Kbis_Entreprise');
                 //on ajoute le fichier a notre entreprise
                 $entreprise->addFichier($fichier);
             }
@@ -105,7 +119,29 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
     }
 
+    /**
+     * @Route ("/Supprimer/image{id}", name = "supprimePhotoEntreprise", methods ="DELETE")
+     */
+    public function deletePhoto (Fichier $photo, Request $request)   {
 
+        $donnees = json_decode($request->getContent(), true);
+        // on vérifie la validité du token
+        if ($this->isCsrfTokenValid('delete'.$photo->getId(), $donnees['_token'])) {
+            $nom = $photo->getUrlFichier();
+            //on supprime le fichier
+            unlink($this->getParameter('images_entreprise_directory').'/'.$nom);
 
+            //on supprime l'entrée de la base de donnée
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($photo);
+            $em->flush();
+
+            //On répond en json
+            return new JsonResponse(['success'=>1]);
+        }
+        else {
+            //On répond en json
+            return new JsonResponse(['error'=>'Erreur lors de la suppression', 400]);}
+    }
 
 }
