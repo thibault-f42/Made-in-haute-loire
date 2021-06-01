@@ -8,6 +8,7 @@ use App\Entity\Ville;
 use App\Entity\Fichier;
 use App\Entity\Utilisateur;
 use App\Form\EntrepriseFormType;
+use App\Form\FichierType;
 use App\Repository\FichierRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
@@ -32,7 +33,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     /**
      * @Route ("/Partenaire", name = "Partenaire")
      */
-    public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository)  {
+    public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, Request $request)  {
 
         //préparation des données a afficher
 
@@ -44,7 +45,47 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
         $fichiers = $fichierRepository->findBy(array('entreprise'=>$entreprise->getId()));
 
-        return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers])  ;
+        $ajoutphoto = new Fichier();
+        $formAjoutPhoto = $this->createForm(FichierType::class, $ajoutphoto);
+
+        $formAjoutPhoto->handleRequest($request);
+
+        if ($formAjoutPhoto->isSubmitted() && $formAjoutPhoto->isValid()) {
+
+            //On recupère le user
+            $entreprise->setUtilisateur($this->getUser());
+
+            //On récupère les photos
+            $images= $formAjoutPhoto->get('fichier')->getData();
+
+            //On boucle pour récupérer toutes les images
+            foreach ($images as $image) {
+
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_entreprise_directory'), $nomFichier);
+
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Photos_presentation_entreprise');
+
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($entreprise);
+                $entityManager->flush();
+
+            }
+            
+            return $this->redirectToRoute('Partenaire');
+        }
+
+        return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers, 'photoAjoutForm' => $formAjoutPhoto->createView() ])  ;
     }
 
     /**
@@ -76,7 +117,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_Entreprise');
+                $fichier->setTypeFichier('Photos_presentation_entreprise');
                 //on ajoute le fichier a notre entreprise
                 $entreprise->addFichier($fichier);
             }
