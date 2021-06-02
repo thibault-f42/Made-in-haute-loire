@@ -91,12 +91,13 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     /**
      * @Route ("/Inscription-Partenaire", name = "InscriptionFournisseur")
      */
-    public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, VilleRepository $villeRepository): Response
+    public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,VilleRepository $villeRepository): Response
     {
 
         $entreprise = new Entreprise();
-        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
 
+
+        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 
 

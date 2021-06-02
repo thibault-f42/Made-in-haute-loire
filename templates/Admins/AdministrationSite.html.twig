@@ -7,23 +7,21 @@
 {% block body %}
 
     <div>
-        <a href="#"> Gestion categories </a>
+        <a href="{{ path('categorie_index') }}"> categories </a>
     </div>
-
+    <div>
+    <a href="{{ path('sous_categorie_index') }}"> sous-categories </a>
+    </div>
     <div>
         <a href="#"> Gestion Utilisateur </a>
     </div>
 
     <div>
-        <a href="#"> Gestion Produits </a>
+        <a href="{{ path('produit_index') }}"> Gestion Produits </a>
     </div>
 
     <div>
         <a href="#"> Gestion Entreprise </a>
     </div>
-
-
-    {{ app.user.entreprise.ville.nom}}
-
 {% endblock %}
 

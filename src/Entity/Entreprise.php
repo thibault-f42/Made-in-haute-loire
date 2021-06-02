@@ -130,7 +130,7 @@ class Entreprise
 
         return $this;
     }
-    
+
 
     /**
      * @return Collection|Produit[]
@@ -250,6 +250,10 @@ class Entreprise
 
         return $this;
     }
-    
-    
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
 }
