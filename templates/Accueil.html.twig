@@ -3,31 +3,103 @@
 
 
 {% block body %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
 
 
-    <label>Choix de Departement:</label></br>
-    <label for="departement"></label>
-    <select name="Departement" id="departement">
-        <option selected>Choix disponnible</option>
-        <option value="Haute-Loire">Haute-Loire</option>
-        <option value="Loire">Loire</option>
-    </select></br>
 
-    <label for="produits">Choix Produits:</label></br>
-    <select name="Choix Produits" id="produits">
-        <option selected>Choix disponnible</option>
-        <option value="Vetements">Vetements</option>
-        <option value="Fruits">Fruits</option>
-        <option value="Confiture">Confitures</option>
-    </select>
+    <div class="container">
+   <div class="choix">
+       <h2>Filtres</h2>
+       <label for="departement">Departement:</label>
+        <select name="Departement" id="departement">
+            <option selected></option>
+            <option value="Haute-Loire">Haute-Loire</option>
+            <option value="Loire">Loire</option>
+        </select>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}" />
-        <script src="./index.js"></script>
-    <div>
-        <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_" width="640" height="480"></iframe>
+       <label for="produits">Categories:</label>
+       <select name="Categorie" id="produits">
+            <option selected></option>
+            <option value="Vetements">Vetements</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Confiture">Légumes</option>
+           </select>
+
+       <label for="produits">Prix:</label>
+       <select name="Prix" id="produits">
+           <option selected></option>
+           <option value="Vetements">0->10</option>
+           <option value="Fruits">11->20</option>
+           <option value="Confiture">21->50</option>
+       </select>
+
+       <label for="produits">Zone Geographique:</label>
+       <select name="Zone Geographique" id="produits">
+           <option selected></option>
+           <option value="Vetements">0->10</option>
+           <option value="Fruits">11->20</option>
+           <option value="Confiture">21->50</option>
+       </select>
+       <div class="boutonRecherche">
+           <div class="d-grid gap-2">
+               <button class="btn btn-outline-success" type="button">Recherche</button>
+           </div>
+       </div>
+   </div>
+
+    <h2>Resultats de votre recherche</h2>
+        <div class="maps">
+            <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_"
+                    width="500" height="500"></iframe>
+        </div>
+
+            <div class="sliderAll">
+                <a href="#slide-1">1</a>
+                <a href="#slide-2">2</a>
+                <a href="#slide-3">3</a>
+                <a href="#slide-4">4</a>
+                <a href="#slide-5">5</a>
+
+                <div class="slides">
+                    <div id="slide-1">
+                        1
+                    </div>
+                    <div id="slide-2">
+                        2
+                    </div>
+                    <div id="slide-3">
+                        3
+                    </div>
+                    <div id="slide-4">
+                        4
+                    </div>
+                    <div id="slide-5">
+                        5
+                    </div>
+                </div>
+            </div>
+
+
+
+
     </div>
+<aside>
+        <h2>Qui Sommmes Nous</h2>
+        <div class="quiSommeNous">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere,
+                magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
+                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
+                Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at,
+                vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
+        </div>
+</aside>
 
 
+</div>
+    <footer>
+        Copyright 2021
+    </footer>
 
 {% endblock %}
 
