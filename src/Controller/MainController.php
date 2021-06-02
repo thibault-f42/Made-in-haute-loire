@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +15,13 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     /**
      * @Route ("/", name = "Accueil")
      */
-    public function home ()  {
+    public function home (UtilisateurRepository $utilisateurRepository)  {
 
+
+        $user= $this->getUser();
+        $utilisateur = $utilisateurRepository->find($user->getId());
         return $this->render('Accueil.html.twig')  ;
     }
-
 
     /**
      * @Route ("/Admin", name = "Administration")

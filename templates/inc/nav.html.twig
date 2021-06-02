@@ -22,11 +22,12 @@
                 <a class="nav-link" href="#">Panier</a>
             </li>
             {% if app.user %}
-                {% if app.user.entreprise%}
+                {% if app.user.entreprise %}
                     <a class="nav-link" href="{{ path('Partenaire') }}">Mon entreprise </a>
+                    <a class="nav-link" href="{{ path('produitPartenaire') }}">Mes produits</a>
                 {% else%}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('Partenaire') }}">Devenir partenaire </a>
+                    <a class="nav-link" href="{{ path('InscriptionFournisseur') }}">Devenir partenaire </a>
                 </li>
                 {% endif %}
             {% else %}

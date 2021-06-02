@@ -42,7 +42,6 @@ class RegistrationController extends AbstractController
             }
             $user->setVendeur(false);
 
-            dd($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

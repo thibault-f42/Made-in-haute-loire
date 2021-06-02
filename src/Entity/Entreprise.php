@@ -69,11 +69,10 @@ class Entreprise
     private $siret;
 
     /**
-     * @ORM\OneToOne(targetEntity=Utilisateur::class, inversedBy="entreprise", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Utilisateur::class, mappedBy="entreprise", cascade={"persist", "remove"})
      */
     private $utilisateur;
-    
+
 
 
     public function __construct()
@@ -235,10 +234,22 @@ class Entreprise
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(Utilisateur $utilisateur): self
+    public function setUtilisateur(?Utilisateur $utilisateur): self
     {
+        // unset the owning side of the relation if necessary
+        if ($utilisateur === null && $this->utilisateur !== null) {
+            $this->utilisateur->setEntreprise(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($utilisateur !== null && $utilisateur->getEntreprise() !== $this) {
+            $utilisateur->setEntreprise($this);
+        }
+
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
+    
+    
 }

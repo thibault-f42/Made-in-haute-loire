@@ -105,6 +105,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
             //On recupère le user
             $entreprise->setUtilisateur($this->getUser());
+
             //On récupère les photos
             $images= $form->get('photos')->getData();
             //On boucle pour récupérer toutes les images
@@ -142,6 +143,8 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entreprise);
             $entityManager->flush();
+
+            return $this->redirectToRoute('Accueil');
 
 
         }

@@ -82,16 +82,10 @@ class Utilisateur implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToOne(targetEntity=Entreprise::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Entreprise::class, inversedBy="utilisateur", cascade={"persist", "remove"})
      */
     private $entreprise;
 
-
-
-    public function __construct()
-    {
-        $this->entreprise = new ArrayCollection();
-    }
 
     public function getid(): ?int
     {
@@ -283,16 +277,13 @@ class Utilisateur implements UserInterface
         return $this->entreprise;
     }
 
-    public function setEntreprise(Entreprise $entreprise): self
+    public function setEntreprise(?Entreprise $entreprise): self
     {
-        // set the owning side of the relation if necessary
-        if ($entreprise->getUtilisateur() !== $this) {
-            $entreprise->setUtilisateur($this);
-        }
-
         $this->entreprise = $entreprise;
 
         return $this;
     }
+
+
 
 }

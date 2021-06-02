@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>Liste de produits proposés</h1>
+        {% for produit in  produits %}
+            <div class="col-3">
+                {% if produit.fichier != null %}
+                    <img src={{ asset('img/ProduitsPhotos/'~fichier.urlFichier) }} alt="photo_produit" class="rounded mx-auto">
+                    <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
+                {% endif%}
+                {# verifier si la route est "/partenaire" #}
+            </div>
+        {% endfor %}
+
+    <div><a href={{ path('AjoutProduit') }}>Ajouter un produit</a></div>
+
+    </div>
+    {% block javascripts %}
+        <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
+        <script>requeteAjaxGet('#entreprise_form_codePostal', 'change', '#entreprise_form_ville')</script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% endblock %}
+{% endblock %}
+
