@@ -17,9 +17,7 @@
                     {% if fichier != null %}
                         <div class = col-2>
                             <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~fichier.urlFichier) }} alt="photo_produit" class="rounded mx-auto" width="150px" height="150 px"></a>
-                            <div class="row">
-                                <a href="{{ path('supprimePhotoProduit' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
-                            </div>
+                            <a href="{{ path('supprimePhotoProduit' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
                         </div>
                     {% endif%}
                 {% endfor %}
