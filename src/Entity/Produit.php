@@ -19,10 +19,6 @@ class Produit
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $noArticle;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,17 +26,17 @@ class Produit
     private $nomArticle;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $prix;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=255)
      */
     private $etatVente;
 
@@ -50,7 +46,7 @@ class Produit
     private $stock;
 
      /**
-     * @ORM\Column(type="integer")
+      * @ORM\Column(type="string", length=255)
      */
     private $codeProduit;
 
@@ -60,41 +56,29 @@ class Produit
      */
     private $entreprise;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="produits")
-     */
-    private $categorie;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="produit")
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="produit",  cascade={"persist"})
      */
     private $fichiers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SousCategorie::class, inversedBy="produits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sousCategorie;
 
 
     
 
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
-        $this->fichier = new ArrayCollection();
         $this->fichiers = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNoArticle(): ?int
-    {
-        return $this->noArticle;
-    }
-
-    public function setNoArticle(int $noArticle): self
-    {
-        $this->noArticle = $noArticle;
-
-        return $this;
     }
 
     public function getNomArticle(): ?string
@@ -121,24 +105,24 @@ class Produit
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    public function getEtatVente(): ?int
+    public function getEtatVente(): ?String
     {
         return $this->etatVente;
     }
 
-    public function setEtatVente(int $etatVente): self
+    public function setEtatVente(String $etatVente): self
     {
         $this->etatVente = $etatVente;
 
@@ -157,12 +141,12 @@ class Produit
         return $this;
     }
 
-    public function getCodeProduit(): ?int
+    public function getCodeProduit(): ?String
     {
         return $this->codeProduit;
     }
 
-    public function setCodeProduit(int $codeProduit): self
+    public function setCodeProduit(String $codeProduit): self
     {
         $this->codeProduit = $codeProduit;
 
@@ -181,29 +165,6 @@ class Produit
         return $this;
     }
 
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getCategorie(): Collection
-    {
-        return $this->categorie;
-    }
-
-    public function addCategorie(Categorie $categorie): self
-    {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie[] = $categorie;
-        }
-
-        return $this;
-    }
-
-    public function removeCategorie(Categorie $categorie): self
-    {
-        $this->categorie->removeElement($categorie);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Fichier[]
@@ -234,6 +195,19 @@ class Produit
 
         return $this;
     }
+
+    public function getSousCategorie(): ?SousCategorie
+    {
+        return $this->sousCategorie;
+    }
+
+    public function setSousCategorie(?SousCategorie $sousCategorie): self
+    {
+        $this->sousCategorie = $sousCategorie;
+
+        return $this;
+    }
+
 
    
 }

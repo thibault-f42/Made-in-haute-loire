@@ -66,7 +66,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
                 // On copie le fichier dans le dossier upload
                 $image->move(
-                    $this->getParameter('images_entreprise_directory'), $nomFichier);
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
 
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
@@ -174,7 +174,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $donnees['_token'])) {
             $nom = $photo->getUrlFichier();
             //on supprime le fichier
-            unlink($this->getParameter('images_entreprise_directory').'/'.$nom);
+            unlink($this->getParameter('images_entreprises_directory').'/'.$nom);
 
             //on supprime l'entrée de la base de donnée
             $em = $this->getDoctrine()->getManager();

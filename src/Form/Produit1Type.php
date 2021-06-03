@@ -12,7 +12,6 @@ class Produit1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('noArticle')
             ->add('nomArticle')
             ->add('description')
             ->add('prix')
@@ -20,7 +19,6 @@ class Produit1Type extends AbstractType
             ->add('stock')
             ->add('codeProduit')
             ->add('entreprise')
-            ->add('categorie')
         ;
     }
 

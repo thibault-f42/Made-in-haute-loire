@@ -10,7 +10,6 @@
             <tr>
                 <th>Id</th>
                 <th>NoArticle</th>
-                <th>NomArticle</th>
                 <th>Description</th>
                 <th>Prix</th>
                 <th>EtatVente</th>
@@ -23,7 +22,6 @@
         {% for produit in produits %}
             <tr>
                 <td>{{ produit.id }}</td>
-                <td>{{ produit.noArticle }}</td>
                 <td>{{ produit.nomArticle }}</td>
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.prix }}</td>
