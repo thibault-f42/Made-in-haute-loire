@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SousCategorieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,16 @@ class SousCategorie
      */
     private $categorie;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="sousCategorie")
+     */
+    private $produits;
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -56,4 +68,35 @@ class SousCategorie
 
         return $this;
     }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setSousCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getSousCategorie() === $this) {
+                $produit->setSousCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

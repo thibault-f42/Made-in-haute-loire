@@ -66,7 +66,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
                 // On copie le fichier dans le dossier upload
                 $image->move(
-                    $this->getParameter('images_entreprise_directory'), $nomFichier);
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
 
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
@@ -91,12 +91,13 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
     /**
      * @Route ("/Inscription-Partenaire", name = "InscriptionFournisseur")
      */
-    public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, VilleRepository $villeRepository): Response
+    public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,VilleRepository $villeRepository): Response
     {
 
         $entreprise = new Entreprise();
-        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
 
+
+        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 
 
@@ -114,7 +115,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
                 // On copie le fichier dans le dossier upload
                 $image->move(
-                    $this->getParameter('images_entreprise_directory'), $nomFichier);
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
@@ -173,7 +174,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $donnees['_token'])) {
             $nom = $photo->getUrlFichier();
             //on supprime le fichier
-            unlink($this->getParameter('images_entreprise_directory').'/'.$nom);
+            unlink($this->getParameter('images_entreprises_directory').'/'.$nom);
 
             //on supprime l'entrée de la base de donnée
             $em = $this->getDoctrine()->getManager();

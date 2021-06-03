@@ -18,9 +18,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Qui somme nous ? </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="#">Panier</a>
-            </li>
             {% if app.user %}
                 {% if app.user.entreprise %}
                     <a class="nav-link" href="{{ path('Partenaire') }}">Mon entreprise </a>
@@ -35,6 +32,19 @@
                     <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                 </li>
             {% endif %}
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Panier</a>
+            </li>
+            {% if app.user %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se deconnecter</a>
+                </li>
+            {% else %}
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+            </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>

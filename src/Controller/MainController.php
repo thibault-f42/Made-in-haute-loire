@@ -18,8 +18,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     public function home (UtilisateurRepository $utilisateurRepository)  {
 
 
-        $user= $this->getUser();
-        $utilisateur = $utilisateurRepository->find($user->getId());
+        
         return $this->render('Accueil.html.twig')  ;
     }
 

@@ -41,11 +41,6 @@ class Fichier
     private $produit;
 
 
-    public function __construct()
-    {
-        $this->entreprise = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;

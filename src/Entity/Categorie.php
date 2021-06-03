@@ -25,18 +25,12 @@ class Categorie
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="categorie")
-     */
-    private $produits;
-
-    /**
      * @ORM\OneToMany(targetEntity=SousCategorie::class, mappedBy="categorie")
      */
     private $sousCategories;
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
         $this->sousCategories = new ArrayCollection();
     }
 
@@ -57,32 +51,6 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->addCategorie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            $produit->removeCategorie($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|SousCategorie[]
@@ -112,5 +80,11 @@ class Categorie
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getLibelle();
     }
 }

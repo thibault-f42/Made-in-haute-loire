@@ -5,6 +5,13 @@
 
     <div class="col-3">
         {{ form_start(ajoutProduitForm) }}
+        {{ form_row(ajoutProduitForm.nomArticle) }}
+        {{ form_row(ajoutProduitForm.description) }}
+        {{ form_row(ajoutProduitForm.prix) }}
+        {{ form_row(ajoutProduitForm.stock) }}
+        {{ form_row(ajoutProduitForm.sousCategorie) }}
+        {{ form_row(ajoutProduitForm.photos) }}
+        <button type="submit" class="btn btn-primary">Ajout produit</button>
         {{ form_end(ajoutProduitForm) }}
     </div>
 
@@ -13,4 +20,3 @@
 {% block title %}
 
 {% endblock %}
-

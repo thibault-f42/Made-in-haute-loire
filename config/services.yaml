@@ -5,9 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     images_img_directory: '%kernel.project_dir%/public/img'
-    images_entreprise_directory: '%kernel.project_dir%/public/img/EntreprisePhoto'
+    images_entreprises_directory: '%kernel.project_dir%/public/img/EntreprisePhoto'
     images_kbis_directory: '%kernel.project_dir%/public/img/KbisPhoto'
-    images_produit_directory: '%kernel.project_dir%/public/img/ProduitPhoto'
+    images_produits_directory: '%kernel.project_dir%/public/img/ProduitPhoto'
 
 
 services:

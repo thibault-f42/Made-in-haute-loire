@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c091624-3804-4f85-8487-e3f0e9bec724" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/main/home.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Categorie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Categorie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Fichier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Fichier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Produit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Produit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/SousCategorie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SousCategorie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Produit1Type.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/Produit1Type.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ProduitType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProduitType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Entreprise/Partenaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Entreprise/Partenaire.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/AjoutProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/AjoutProduit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/ProduitPartenaire.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/ProduitPartenaire.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/_delete_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable path="composer" />
@@ -134,12 +146,18 @@
       <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/vendor/kylekatarnls/vicopo" />
     </include_path>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="5" />
   </component>
   <component name="ProjectId" id="1skQHyGztepIqL1B7uG5rckgSVK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -148,14 +166,22 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/produit" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Made-in-haute-loire\templates\produit" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -166,7 +192,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9c091624-3804-4f85-8487-e3f0e9bec724" name="Default Changelist" comment="" />
+      <changelist id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="" />
       <created>1621414023818</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -174,6 +200,7 @@
       <workItem from="1621414026314" duration="1248000" />
       <workItem from="1621582524363" duration="3343000" />
       <workItem from="1621931257063" duration="7661000" />
+      <workItem from="1622706736239" duration="15275000" />
     </task>
     <servers />
   </component>
