@@ -115,7 +115,7 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
                 // On copie le fichier dans le dossier upload
                 $image->move(
-                    $this->getParameter('images_entreprise_directory'), $nomFichier);
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);

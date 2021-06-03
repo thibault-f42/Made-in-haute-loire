@@ -26,7 +26,7 @@ class EntrepriseFormType extends AbstractType
             ->add('adresse', TextType::class, ['required' => false])
             ->add('telephone', TextType::class, ['required' => false])
             ->add('email', TextType::class, ['required' => false])
-            ->add('Photos', FileType::class, ['label' => 'Photos', 'multiple' => true, 'mapped' => false, 'required' => false])
+            ->add('photos', FileType::class, ['label' => 'Photos', 'multiple' => true, 'mapped' => false, 'required' => false])
             ->add('codePostal', TextType::class, [
                 'mapped' => false,
                 'attr' => ['placeholder' => 'Indiquez votre code postal'],
