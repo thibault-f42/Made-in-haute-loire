@@ -5,35 +5,40 @@
 {% endblock %}
 
 {% block body %}
-
-    <h1>Liste de produits proposés</h1>
-
-    <div class="row">
-
-
-        {% for produit in  produits %}
-            <div class = col-3>
-                {% if produit.fichiers is not empty %}
-                    <div class = col-3>
-                        <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} alt="photo_produit" class="rounded mx-auto"></a>
-                    </div>
-                {% endif%}
-                <div class="row">
-                    <div class="col-12">
-                        {{ produit.nomArticle }}
-                        <div class="row">
-                            <div class="col-12">
-                                {{ produit.description }}
+    <div class="container">
+        <h3>Chez {{ app.user.entreprise }}</h3>
+        <div class="row">
+            {% for produit in  produits %}
+                <div class = "col-lg-3 col-md-6 col-sm-12">
+                    {% if produit.fichiers is not empty %}
+                        <div class="card" style="width: 18rem;">
+                            <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit"  height = "250px"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ produit.nomArticle }}</h5>
+                                <p class="card-text">{{ produit.description }}</p>
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
                             </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="card" style="width: 18rem;">
+                            <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" height = "250px" ></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ produit.nomArticle }}</h5>
+                                <p class="card-text">{{ produit.description }}</p>
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                            </div>
+                        </div>
+                    {% endif%}
                 </div>
-            </div>
-        {% endfor %}
-        <a href={{ path('AjoutProduit') }}>Ajouter un produit</a>
+            {% endfor %}
+            <a href={{ path('AjoutProduit') }}>Ajouter un produit</a>
+        </div>
     </div>
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
     {% endblock %}
 {% endblock %}
+
+
+
 

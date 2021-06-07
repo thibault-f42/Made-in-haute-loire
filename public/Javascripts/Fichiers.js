@@ -23,6 +23,7 @@ window.onload = () => {
                     reponse => reponse.json()
                 ).then( data => {
                     if (data.success){
+                        console.log('ok');
                         this.parentElement.remove()
                     }
                     else {

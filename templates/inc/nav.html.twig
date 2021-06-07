@@ -21,7 +21,7 @@
             {% if app.user %}
                 {% if app.user.entreprise %}
                     <a class="nav-link" href="{{ path('Partenaire') }}">Mon entreprise </a>
-                    <a class="nav-link" href="{{ path('produitPartenaire') }}">Mes produits</a>
+                    <a class="nav-link" href="{{ path('produitPartenaire') }}">Ma vitrine</a>
                 {% else%}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('InscriptionFournisseur') }}">Devenir partenaire </a>
