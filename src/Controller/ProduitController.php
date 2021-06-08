@@ -214,9 +214,7 @@ class ProduitController extends AbstractController
         $user = $this->getUser();
 
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-
 
             //On récupère les photos
             $images= $form->get('photos')->getData();
@@ -234,7 +232,7 @@ class ProduitController extends AbstractController
                 //On stocke le chemin d'accès en base de données
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_entreprise');
+                $fichier->setTypeFichier('Photos_produit');
 
                 //on ajoute le fichier a notre entreprise
                 $produit->addFichier($fichier);
