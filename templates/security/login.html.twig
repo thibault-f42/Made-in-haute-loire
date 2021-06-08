@@ -3,6 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"/>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,28 +14,30 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+<div class="Connexion">
+    <div class="Connectez-Vous">
+    <h1 class="h3 mb-3 font-weight-normal" >Connectez-vous</h1>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="E-Mail" required autofocus>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de Passe" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-
-
+           value="{{ csrf_token('authenticate') }}">
+    </div>
+</div>
+    <div class="SeSouvenirDeMoi">
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+                <input type="checkbox" name="_remember_me"> Se Souvenir de Moi </label>
         </div>
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+    </div>
+<div class="buttonConnexion">
+    <div class="d-grid gap-2">
+    <button class="btn btn-outline-success" type="button">
+        Connexion
     </button>
+    </div>
+</div>
 </form>
 {% endblock %}

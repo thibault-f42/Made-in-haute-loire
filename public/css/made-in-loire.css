@@ -18,14 +18,10 @@ nav
 
 label
 {
-   margin-left: 50px;
+    margin-left: 50px;
+
 }
 
-.boutonRecherche
-{
-    text-align: center;
-    margin-bottom: 40px;
-}
 
 select, option
 {
@@ -74,6 +70,11 @@ article, h2
 {
     text-align: center;
     margin: 20px;
+}
+.boutonRecherche
+{
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 footer
@@ -171,4 +172,26 @@ footer
 .slider > a:focus {
     background: #000;
 }
+                            /** CSS login.html.twig **/
+.buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
+{
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.Connexion, .buttonConnexion
+{
+    margin-left: 450px;
+    margin-right: 400px;
+}
+.form-control
+{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
 
+.Connexion
+{
+    text-align: center;
+}
