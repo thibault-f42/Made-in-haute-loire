@@ -33,7 +33,7 @@ class EntrepriseFormType extends AbstractType
                 'label' => 'Code Postal',
                 'required' => false
             ])
-        ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => false ])
+        ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => true])
         ;
 
         $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,

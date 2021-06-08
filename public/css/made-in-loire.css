@@ -1,5 +1,4 @@
 
-
 body
 {
     display: flex;
@@ -45,8 +44,7 @@ label
 
 img
 {
-    width: 200px;
-    height: 200px;
+    width: 150px;
     object-fit: cover;
 }
 
@@ -189,19 +187,7 @@ footer
     border-radius: 10px;
 }
 
-
 .Connexion
 {
     text-align: center;
 }
-
-.card-img, .card-img-bottom, .card-img-top {
-    width: 100%;
-    height: 270px;
-}
-
-.logo {
-    width: 70px;
-    height: 70px;
-}
-
