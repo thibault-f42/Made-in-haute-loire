@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use function Cassandra\Type;
 
-class RegistrationFormType extends AbstractType
+class ModifUtilisateurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,37 +38,12 @@ class RegistrationFormType extends AbstractType
                 'required' => false
                 ])
             ->add('telephone', TextType::class, ['required' => false])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'En vous inscrivant vous acceptez nos conditions d utilisation.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-             'required' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
         ;
 
          $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,
          function ( FormEvent $saisieCodePostal){
              $form = $saisieCodePostal->getForm();
-                 if (strlen($form->getData()->length()) >= 2) {
+                 if (strlen($form->getData()) >= 2) {
                      $this->addVilleField($form->getParent(), $form->getData());
                  }
              ;

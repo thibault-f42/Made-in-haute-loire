@@ -66,33 +66,44 @@ function requeteAjaxGet(selectorElementAction, typeAction, selectorReponse, modi
 
     document.querySelector(selectorElementAction).addEventListener(typeAction, (event) => {
 
-        event.preventDefault();
 
-        const Params = new URLSearchParams();
-        Params.append(document.querySelector(selectorElementAction).name, document.querySelector(selectorElementAction).value);
 
-        const Url = new URL(window.location.href);
 
-        fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        }).then(response =>
-            response.json()
-        ).then(data => {
+                event.preventDefault();
 
-            const contentPage = document.querySelector(selectorReponse);
-            contentPage.innerHTML = data.content;
+                console.log(document.querySelector(selectorElementAction).value);
+                const Params = new URLSearchParams();
+        if ( document.querySelector(selectorElementAction).value !== "" ) {
+            Params.append(document.querySelector(selectorElementAction).name, document.querySelector(selectorElementAction).value);
 
-            if (modificationUrl) {
-                history.pushState({}, null, Url.pathname + "?" + Params.toString());
-            }
-            else {
-                history.pushState({}, null, Url.pathname);
-            }
+        } else {
+            Params.append(document.querySelector(selectorElementAction).name, "tout");
+        }
 
-        }).catch(e => alert(e));
+                const Url = new URL(window.location.href);
 
-    });
+                fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                }).then(response =>
+                    response.json()
+                ).then(data => {
 
+                    const contentPage = document.querySelector(selectorReponse);
+                    contentPage.innerHTML = data.content;
+
+                    if (modificationUrl) {
+                        history.pushState({}, null, Url.pathname + "?" + Params.toString());
+                    }
+                    else {
+                        history.pushState({}, null, Url.pathname);
+                    }
+
+                }).catch(e => alert(e));
+
+
+
+        }
+    );
 }

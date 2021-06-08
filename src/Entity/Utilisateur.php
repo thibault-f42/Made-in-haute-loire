@@ -218,12 +218,12 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getAdministrateur(): ?string
+    public function getAdministrateur(): ?bool
     {
         return $this->administrateur;
     }
 
-    public function setAdministrateur(string $administrateur): self
+    public function setAdministrateur(bool $administrateur): self
     {
         $this->administrateur = $administrateur;
 
