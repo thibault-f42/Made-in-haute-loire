@@ -15,19 +15,20 @@ nav
     border-top: 10px double #0D58BE;
     border-bottom: 10px double #0D58BE;
 }
+.filtres
+{
+    text-align: center;
+}
 
 label
 {
     margin-left: 50px;
-
 }
-
 
 select, option
 {
     margin-right: 40px;
     margin-bottom: 40px;
-
 }
 
 .d-block
@@ -38,22 +39,13 @@ select, option
 label
 {
     flex-direction: row;
+    color: black;
 }
 
 img
 {
     width: 150px;
     object-fit: cover;
-}
-
-section
-{
-    flex-direction: row;
-}
-
-label
-{
-    color: black;
 }
 
 section
@@ -75,18 +67,21 @@ article, h2
 {
     text-align: center;
     margin-bottom: 20px;
+    margin-left: 250px;
+    margin-right: 250px;
 }
 
+.maps, .slider
+{
+    flex-direction: row;
+}
+aside, p
+{
+    text-align: justify;
+}
 footer
 {
     border-top: 10px double #0D58BE;
-}
-.maps .sliderAll
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 350px; /* Un peu de hauteur pour que les éléments aient la place de bouger */
 }
 
 * {
@@ -97,6 +92,7 @@ footer
 
     text-align: center;
     overflow: hidden;
+
 }
 .slides {
     display: flex;
