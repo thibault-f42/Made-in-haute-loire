@@ -18,7 +18,6 @@
                 <a class="nav-link" href="#">Qui somme nous ? </a>
             </li>
             {% if app.user %}
-
                 {% if app.user.entreprise %}
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,13 +34,18 @@
                     </li>
                 {% endif %}
             {% endif %}
-            <li class="nav-item ">
-                <a class="nav-link" href="#">Panier</a>
-            </li>
             {% if app.user %}
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Se deconnecter</a>
-                </li>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ 'Mon Compte' }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a class="dropdown-item" href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">Mes informations </a></li>
+                        <li class="nav-item ">
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Se deconnecter</a>
+                        </li>
+                    </ul>
+                </div>
             {% else %}
             <div class="btn-group">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,6 +81,9 @@
                 </div>
             </div>
             {% endif %}
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Panier</a>
+            </li>
         </ul>
     </div>
 </nav>
