@@ -45,47 +45,8 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
 
         $fichiers = $fichierRepository->findBy(array('entreprise'=>$entreprise->getId()));
 
-        $ajoutphoto = new Fichier();
-        $formAjoutPhoto = $this->createForm(FichierType::class, $ajoutphoto);
 
-        $formAjoutPhoto->handleRequest($request);
-
-        if ($formAjoutPhoto->isSubmitted() && $formAjoutPhoto->isValid()) {
-
-            //On recupère le user
-            $entreprise->setUtilisateur($this->getUser());
-
-            //On récupère les photos
-            $images= $formAjoutPhoto->get('fichier')->getData();
-
-            //On boucle pour récupérer toutes les images
-            foreach ($images as $image) {
-
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_directory'), $nomFichier);
-
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_entreprise');
-
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($entreprise);
-                $entityManager->flush();
-
-            }
-            
-            return $this->redirectToRoute('Partenaire');
-        }
-
-        return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers, 'photoAjoutForm' => $formAjoutPhoto->createView() ])  ;
+        return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers ])  ;
     }
 
     /**
@@ -174,7 +135,12 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
         if ($this->isCsrfTokenValid('delete'.$photo->getId(), $donnees['_token'])) {
             $nom = $photo->getUrlFichier();
             //on supprime le fichier
-            unlink($this->getParameter('images_entreprises_directory').'/'.$nom);
+            if ($photo->getTypeFichier() == 'Photos_presentation_entreprise') {
+                unlink($this->getParameter('images_entreprises_directory') . '/' . $nom);
+            }
+            if ($photo->getTypeFichier() == 'Document_Kbis_Entreprise') {
+                unlink($this->getParameter('images_kbis_directory') . '/' . $nom);
+            }
 
             //on supprime l'entrée de la base de donnée
             $em = $this->getDoctrine()->getManager();
@@ -188,5 +154,79 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             //On répond en json
             return new JsonResponse(['error'=>'Erreur lors de la suppression', 400]);}
     }
+
+
+    /**
+     * @Route("/{id}/Modification", name="modifierEntreprise", methods={"GET","POST"})
+     */
+    public function modifierEntreprise (Request $request, Entreprise $entreprise, VilleRepository $villeRepository)   {
+
+
+
+        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            //On recupère le user
+            $entreprise->setUtilisateur($this->getUser());
+
+            //On récupère les photos
+            $images= $form->get('photos')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($images as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Photos_presentation_entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
+            //On récupère les pieces justificatives
+            $Kbis= $form->get('justificatifSiret')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($Kbis as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_kbis_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Document_Kbis_Entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($entreprise);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('Partenaire');
+        }
+
+        if ($request->get('ajax') && $request->get('entreprise_form')['codePostal']) {
+            $codePostal = $request->get('entreprise_form')['codePostal'];
+            $villes = $villeRepository->getVillesByCodePostalAjax($codePostal);
+            return new JsonResponse([
+                'content' => $this->renderView('registration/content/_selectVille.html.twig', compact('villes'))
+            ]);
+        }
+
+        return $this->render('Entreprise/modifierEntreprise.html.twig', [
+            'entreprise' => $entreprise,
+            'form'=> $form->createView()
+        ]);
+    }
+
+
 
 }
