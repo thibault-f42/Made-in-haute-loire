@@ -43,7 +43,7 @@ class ProduitController extends AbstractController
 
 
         return $this->render('produit/ProduitPartenaire.twig', [
-            'produits' => $produitsPartenaire,
+            'produits' => $produitsPartenaire, 'entreprise'=> $entreprise,
         ]);
     }
 
