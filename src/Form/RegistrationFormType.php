@@ -68,9 +68,7 @@ class RegistrationFormType extends AbstractType
          $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,
          function ( FormEvent $saisieCodePostal){
              $form = $saisieCodePostal->getForm();
-                 if (strlen($form->getData()->length()) >= 2) {
                      $this->addVilleField($form->getParent(), $form->getData());
-                 }
              ;
          });
 

@@ -6,6 +6,8 @@ use App\Entity\Fichier;
 use App\Entity\Produit;
 use App\Form\Produit1Type;
 use App\Form\ProduitType;
+use App\Repository\EntrepriseRepository;
+use App\Repository\FichierRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\UtilisateurRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -32,18 +34,30 @@ class ProduitController extends AbstractController
 
 
     /**
+     * @Route("/{id}/edit", name="produit_detail", methods={"GET","POST"})
+     */
+    public function afficheDetailProduit(Request $request, Produit $produit): Response
+    {
+        return $this->render('produit/detailProduit.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+
+    /**
      * @Route("/mes-produit", name="produitPartenaire", methods={"GET"})
      */
-    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository): Response
+    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository): Response
     {
 
         $utilisateur= $utilisateurRepository->find($this->getUser());
         $entreprise = $utilisateur->getEntreprise();
         $produitsPartenaire =$entreprise->getProduits();
+        $photosEntreprise= $fichierRepository->findBy(['typeFichier' => 'Photos_presentation_entreprise', 'entreprise'=>$entreprise]);
 
 
-        return $this->render('produit/ProduitPartenaire.twig', [
-            'produits' => $produitsPartenaire,
+
+        return $this->render('produit/VitrinePartenaire.html.twig', [
+            'produits' => $produitsPartenaire, 'entreprise'=> $entreprise, 'photosEntreprise'=>$photosEntreprise
         ]);
     }
 
