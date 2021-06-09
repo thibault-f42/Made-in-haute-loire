@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProduitRepository;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Psr\Container\ContainerInterface;
@@ -16,7 +17,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     /**
      * @Route ("/", name = "Accueil")
      */
-    public function home (UtilisateurRepository $utilisateurRepository, AuthenticationUtils $authenticationUtils)  {
+    public function home (UtilisateurRepository $utilisateurRepository, AuthenticationUtils $authenticationUtils, ProduitRepository $produitRepository)  {
 
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -26,8 +27,9 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+        $produits = $produitRepository->findAll();
 
-        return $this->render('Accueil.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('Accueil.html.twig', ['produits' => $produits]);
 
     }
 
