@@ -1,11 +1,19 @@
+
 {{ form_start(form) }}
     {{ form_start(form) }}
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
+
+    {{ form_row(form.nom)}}
+    {{ form_row(form.prenom)}}
     {{ form_row(form.email) }}
-    {{ form_row(form.telephone) }}
+    {{ form_row(form.entreprise) }}
     {{ form_row(form.adresse) }}
-    {{ form_row(form.codePostal) }}
     {{ form_row(form.ville) }}
-<button type="submit" class="btn">Inscription</button>
+    {{ form_row(form.telephone)}}
+    {{ form_row(form.vendeur)}}
+    {{ form_row(form.administrateur) }}
+    {{ form_row(form.isVerified) }}
+
+
+
+<button type="submit" class="btn-primary">Modifier</button>
 {{ form_end(form) }}
