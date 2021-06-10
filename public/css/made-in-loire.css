@@ -10,7 +10,7 @@ body
     border-bottom: 5px dashed #0D58BE;
 }
 
-nav
+nav, footer
 {
     border-top: 10px double #0D58BE;
     border-bottom: 10px double #0D58BE;
@@ -58,7 +58,7 @@ article
     justify-content: center;
 }
 
-article, h2
+article, h3
 {
     text-align: center;
     margin: 20px;
@@ -106,5 +106,8 @@ aside, p
     text-align: center;
 }
 
-/** CSS detailProduit.html.twig **/
-
+/** CSS modifierProduit.html.twig **/
+.col-3
+{
+    text-align: center;
+}
