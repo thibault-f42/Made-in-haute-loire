@@ -189,4 +189,73 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
             return new JsonResponse(['error'=>'Erreur lors de la suppression', 400]);}
     }
 
+
+    /**
+     * @Route("/{id}/Modification", name="modifierEntreprise", methods={"GET","POST"})
+     */
+    public function modifierEntreprise (Request $request, Entreprise $entreprise, VilleRepository $villeRepository)   {
+
+        $form = $this->createForm(EntrepriseFormType::class, $entreprise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            //On recupère le user
+            $entreprise->setUtilisateur($this->getUser());
+
+            //On récupère les photos
+            $images= $form->get('photos')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($images as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_entreprises_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Photos_presentation_entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
+            //On récupère les pieces justificatives
+            $Kbis= $form->get('justificatifSiret')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($Kbis as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_kbis_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Document_Kbis_Entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($entreprise);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('Partenaire');
+        }
+
+        if ($request->get('ajax') && $request->get('entreprise_form')['codePostal']) {
+            $codePostal = $request->get('entreprise_form')['codePostal'];
+            $villes = $villeRepository->getVillesByCodePostalAjax($codePostal);
+            return new JsonResponse([
+                'content' => $this->renderView('registration/content/_selectVille.html.twig', compact('villes'))
+            ]);
+        }
+
+        return $this->render('Entreprise/modifierEntreprise.html.twig', [
+            'entreprise' => $entreprise,
+            'form'=> $form->createView()
+        ]);
+    }
 }

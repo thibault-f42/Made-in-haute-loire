@@ -47,4 +47,23 @@ class SousCategorieRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getSousCategorieByCategorieId(int $id)
+    {
+        return $this->createQueryBuilder('sc')
+            ->andWhere('sc.categorie = :value')
+            ->setParameter('value', $id)
+            ->orderBy('sc.nom', 'ASC')
+            ;
+    }
+
+    public function getSousCategorieByCategorieIdAjax(int $id)
+    {
+        return $this->createQueryBuilder('sc')
+            ->andWhere('sc.categorie = :value')
+            ->setParameter('value', $id)
+            ->orderBy('sc.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

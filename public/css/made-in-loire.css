@@ -15,12 +15,24 @@ nav
     border-top: 10px double #0D58BE;
     border-bottom: 10px double #0D58BE;
 }
+
 .filtres
 {
     text-align: center;
 }
 
 label
+
+
+{
+
+}
+
+
+
+
+.boutonRecherche
+
 {
     margin-left: 50px;
 }
@@ -168,7 +180,7 @@ footer
 .slider > a:focus {
     background: #000;
 }
-                            /** CSS login.html.twig **/
+/** CSS login.html.twig **/
 .buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
 {
     text-align: center;
@@ -190,4 +202,12 @@ footer
 .Connexion
 {
     text-align: center;
+}
+
+.background-section {
+    background: #eeeeee;
+}
+
+.background-Texte {
+    background: #FFFFFF;
 }

@@ -7,13 +7,16 @@
 {% block body %}
     <div class="container">
 
-        <h3>Chez {{ produit.entreprise }}</h3>
+        <h3>{{ produit.nomArticle }}</h3>
         <div class="row">
             {% for photo in produit.fichiers %}
-            <div class = "col-lg-3 col-md-6 col-sm-12 mb-4">
-                <img src={{ asset('img/ProduitPhoto/'~photo.urlFichier) }} alt="photo_entreprise" class="rounded">
-            </div>
-        {% endfor %}
+                <div class = "col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <img src={{ asset('img/ProduitPhoto/'~photo.urlFichier) }} alt="photo_entreprise" class="rounded">
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <a href="{{ path('produitPartenaire', {'id' : produit.entreprise.id}) }}">Vitrine de "{{ produit.entreprise.nom }}"</a>
         </div>
     </div>
     {% block javascripts %}
