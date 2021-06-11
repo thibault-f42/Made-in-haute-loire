@@ -8,7 +8,6 @@ use App\Repository\VilleRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -16,7 +15,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use function Sodium\add;
 
 class EntrepriseFormType extends AbstractType
 {
@@ -35,8 +33,7 @@ class EntrepriseFormType extends AbstractType
                 'label' => 'Code Postal',
                 'required' => false
             ])
-            ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => false ])
-            ->add('description', TextareaType::class, ['required'=>false, 'label'=>'Entrez une description pour votre entreprise'])
+        ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => true])
         ;
 
         $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,

@@ -16,25 +16,7 @@ nav, footer
     border-bottom: 10px double #0D58BE;
 }
 
-
-.filtres
-{
-    text-align: center;
-}
-
-
 label
-
-
-{
-
-}
-
-
-
-
-.boutonRecherche
-
 {
     margin-left: 80px;
 }
@@ -86,50 +68,7 @@ aside, p
     text-align: justify;
 }
 
-
     /** CSS login.html.twig **/
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
-}
-.slides > div:target {
-    /*   transform: scale(0.8); */
-}
-.author-info {
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 0.75rem;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-}
-.author-info a {
-    color: white;
-}
-.slider > a {
-    display: inline-flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    background: white;
-    text-decoration: none;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin: 0 0 0.5rem 0;
-    position: relative;
-}
-.slider > a:active {
-    top: 1px;
-}
-.slider > a:focus {
-    background: #000;
-}
-/** CSS login.html.twig **/
 .buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
 {
     text-align: center;
@@ -153,7 +92,6 @@ aside, p
 {
     text-align: center;
 }
-
 
 /** CSS modifierProduit.html.twig **/
 
@@ -183,14 +121,5 @@ p
 h5
 {
     text-align: center;
-}
-
-
-.background-section {
-    background: #eeeeee;
-}
-
-.background-Texte {
-    background: #FFFFFF;
 }
 
