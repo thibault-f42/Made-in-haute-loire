@@ -9,32 +9,46 @@
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
 
     <div class="container">
-        <h3>Chez {{ app.user.entreprise }}</h3>
-
-        <div class="row">
+        <h3>Chez {{ entreprise.nom }}</h3>
+        <div class="row mb-2 background-section">
             <div class="col-6">
-                filtres a créer
+                <div>
+                    <form action="" class="background-Texte"> TODO : Formulaire de filtres </form>
+                </div>
             </div>
-            <div class="col-6 mb-4">
+            <div class="col-6 mb-4 card">
                 <div id="carouselExampleIndicators" class="carousel slide carousel-dark" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         {% if photosEntreprise is not empty %}
                             {% for fichier in entreprise.fichier %}
                                 {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
                                     {% if fichier.urlFichier == photosEntreprise[0].urlFichier  %}
+
                                          <div class="carousel-item active">
                                             <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100 alt="...">
                                          </div>
                                     {% else %}
                                         <div class="carousel-item">
                                              <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100 alt="...">
+
+                                        <div class="carousel-item active">
+                                            <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" class="d-block w-100" alt="...">
+                                        </div>
+                                    {% else %}
+                                        <div class="carousel-item">
+                                            <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" class="d-block w-100" alt="...">
+
                                         </div>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% else %}
                             <div class="carousel-item active">
+
                                 <img src={{ asset('img/Erreurs/notFound.png')}} class="d-block w-100 alt="">
+
+                                <img src="{{ asset('img/Erreurs/notFound.png')}}" class="d-block w-100" alt="">
+
                             </div>
                         {% endif%}
                     </div>
@@ -47,9 +61,15 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+                <div class="card-body" >
+                    <p class="cart-text">
+                      {{ entreprise.description }}
+                    </p>
+                </div>
             </div>
+
         </div>
-        <div class="row">
+        <div class="row mb-2 background-section">
             {% for produit in  produits %}
                 <div class = "col-lg-3 col-md-6 col-sm-12 mb-4">
                     <div class="card" style="height: 420px; ">
@@ -61,20 +81,37 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ produit.nomArticle }}   </h5>
                             <p class="card-text">{{ produit.description }}</p>
-                            <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                            {% if app.user.entreprise == produit.entreprise %}
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                            {% else %}
+                                <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                            {% endif %}
                             <b class="">{{produit.prix ~ ' €'}}</b>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-            <a href={{ path('AjoutProduit') }}>Ajouter un produit</a>
+            <div>
+                {% if app.user.entreprise == entreprise %}
+                    <a href="{{ path('AjoutProduit') }}" class="btn btn-primary" >Ajouter un produit</a>
+                {% else %}
+                    <a href="{{ path('Accueil' ) }}" class="btn btn-primary">Retour à la liste de produits</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row background-section">
+            <div class="col-6">
+            </div>
+            <div class = col-6>
+                <h3>Entreprise basée à : </h3>
+                <div class="maps">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_"
+                            width="500" height="500"></iframe>
+                </div>
+            </div>
         </div>
     </div>
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
     {% endblock %}
 {% endblock %}
-
-
-
-
