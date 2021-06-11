@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class = col-12>
-            <div class="container">
+
                 <div class="choix">
                     <h2>Filtres</h2>
                     <label for="departement">Departement:</label>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>
     <div class="row">
@@ -56,6 +56,7 @@
             <h3>Tous nos produits</h3>
 
             <div class = "row">
+                <div class="produitsFiltres">
             {% for produit in  produits %}
                 <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
                     <div class="card" style="height: 420px; ">
@@ -67,12 +68,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ produit.nomArticle }}   </h5>
                             <p class="card-text">{{ produit.description }}</p>
-                            <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                            <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-outline-success">Détails</a>
                             <b class="">{{produit.prix ~ ' €'}}</b>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+            </div>
             </div>
         </div>
         <div class = col-6>
