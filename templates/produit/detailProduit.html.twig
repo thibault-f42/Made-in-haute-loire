@@ -7,15 +7,20 @@
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
+
     <div class="container">
 
-        <h3>Chez {{ produit.entreprise }}</h3>
+        <h3>{{ produit.entreprise }}</h3>
         <div class="row">
             {% for photo in produit.fichiers %}
-            <div class = "col-lg-3 col-md-6 col-sm-12 mb-4">
-                <img src={{ asset('img/ProduitPhoto/'~photo.urlFichier) }} alt="photo_entreprise" class="rounded">
+
+                <img src={{ asset('img/ProduitPhoto/'~photo.urlFichier) }} alt="photo_entreprise" class="rounded"
+                width="350" height="350">
             </div>
+        <div class="descriptionProduit">
+            <h5>Description du Produit</h5>
                 <p>{{ produit.description }}</p>
+        </div>
         {% endfor %}
         </div>
     </div>

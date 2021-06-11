@@ -34,7 +34,7 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="produit_detail", methods={"GET","POST"})
+     * @Route("/{id}/detail-produit", name="produit_detail", methods={"GET","POST"})
      */
     public function afficheDetailProduit(Request $request, Produit $produit): Response
     {

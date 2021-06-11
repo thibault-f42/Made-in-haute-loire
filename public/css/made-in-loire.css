@@ -15,14 +15,10 @@ nav, footer
     border-top: 10px double #0D58BE;
     border-bottom: 10px double #0D58BE;
 }
-.filtres
-{
-    text-align: center;
-}
 
 label
 {
-    margin-left: 50px;
+    margin-left: 80px;
 }
 
 select, option
@@ -36,11 +32,6 @@ select, option
     height: 300px;
 }
 
-label
-{
-    flex-direction: row;
-    color: black;
-}
 
 img
 {
@@ -58,7 +49,7 @@ article
     justify-content: center;
 }
 
-article, h3
+article, h2
 {
     text-align: center;
     margin: 20px;
@@ -71,17 +62,13 @@ article, h3
     margin-right: 250px;
 }
 
-.maps, .slider
-{
-    flex-direction: row;
-}
+
 aside, p
 {
     text-align: justify;
 }
 
-
-                            /** CSS login.html.twig **/
+    /** CSS login.html.twig **/
 .buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
 {
     text-align: center;
@@ -107,7 +94,32 @@ aside, p
 }
 
 /** CSS modifierProduit.html.twig **/
-.col-3
+
+/** CSS modificationUtilisateur.html.twig **/
+h3
+{
+text-align: center;
+}
+.creationProduit
+{
+    text-align: center;
+    margin: 20px 350px 20px 400px;
+    border-radius: 10px;
+}
+.boutonPublier
+{
+
+}
+section .informationDuCompte
+{
+ justify-content: center;
+}
+p
+{
+    text-align: justify;
+}
+h5
 {
     text-align: center;
 }
+

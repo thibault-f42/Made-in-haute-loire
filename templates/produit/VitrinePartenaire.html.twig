@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
+
     <div class="container">
         <h3>Chez {{ app.user.entreprise }}</h3>
 
@@ -20,18 +23,18 @@
                                 {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
                                     {% if fichier.urlFichier == photosEntreprise[0].urlFichier  %}
                                          <div class="carousel-item active">
-                                            <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100" alt="...">
+                                            <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100 alt="...">
                                          </div>
                                     {% else %}
                                         <div class="carousel-item">
-                                             <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100" alt="...">
+                                             <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} class="d-block w-100 alt="...">
                                         </div>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% else %}
                             <div class="carousel-item active">
-                                <img src={{ asset('img/Erreurs/notFound.png')}} class="d-block w-100" alt="">
+                                <img src={{ asset('img/Erreurs/notFound.png')}} class="d-block w-100 alt="">
                             </div>
                         {% endif%}
                     </div>
