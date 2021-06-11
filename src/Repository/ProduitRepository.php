@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,4 +48,51 @@ class ProduitRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+    /**
+     * recupere les sorties en fonction d'une recherche
+     * @param SearchData $data
+     * @return Produit[]
+     */
+
+    public function findSearch(SearchData $data) : array
+    {
+
+        $query = $this
+            ->createQueryBuilder('p')
+            ->select('p', 'e', 's')
+            ->join('p.entreprise' , 'e')
+            ->join('p.sousCategorie', 's');
+
+        if (!empty($data->sousCategorie)) {
+            $query = $query
+                ->andWhere('p.sousCategorie = :s')
+                ->setParameter('s', $data->sousCategorie->getId());
+        }
+
+        if (!empty($data->recherche)) {
+            $query = $query
+                ->andWhere('p.nomArticle LIKE :n')
+                ->setParameter('n', "%{$data->recherche}%");
+        }
+
+        if (!empty($data->prixMin)) {
+            $query = $query
+                ->andWhere('p.prix >= :pmn')
+                ->setParameter('pmn', $data->prixMin);
+        }
+
+        if (!empty($data->prixMax)) {
+            $query = $query
+                ->andWhere('p.prix <= :pmx')
+                ->setParameter('pmx', $data->prixMin);
+        }
+
+
+        return $query->getQuery()->getResult();
+    }
+
+
 }

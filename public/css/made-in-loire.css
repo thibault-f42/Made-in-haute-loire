@@ -17,10 +17,13 @@ nav
     border-bottom: 10px double #0D58BE;
 }
 
-label
-{
-   margin-left: 50px;
+
+   {
+
 }
+
+
+
 
 .boutonRecherche
 {
@@ -182,4 +185,12 @@ footer
 .logo {
     width: 70px;
     height: 70px;
+}
+
+.background-section {
+    background: #eeeeee;
+}
+
+.background-Texte {
+    background: #FFFFFF;
 }

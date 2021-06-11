@@ -161,8 +161,6 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
      */
     public function modifierEntreprise (Request $request, Entreprise $entreprise, VilleRepository $villeRepository)   {
 
-
-
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 

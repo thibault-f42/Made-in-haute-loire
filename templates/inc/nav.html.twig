@@ -24,7 +24,7 @@
 
                 {% if app.user.entreprise %}
                             <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
-                            <li><a class="dropdown-item" href="{{ path('produitPartenaire') }}">Ma vitrine</a></li>
+                            <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : app.user.entreprise.id} ) }}">Ma vitrine</a></li>
 
                 {% else%}
                     <li class="nav-item">

@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
+use App\Entity\Entreprise;
 use App\Entity\Fichier;
 use App\Entity\Produit;
+use App\Entity\Utilisateur;
+use App\Form\FiltreType;
 use App\Form\Produit1Type;
 use App\Form\ProduitType;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FichierRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,17 +48,16 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+
     /**
-     * @Route("/mes-produit", name="produitPartenaire", methods={"GET"})
+     * @Route("/{id}/Vitrine", name="produitPartenaire", methods={"GET"})
      */
-    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository): Response
+    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, Entreprise $entreprise): Response
     {
 
-        $utilisateur= $utilisateurRepository->find($this->getUser());
-        $entreprise = $utilisateur->getEntreprise();
         $produitsPartenaire =$entreprise->getProduits();
         $photosEntreprise= $fichierRepository->findBy(['typeFichier' => 'Photos_presentation_entreprise', 'entreprise'=>$entreprise]);
-
 
 
         return $this->render('produit/VitrinePartenaire.html.twig', [
