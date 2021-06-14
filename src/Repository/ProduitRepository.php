@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Data\SearchData;
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use http\QueryString;
 
 /**
  * @method Produit|null find($id, $lockMode = null, $lockVersion = null)
@@ -62,9 +64,19 @@ class ProduitRepository extends ServiceEntityRepository
 
         $query = $this
             ->createQueryBuilder('p')
-            ->select('p', 'e', 's')
+            ->select('p', 'e', 's', 'v', 'c')
             ->join('p.entreprise' , 'e')
-            ->join('p.sousCategorie', 's');
+            ->join('p.sousCategorie', 's')
+            ->join('e.ville', 'v')
+            ->join('v.canton', 'c');
+
+
+        if (!empty($data->categorie && empty($data->sousCategorie))) {
+
+            $query = $query
+                ->andWhere('p.categorie = :s')
+                ->setParameter('s', $data->categorie->getId());
+        }
 
         if (!empty($data->sousCategorie)) {
             $query = $query
@@ -90,9 +102,22 @@ class ProduitRepository extends ServiceEntityRepository
                 ->setParameter('pmx', $data->prixMin);
         }
 
+        if (!empty($data->canton)) {
+//            produit -> entreprise -> ville -> canton
+
+            $query = $query
+                ->andWhere('p.entreprise  = e.id')
+                ->andWhere('e.ville  = v.id')
+                ->andWhere('v.canton =:cid' )
+                ->setParameter('cid', $data->canton );
+        }
+
+
 
         return $query->getQuery()->getResult();
     }
+
+
 
 
 }

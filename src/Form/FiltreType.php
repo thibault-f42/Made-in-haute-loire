@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Data\SearchData;
+use App\Entity\Canton;
 use App\Entity\Categorie;
 use App\Entity\Departement;
 use App\Entity\SousCategorie;
@@ -27,10 +28,11 @@ class FiltreType extends AbstractType
         $builder
 
             ->add('categorie', EntityType::class,['class' => Categorie::class,
-                'choice_label' => 'libelle'])
+                'choice_label' => 'libelle', 'placeholder' => 'Catégorie', 'required'=>false ])
             ->add('departement', EntityType::class,['class' => Departement::class,
                 'choice_label' => 'nom'])
-            ->add('canton')
+            ->add('canton', EntityType::class,['class' => Canton::class,
+                'choice_label' => 'nom', 'placeholder' => 'Zone géographique', 'required'=>false ])
             ->add('prixMin')
             ->add('prixMax')
         ;
@@ -59,27 +61,22 @@ class FiltreType extends AbstractType
         );
     }
 
-    private function addSousCategorieField(FormInterface $form, ?string $categorie)
+    private function addSousCategorieField(FormInterface $form, $categorie)
     {
         if ($categorie) {
 
             $form->add('sousCategorie', EntityType::class, [
                 'class' => SousCategorie::class,
-                'label' => 'Sous-Catégorie',
+                'label' => 'Sous-catégorie',
                 'required' => false,
                 'expanded' => false,
                 'multiple' => false,
-                'placeholder' => 'Sous-Categorie',
+                'placeholder' => 'Sous-Catégorie',
                 'choice_label' => 'nom',
                 'query_builder' => function(SousCategorieRepository $CategorieRepository) use ($categorie) {
-                    return  $CategorieRepository->getSousCategorieByCategorieId($categorie)
+                    return  $CategorieRepository->getSousCategorieByCategorieId($categorie->getId())
                         ;
-                },
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez choisir votre sous-categorie' ,
-                    ]),
-                ],
+                }
             ]);
         }
         else {
@@ -91,12 +88,6 @@ class FiltreType extends AbstractType
                 'multiple' => false,
                 'placeholder' => 'Sous-catégorie',
                 'choice_label' => 'nom',
-                'choices' => [],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez choisir une catégorie',
-                    ]),
-                ],
             ]);
         }
     }
@@ -105,8 +96,6 @@ class FiltreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
-            'METHOD' => 'GET',
-            'csrf_protection' => false
         ]);
     }
 

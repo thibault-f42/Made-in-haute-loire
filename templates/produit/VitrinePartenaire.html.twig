@@ -65,19 +65,28 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ produit.nomArticle }}   </h5>
                             <p class="card-text">{{ produit.description }}</p>
-                            {% if app.user.entreprise == produit.entreprise %}
-                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                            {% if app.user%}
+                                {% if app.user.entreprise == produit.entreprise %}
+                                    <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                                {% else %}
+                                    <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                                {% endif %}
                             {% else %}
-                                <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                                    <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
                             {% endif %}
+
                             <b class="">{{produit.prix ~ ' €'}}</b>
                         </div>
                     </div>
                 </div>
             {% endfor %}
             <div>
-                {% if app.user.entreprise == entreprise %}
-                    <a href="{{ path('AjoutProduit') }}" class="btn btn-primary" >Ajouter un produit</a>
+                {% if  app.user%}
+                    {% if app.user.entreprise == entreprise %}
+                        <a href="{{ path('AjoutProduit') }}" class="btn btn-primary" >Ajouter un produit</a>
+                    {% else %}
+                        <a href="{{ path('Accueil' ) }}" class="btn btn-primary">Retour à la liste de produits</a>
+                    {% endif %}
                 {% else %}
                     <a href="{{ path('Accueil' ) }}" class="btn btn-primary">Retour à la liste de produits</a>
                 {% endif %}

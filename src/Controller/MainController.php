@@ -44,7 +44,6 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
 
             $produits = $produitRepository->findSearch($data);
 
-
         } else {
             $produits = $produitRepository->findAll();
         }

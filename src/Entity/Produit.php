@@ -68,6 +68,12 @@ class Produit
      */
     private $sousCategorie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="produit")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
 
     
 
@@ -204,6 +210,18 @@ class Produit
     public function setSousCategorie(?SousCategorie $sousCategorie): self
     {
         $this->sousCategorie = $sousCategorie;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
