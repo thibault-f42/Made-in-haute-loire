@@ -106,20 +106,16 @@ text-align: center;
     margin: 20px 350px 20px 400px;
     border-radius: 10px;
 }
-.boutonPublier
-{
-
-}
 section .informationDuCompte
 {
  justify-content: center;
 }
-p
-{
-    text-align: justify;
-}
-h5
+p, h5
 {
     text-align: center;
 }
-
+img
+{
+     max-width: 100%;
+    height: auto;
+}
