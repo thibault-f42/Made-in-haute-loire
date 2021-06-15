@@ -9,7 +9,7 @@
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
 
         <h3> Chez {{ produit.entreprise }}</h3>
-
+    <div class="contenaire">
             <div class="row">
 
         <div class = "col-lg-6 col-md-6 col-sm-12 col-mb-4">
@@ -31,6 +31,7 @@
         {% endfor %}
         </div>
     </div>
+</div>
 
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
