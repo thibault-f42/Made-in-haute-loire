@@ -13,6 +13,7 @@ use App\Form\ProduitType;
 use App\Repository\EntrepriseRepository;
 use App\Repository\FichierRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\SousCategorieRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -69,7 +70,7 @@ class ProduitController extends AbstractController
      * @Route("/ajout-produit", name="AjoutProduit")
      * @return Response
      */
-    public function ajoutProduit(UtilisateurRepository $utilisateurRepository, Request $request): Response
+    public function ajoutProduit(UtilisateurRepository $utilisateurRepository, Request $request, SousCategorieRepository $sousCategorieRepository): Response
     {
 
         $utilisateur= $utilisateurRepository->find($this->getUser());
@@ -147,7 +148,20 @@ class ProduitController extends AbstractController
             $entityManager->persist($ajoutProduit);
             $entityManager->flush();
 
-            return $this->redirectToRoute('produitPartenaire');
+            return $this->redirectToRoute('produitPartenaire', ['id'=>$entreprise->getId()]);
+        }
+
+
+
+        //ajax
+        if ($request->get('ajax') && $request->get('produit')['categorie']) {
+
+            $categorieString = $request->get('produit')['categorie'];
+            $categorie = (int)$categorieString;
+            $sousCategories = $sousCategorieRepository->getSousCategorieByCategorieIdAjax($categorie);
+            return new JsonResponse([
+                'content' => $this->renderView('categorie/_selectCategorie.html.twig', compact('sousCategories'))
+            ]);
         }
 
         return $this->render('produit/AjoutProduit.html.twig', [

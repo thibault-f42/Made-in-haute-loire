@@ -69,6 +69,8 @@ function requeteAjaxGet(selectorElementAction, typeAction, selectorReponse, modi
 
 
 
+
+        console.log (document.querySelector(selectorElementAction).value)
                 event.preventDefault();
 
                 const Params = new URLSearchParams();
