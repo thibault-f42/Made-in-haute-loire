@@ -1,8 +1,8 @@
 
 <link rel="stylesheet" href="{{ asset('css/made-in-loire.css') }}">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white" >
-    <h1><a href="{{ path('Accueil') }}"><img src="{{ asset('logo/made-in-loire.png') }}" alt="image" class="logo"></a></h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-green" >
+    <h1><a href="{{ path('Accueil') }}"><img src="{{ asset('logo/made-In-loire.png') }}" alt="image" class="logo"></a></h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,8 +11,28 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('Accueil') }}">Accueil <span class="sr-only"></span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Tous nos Produits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Qui somme nous ? </a>
+            </li>
             {% if app.user %}
-
+                {% if app.user.entreprise %}
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mon entreprise
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
+                            <li><a class="dropdown-item" href="{{ path('produitPartenaire') }}">Ma vitrine</a></li>
+                        </ul>
+                    </div>
+                {% else%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('InscriptionFournisseur') }}">Devenir partenaire </a>
+                    </li>
+                {% endif %}
             {% endif %}
             {% if app.user %}
                 <div class="dropdown">
@@ -21,57 +41,45 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a class="dropdown-item" href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">Mes informations </a></li>
-
-                {% if app.user.entreprise %}
-                            <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
-                            <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : app.user.entreprise.id} ) }}">Ma vitrine</a></li>
-
-                {% else%}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('InscriptionFournisseur') }}">Devenir partenaire </a>
-                    </li>
-                {% endif %}
-                        {% if app.user %}
                         <li class="nav-item ">
                             <a class="dropdown-item" href="{{ path('app_logout') }}">Se deconnecter</a>
                         </li>
-                        {% endif %}
                     </ul>
                 </div>
             {% else %}
-                <div class="btn-group">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                        Se connecter
-                    </button>
-                    <div class="dropdown-menu">
-                        <form class="px-4 py-3" action="{{ path('app_login')  }}"  method="post">
-                            <div class="mb-3">
-                                <label for="inputEmail" class="form-label">Email</label>
-                                <input type="email" value="" name="email" id="inputEmail" class="form-control"
-                                       autocomplete="email" required autofocus
-                                       placeholder="email@example.com">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Se connecter
+                </button>
+                <div class="dropdown-menu">
+                    <form class="px-4 py-3" action="{{ path('app_login')  }}"  method="post">
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input type="email" value="" name="email" id="inputEmail" class="form-control"
+                                   autocomplete="email" required autofocus
+                                   placeholder="email@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Mot de passe</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="_remember_me">
+                                <label class="form-check-label" for="dropdownCheck">
+                                    Rester connecté
+                                </label>
                             </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Mot de passe</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" name="_remember_me">
-                                    <label class="form-check-label" for="dropdownCheck">
-                                        Rester connecté
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
 
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">New around here? Sign up</a>
-                        <a class="dropdown-item" href="#">Forgot password?</a>
-                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">New around here? Sign up</a>
+                    <a class="dropdown-item" href="#">Forgot password?</a>
                 </div>
+            </div>
             {% endif %}
             <li class="nav-item ">
                 <a class="nav-link" href="#">Panier</a>

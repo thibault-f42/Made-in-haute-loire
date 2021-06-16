@@ -3,9 +3,21 @@
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block body %}
-    <div class="col-3">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
 
+<section class="informationDuCompte">
+    <div class="col-12">
+        <div class="titreInformationCompte">
+            <h3>Information du Compte</h3>
+            <div class="buttonDelete">
+            {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+            {{ include('utilisateur/_delete_form.html.twig') }}
+        </div>
+            <a href="{{ path('utilisateur_index') }}">Retour Liste</a>
     </div>
+
+</section>
 {% endblock %}
 
  {% block javascripts %}
