@@ -86,16 +86,6 @@ class Utilisateur implements UserInterface
      */
     private $entreprise;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="utilisateur")
-     */
-    private $commandes;
-
-    public function __construct()
-    {
-        $this->commandes = new ArrayCollection();
-    }
-
 
     public function getid(): ?int
     {
@@ -290,36 +280,6 @@ class Utilisateur implements UserInterface
     public function setEntreprise(?Entreprise $entreprise): self
     {
         $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getUtilisateur() === $this) {
-                $commande->setUtilisateur(null);
-            }
-        }
 
         return $this;
     }

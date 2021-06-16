@@ -73,23 +73,12 @@ class Entreprise
      */
     private $utilisateur;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="entreprise")
-     */
-    private $commandes;
-
 
 
     public function __construct()
     {
         $this->produits = new ArrayCollection();
         $this->fichier = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
     }
 
 
@@ -265,45 +254,6 @@ class Entreprise
     public function __toString()
     {
         return $this->getNom();
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->addEntreprise($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeEntreprise($this);
-        }
-
-        return $this;
     }
 
 }

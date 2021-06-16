@@ -68,24 +68,12 @@ class Produit
      */
     private $sousCategorie;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="produit")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $categorie;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produit")
-     */
-    private $commandes;
-
 
     
 
     public function __construct()
     {
         $this->fichiers = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,45 +204,6 @@ class Produit
     public function setSousCategorie(?SousCategorie $sousCategorie): self
     {
         $this->sousCategorie = $sousCategorie;
-
-        return $this;
-    }
-
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->addProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeProduit($this);
-        }
 
         return $this;
     }
