@@ -7,7 +7,7 @@
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
-
+<section>
         <h3> Chez {{ produit.entreprise }}</h3>
     <div class="contenaire">
             <div class="row">
@@ -32,6 +32,7 @@
         </div>
     </div>
 </div>
+</section>
 
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>

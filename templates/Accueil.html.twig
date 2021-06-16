@@ -51,19 +51,32 @@
             
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <h3>Tous nos produits</h3>
 
+        <h3>Resultats de votre recherche</h3>
+        <section>
+            <aside>
+            <div class = col-12>
+                <div class="maps">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_"
+                            width="500" height="500"></iframe>
+                </div>
+            </div>
+        </aside>
+
+        <article>
             <div class = "row">
                 <div class="produitsFiltres">
             {% for produit in  produits %}
-                <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
-                    <div class="card" style="height: 420px; ">
+                    <div class = "col-sm-12">
+
+                        <div class="card" style="width: 18rem;">
                         {% if produit.fichiers is not empty %}
-                            <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
+                            <a href="{{ path('produit_detail', {'id' : produit.id } ) }}">
+                                <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto">
+                            </a>
                         {% else %}
-                            <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                            <a href="{{ path('produit_detail', {'id' : produit.id } ) }}">
+                                <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
                         {% endif%}
                         <div class="card-body">
                             <h5 class="card-title">{{ produit.nomArticle }}   </h5>
@@ -72,22 +85,15 @@
                             <b class="">{{produit.prix ~ ' €'}}</b>
                         </div>
                     </div>
-                </div>
             {% endfor %}
             </div>
             </div>
         </div>
-        <div class = col-6>
+        </article>
 
-            <div class="maps">
-                <h3>Resultats de votre recherche</h3>
-                <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_"
-                        width="500" height="500"></iframe>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <aside>
+    <section>
         <h2>Qui Sommmes Nous</h2>
         <div class="quiSommeNous">
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere,
@@ -96,7 +102,7 @@
                 Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at,
                 vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</p>
         </div>
-    </aside>
+    </section>
 
 {% endblock %}
 
