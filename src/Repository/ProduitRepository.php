@@ -51,8 +51,6 @@ class ProduitRepository extends ServiceEntityRepository
     }
     */
 
-
-
     /**
      * recupere les sorties en fonction d'une recherche
      * @param SearchData $data
@@ -103,7 +101,6 @@ class ProduitRepository extends ServiceEntityRepository
         }
 
         if (!empty($data->canton)) {
-//            produit -> entreprise -> ville -> canton
 
             $query = $query
                 ->andWhere('p.entreprise  = e.id')
@@ -112,12 +109,6 @@ class ProduitRepository extends ServiceEntityRepository
                 ->setParameter('cid', $data->canton );
         }
 
-
-
         return $query->getQuery()->getResult();
     }
-
-
-
-
 }
