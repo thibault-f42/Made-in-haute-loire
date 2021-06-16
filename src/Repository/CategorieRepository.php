@@ -47,6 +47,4 @@ class CategorieRepository extends ServiceEntityRepository
         ;
     }
     */
-
-
 }

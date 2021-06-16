@@ -2,8 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Javascripts/Categorie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/KbisPhoto/f6214462b8c48fec7eedc474ea8f56de.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/SearchData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Entreprise.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entreprise.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FiltreType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UtilisateurType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UtilisateurType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CategorieRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CategorieRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SousCategorieRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SousCategorieRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Entreprise/modifierEntreprise.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/categorie/_selectCategorie.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/detailProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/detailProduit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/modifierProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/modifierProduit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/utilisateur/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/utilisateur/modificationUtilisateur.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/modificationUtilisateur.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
