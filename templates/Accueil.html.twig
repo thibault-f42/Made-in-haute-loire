@@ -9,50 +9,45 @@
 
     <div class="row">
         <div class = col-12>
+            <div class="container">
+                <h2>Filtres</h2>
+                {{ form_start(filtreFormulaire)  }}
 
-                <div class="choix">
-                    <h2>Filtres</h2>
-                    <label for="departement">Departement:</label>
-                    <select name="Departement" id="departement">
-                        <option selected></option>
-                        <option value="Haute-Loire">Haute-Loire</option>
-                        <option value="Loire">Loire</option>
-                    </select>
-
-                    <label for="produits">Categories:</label>
-                    <select name="Categorie" id="produits">
-                        <option selected></option>
-                        <option value="Vetements">Vetements</option>
-                        <option value="Fruits">Fruits</option>
-                        <option value="Confiture">Légumes</option>
-                    </select>
-
-                    <label for="produits">Prix:</label>
-                    <select name="Prix" id="produits">
-                        <option selected></option>
-                        <option value="Vetements">0->10</option>
-                        <option value="Fruits">11->20</option>
-                        <option value="Confiture">21->50</option>
-                    </select>
-
-                    <label for="produits">Zone Geographique:</label>
-                    <select name="Zone Geographique" id="produits">
-                        <option selected></option>
-                        <option value="Vetements">0->10</option>
-                        <option value="Fruits">11->20</option>
-                        <option value="Confiture">21->50</option>
-                    </select>
-                    <div class="boutonRecherche">
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-outline-success" type="button">Recherche</button>
-                        </div>
+                <div class="row mb-2">
+                    <div class="col-2">
+                        {{form_row(filtreFormulaire.departement) }}
+                    </div>
+                    <div class="col-2">
+                        {{form_row(filtreFormulaire.categorie)}}
+                    </div>
+                    <div class="col-2">
+                        {{form_row(filtreFormulaire.sousCategorie)}}
+                    </div>
+                    <div class="col-2">
+                        {{ form_row(filtreFormulaire.canton) }}
                     </div>
                 </div>
-            
+                <div class="row mb-2">
+                    <div class="col-1">
+                        {{ form_row(filtreFormulaire.prixMin) }}
+                    </div>
+                    <div class="col-1">
+
+                        {{ form_row(filtreFormulaire.prixMax) }}
+                    </div>
+                </div>
+                <div class="row col-1">
+                    <button class="btn-primary ">{{ button_label|default('rechercher ') }}</button>
+                </div>
+
+                {{ form_end(filtreFormulaire) }}
+
+            </div>
         </div>
     </div>
+<<<<<<< HEAD
 
-        <h3>Resultats de votre recherche</h3>
+       {#  <h3>Resultats de votre recherche</h3>
         <section>
             <aside>
             <div class = col-12>
@@ -85,7 +80,54 @@
                             <b class="">{{produit.prix ~ ' €'}}</b>
                         </div>
                     </div>
-            {% endfor %}
+            {% endfor %} #}
+=======
+    <div class="row">
+        <div class="col-6">
+            <h3>Tous nos produits</h3>
+            {#                        <div class="sliderAll">#}
+            {#                            <a href="#slide-1">1</a>#}
+            {#                            <a href="#slide-2">2</a>#}
+            {#                            <a href="#slide-3">3</a>#}
+            {#                            <a href="#slide-4">4</a>#}
+            {#                            <a href="#slide-5">5</a>#}
+            {#                            <div class="slides">#}
+            {#                                <div id="slide-1">#}
+            {#                                    1#}
+            {#                                </div>#}
+            {#                                <div id="slide-2">#}
+            {#                                    2#}
+            {#                                </div>#}
+            {#                                <div id="slide-3">#}
+            {#                                    3#}
+            {#                                </div>#}
+            {#                                <div id="slide-4">#}
+            {#                                    4#}
+            {#                                </div>#}
+            {#                                <div id="slide-5">#}
+            {#                                    5#}
+            {#                                </div>#}
+            {#                            </div>#}
+            {#                        </div>#}
+            <div class = "row">
+                {% for produit in  produits %}
+                    <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card" style="height: 420px; ">
+                            {% if produit.fichiers is not empty %}
+                                <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
+                            {% else %}
+                                <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                            {% endif%}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ produit.nomArticle }}   </h5>
+                                <p class="card-text">{{ produit.description }}</p>
+                                <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                                <b class="">{{produit.prix ~ ' €'}}</b>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+>>>>>>> Test
             </div>
             </div>
         </div>
