@@ -194,3 +194,6 @@ footer
 .background-Texte {
     background: #FFFFFF;
 }
+.border-bot-rows {
+    border-bottom: 1px solid #DDD;
+}

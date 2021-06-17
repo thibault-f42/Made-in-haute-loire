@@ -243,8 +243,7 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        $user = $this->getUser();
-
+        $entreprise=$produit->getEntreprise();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -275,7 +274,11 @@ class ProduitController extends AbstractController
 
             }
 
-            return $this->redirectToRoute('produitPartenaire');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($produit);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('produitPartenaire' , ['id'=>$entreprise->getId()]);
         }
 
         return $this->render('produit/modifierProduit.html.twig', [
