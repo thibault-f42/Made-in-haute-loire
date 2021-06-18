@@ -43,12 +43,12 @@ class Ville
     private $canton;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="float")
      */
     private $longitude;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="float")
      */
     private $latitude;
 
@@ -158,7 +158,7 @@ class Ville
         return $this;
     }
 
-    public function getLongitude(): ?int
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
@@ -170,7 +170,7 @@ class Ville
         return $this;
     }
 
-    public function getLatitude(): ?int
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }

@@ -15,10 +15,12 @@
         {{ form_row(EntrepriseForm.telephone) }}
         {{ form_row(EntrepriseForm.codePostal) }}
         {{ form_row(EntrepriseForm.ville) }}
-        {{ form_row(EntrepriseForm.photos) }}
         {{ form_row(EntrepriseForm.justificatifSiret) }}
+        {{ form_row(EntrepriseForm.carteIdentite) }}
+        {{ form_row(EntrepriseForm.photos) }}
+        {{ form_row(EntrepriseForm.description) }}
         <div class="boutonPublier">
-        <button class="btn btn-outline-success" type="button">Publier</button>
+        <button class="btn btn-outline-success" type="submit">Publier</button>
         </div>
     {{ form_end(EntrepriseForm) }}
     </div>

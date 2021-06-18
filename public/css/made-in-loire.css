@@ -156,3 +156,15 @@ img
 }
 /** CSS index.html.twig **/
 
+.background-Texte {
+    background: #FFFFFF;
+}
+.border-bot-rows {
+    border-bottom: 1px solid #DDD;
+}
+
+#maCarte
+{
+    height: 400Px;
+    width: 400px;
+}
