@@ -15,9 +15,12 @@
         {{ form_row(EntrepriseForm.telephone) }}
         {{ form_row(EntrepriseForm.codePostal) }}
         {{ form_row(EntrepriseForm.ville) }}
-        {{ form_row(EntrepriseForm.photos) }}
         {{ form_row(EntrepriseForm.justificatifSiret) }}
-    <button type="submit" class="btn btn-primary">Inscription</button>
+        {{ form_row(EntrepriseForm.carteIdentite) }}
+        {{ form_row(EntrepriseForm.photos) }}
+        {{ form_row(EntrepriseForm.description) }}
+
+        <button type="submit" class="btn btn-primary">Inscription</button>
     {{ form_end(EntrepriseForm) }}
     </div>
     {% block javascripts %}

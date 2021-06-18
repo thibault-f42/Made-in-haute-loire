@@ -102,14 +102,31 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 $entreprise->addFichier($fichier);
             }
 
+            //On récupère les pieces justificatives
+            $cid= $form->get('carteIdentite')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($cid as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_entreprises_carteID_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Document_carte_ID_Entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entreprise);
             $entityManager->flush();
 
             return $this->redirectToRoute('Accueil');
 
-
         }
+
 
         if ($request->get('ajax') && $request->get('entreprise_form')['codePostal']) {
             $codePostal = $request->get('entreprise_form')['codePostal'];
@@ -200,6 +217,23 @@ class EntrepriseController extends \Symfony\Bundle\FrameworkBundle\Controller\Ab
                 $fichier = new Fichier();
                 $fichier->setUrlFichier($nomFichier);
                 $fichier->setTypeFichier('Document_Kbis_Entreprise');
+                //on ajoute le fichier a notre entreprise
+                $entreprise->addFichier($fichier);
+            }
+
+            //On récupère les pieces justificatives
+            $cid= $form->get('carteIdentite')->getData();
+            //On boucle pour récupérer toutes les images
+            foreach ($cid as $image) {
+                // On génère un nom unique
+                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_entreprises_carteID_directory'), $nomFichier);
+                //On stocke le chemin d'accès en base de données
+                $fichier = new Fichier();
+                $fichier->setUrlFichier($nomFichier);
+                $fichier->setTypeFichier('Document_carte_ID_Entreprise');
                 //on ajoute le fichier a notre entreprise
                 $entreprise->addFichier($fichier);
             }

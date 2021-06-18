@@ -1,39 +1,49 @@
 
-window.onload = () => {
-    //Gestion des liens supprimer
-    let balises = document.querySelectorAll("[data-delete]")
+/**
+ * Génère une map affichant les produits disponibles
+ * @param produits [] --> tableau de produits + données gps pour générer les marqueurs
+ */
 
-    for (balise of balises) {
+function afficheProduits(produits)
+{
+    var maCarte = L.map('maCarte').setView([45.4333, 4.4], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        minZoom: 1,
+        maxZoom: 13,
+        ext: 'png',
+    }).addTo(maCarte);
 
-        balise.addEventListener("click", function (e){
-            //on empèche la navigation
-            e.preventDefault()
+    var marqueurs = L.markerClusterGroup();
+    var marqueursTab= [];
 
-            // Confirmation
-            if (confirm("Souhaitez vous supprimer cette photo ?")) {
-                //On envoie une requete ajax vers le lien avec la methode "DELETE"
-                fetch(this.getAttribute("href"), {
-                    method:'DELETE',
-                    headers:{
-                        'X-Requested-With' : "XMLHttpRequest",
-                        "Content-Type" : "application/json"},
-                        body: JSON.stringify({"_token": this.dataset.token})
-                }).then(
-                    //récup de la reponse json
-                    reponse => reponse.json()
-                ).then( data => {
-                    if (data.success){
-                        console.log('ok');
-                        this.parentElement.remove()
-                    }
-                    else {
-                        alert(data.error)
-                    }
-                }).catch(e => alert(e))
-            }
+    for (produit in produits) {
+
+        var icone = L.icon({
+
+            iconSize: [50, 50],
+            iconAnchor: [25, 50],
+            popupAnchor: [0, -50]
         })
+
+        //creation de marqueur et de popup ==> le mieux = un tableau
+        var marqueur = L.marker([produits[produit].latitude, produits[produit].longitude]);
+        // addTo(maCarte);
+        marqueur.bindPopup(
+            "<div>"+
+            produits[produit].nomArticle+
+            "<img src="+ "img/ProduitPhoto/" + produits[produit].urlFichier +">"+
+            "</div>");
+        marqueurs.addLayer(marqueur);
+        //on ajoute les marqueurs au tableau marqueur
+        marqueursTab.push(marqueur);
     }
+    //on crée un groupe leaflet pour les marquzeurs
+    var groupe = new L.featureGroup(marqueursTab)
+
+    //On adapte le zoom de la map au groupe
+
+    maCarte.fitBounds(groupe.getBounds())
+
+    maCarte.addLayer(marqueurs);
 }
-
-
-// /Supprimer/image{id}
