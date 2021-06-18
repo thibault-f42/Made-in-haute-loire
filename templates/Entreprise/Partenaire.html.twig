@@ -11,6 +11,7 @@
                 <p> {{ app.user.entreprise.ville }} </p>
                 <p> {{ app.user.entreprise.adresse }} </p>
                 <p> {{ app.user.entreprise.email }} </p>
+                <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">Modifier mes informations</a>
             </div>
             <div class="col-6">
                 <div class="row">
@@ -20,15 +21,10 @@
                         {% for fichier in  fichiers %}
                             <div class="col-3">
                                 {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
-                                    <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} alt="photo_entreprise" class="rounded mx-auto">
-                                    <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
+                                    <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} alt="photo_entreprise" class="rounded">
                                 {% endif%}
                             </div>
                         {% endfor %}
-                        {{ form_start(photoAjoutForm) }}
-                        {{ form_row(photoAjoutForm.fichier) }}
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
-                        {{ form_end(photoAjoutForm) }}
                     {% endif %}
                 </div>
             </div>
@@ -42,7 +38,7 @@
 
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
-        {% endblock %}
+    {% endblock %}
 {% endblock %}
 
 
