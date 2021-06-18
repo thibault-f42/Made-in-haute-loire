@@ -2,38 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/Javascripts/Categorie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/EntreprisePhoto/a5c65f9c937d55a2b2ffc4cd5caa256e.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/EntreprisePhoto/a96afd84ebc881a6056bbc611434145a.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/EntreprisePhoto/f10b02aa5e7b56e8980eb5f4a004cffa.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/ProduitPhoto/836abb6a75d438ff102a848da6f46de7.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/ProduitPhoto/e02e120f9ce2f7703285eef38beaf8da.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/ProduitPhoto/fe55dc8fe5444549b622fe1effe5dbdf.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/CommandeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/SearchData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Commande.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/CommandeType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/FiltreType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/categorie/_selectCategorie.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/_delete_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/new.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Entreprise/modifierEntreprise.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntrepriseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Categorie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Categorie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Entreprise.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Entreprise.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Produit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Produit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ProduitType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProduitType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CategorieRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CategorieRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/SousCategorieRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/SousCategorieRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Admins/AdministrationSite.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Admins/AdministrationSite.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/AjoutProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/AjoutProduit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

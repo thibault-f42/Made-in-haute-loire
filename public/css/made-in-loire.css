@@ -26,7 +26,10 @@ nav, footer
     border-radius: 30px;
     background-color: forestgreen;
 }
-
+.container
+{
+    flex-direction: row;
+}
 label
 {
     margin-left: 80px;
