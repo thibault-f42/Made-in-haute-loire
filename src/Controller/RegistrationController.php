@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
+use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,6 +35,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            //On génére un  toker d'activation
+            $user->setActivationToken(md5(uniqid()));
 
             if ($user->getRoles() == 'ADMIN'){
                 $user->setAdministrateur(true);
@@ -68,6 +72,34 @@ class RegistrationController extends AbstractController
         return $this->render('registration/inscription.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route ("/activation/{token}" name="activation")
+     */
+    public function activation($token, UtilisateurRepository $utilisateurRepository){
+
+        $user = $utilisateurRepository->findOneBy(['activationToken', $token]);
+
+        if (!$user) {
+            throw $this->createNotFoundException('cet utilisateur n\'existe pas');
+        }
+        else
+        {
+            $user->setIsVerified(true);
+            $user->setActivationToken(null);
+            $entityManager= $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+            //message flash
+            $this->addFlash('message', 'compte activé avec succès');
+        }
+
+
+        return $this->redirectToRoute('Accueil');
+
     }
 }
 

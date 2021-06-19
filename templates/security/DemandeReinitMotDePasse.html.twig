@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de reinitialisation Mot de passe!{% endblock %}
+
+{% block body %}
+
+
+    <div>
+        <h3>Mot de passe oublié ? </h3>
+        <div>
+            <form action="{{ path('motDePasseOublie') }}" method="post" style="text-align:center">
+                <input type="text" aria-label="email" name="email">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

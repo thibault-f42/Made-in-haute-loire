@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Utilisateur;
+use App\Services\MotDePasseOublie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -33,4 +37,31 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    /**
+     * @Route ("/Motdepasseoublie", name="motDePasseOublie")
+     */
+    public function reinitMotDePasse(
+        MotDePasseOublie $motDePasseOublie,
+    Request $request,
+        Session $session
+    )
+
+    {
+
+//        ;
+
+        $email = $request->get("email");
+
+      if (!empty($email))
+      {
+          $motDePasseOublie->envoieMailReinitMotdePasse($email);
+      }
+
+        return  $this->render('security/DemandeReinitMotDePasse.html.twig');
+
+
+
+    }
+
 }
