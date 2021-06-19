@@ -51,6 +51,14 @@
                     </div>
                 {% endfor %}
                 {{ form_row(form.justificatifSiret) }}
+                {% for fichier in  entreprise.fichier %}
+                    <div class="col-4">
+                        {% if fichier.typeFichier == "Document_carte_ID_Entreprise" %}
+                            <img src={{ asset('img/EntrepriseCarteID/'~fichier.urlFichier) }} alt="photo_entreprise" class="rounded">
+                            <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
+                        {% endif%}
+                    </div>
+                {% endfor %}
                 {{ form_row(form.carteIdentite) }}
             {% endif %}
         </div>
