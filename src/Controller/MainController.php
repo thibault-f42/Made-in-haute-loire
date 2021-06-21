@@ -49,6 +49,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         }
         $i=0;
 
+        if (!empty($produits)){
         foreach ($produits as $produit) {
 
             $produitMap[$i] = ['nomArticle'=>$produit->getNomarticle(), 'longitude'=>$produit->getEntreprise()->getVille()->getLongitude(), 'latitude'=> $produit->getEntreprise()->getVille()->getLatitude()
@@ -56,7 +57,11 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
 
             $i++;
         }
-
+    }
+        else
+        {
+            $produitMap= null;
+        }
         //ajax
         if ($request->get('ajax') && $request->get('categorie')) {
 
