@@ -20,7 +20,12 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, VilleRepository $villeRepository): Response
+    public function register(Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder,
+                             GuardAuthenticatorHandler $guardHandler,
+                             LoginFormAuthenticator $authenticator,
+                             VilleRepository $villeRepository,
+                             \Swift_Mailer $mailer ): Response
     {
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -49,7 +54,18 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+
+
             // do anything else you need here, like send an email
+            $message = (new \Swift_Message('Activation de votre compte'))
+                ->setFrom('MadeInLHL@LoireHauteLoire.fr')
+                ->setTo($user->getEmail())
+                ->setBody($this->renderView('Email/activation.html.twig', ['token'=>$user->getActivationToken()]), 'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -75,18 +91,18 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route ("/activation/{token}" name="activation")
+     * @Route ("/activation/{token}" , name="activation")
      */
-    public function activation($token, UtilisateurRepository $utilisateurRepository){
+    public function activation(String $token, UtilisateurRepository $utilisateurRepository){
 
-        $user = $utilisateurRepository->findOneBy(['activationToken', $token]);
+        $user = $utilisateurRepository->findOneBy(['activationToken' => $token]);
 
         if (!$user) {
             throw $this->createNotFoundException('cet utilisateur n\'existe pas');
         }
         else
         {
-            $user->setIsVerified(true);
+            $user->setIsVerified(1);
             $user->setActivationToken(null);
             $entityManager= $this->getDoctrine()->getManager();
             $entityManager->persist($user);

@@ -21,14 +21,15 @@
                         {{form_row(filtreFormulaire.departement) }}
                     </div>
                     <div class="col-2">
-                        {{form_row(filtreFormulaire.categorie)}}
-                    </div>
-                    <div class="col-2">
-                        {{form_row(filtreFormulaire.sousCategorie)}}
-                    </div>
-                    <div class="col-2">
                         {{ form_row(filtreFormulaire.canton) }}
                     </div>
+                    <div class="col-2">
+                        {{form_row(filtreFormulaire.categorie)}}
+                    </div>
+                    <div class="col-2" id="sousCategorieDiv" >
+                        {{form_row(filtreFormulaire.sousCategorie,  {'attr':{'disabled': true }}) }}
+                    </div>
+
                 </div>
                 <div class="row mb-2">
                     <div class="col-1">

@@ -8,10 +8,7 @@
     <div>
         <h3>Mot de passe oublié ? </h3>
         <div>
-            <form action="{{ path('motDePasseOublie') }}" method="post" style="text-align:center">
-                <input type="text" aria-label="email" name="email">
-                <input type="submit">
-            </form>
+            {{form(emailForm)}}
         </div>
     </div>
 

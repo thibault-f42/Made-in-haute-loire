@@ -96,6 +96,11 @@ class Utilisateur implements UserInterface
      */
     private $activationToken;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tokenMDP;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -337,6 +342,18 @@ class Utilisateur implements UserInterface
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function getTokenMDP(): ?string
+    {
+        return $this->tokenMDP;
+    }
+
+    public function setTokenMDP(?string $tokenMDP): self
+    {
+        $this->tokenMDP = $tokenMDP;
 
         return $this;
     }
