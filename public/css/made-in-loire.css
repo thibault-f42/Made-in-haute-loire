@@ -29,6 +29,7 @@ nav, footer
 .container
 {
     flex-direction: row;
+    margin-left: 60px;
 }
 label
 {
