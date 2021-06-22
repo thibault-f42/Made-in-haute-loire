@@ -44,11 +44,6 @@ class RegistrationController extends AbstractController
             //On génére un  toker d'activation
             $user->setActivationToken(md5(uniqid()));
 
-            if ($user->getRoles() == 'ADMIN'){
-                $user->setAdministrateur(true);
-            } else {
-                $user->setAdministrateur(false);
-            }
             $user->setVendeur(false);
 
             $entityManager = $this->getDoctrine()->getManager();

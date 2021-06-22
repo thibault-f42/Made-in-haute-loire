@@ -11,6 +11,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('Accueil') }}">Accueil <span class="sr-only"></span></a>
             </li>
+            {% if is_granted("ROLE_ADMIN") %}
+            <li class="">
+                <a class="nav-link" href="{{ path('adminBoard') }}">Panneau d'administration</a>
+            </li>
+            {% endif %}
             {% if app.user %}
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,7 +78,6 @@
                 </div>
             {% endif %}
             <li class="nav-icon ">
-
                 <a class="nav-link" href="{{ path('panier_index') }}"> <i class="bi bi-cart"></i> Panier</a>
             </li>
         </ul>

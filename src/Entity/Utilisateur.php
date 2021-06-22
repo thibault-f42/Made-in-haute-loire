@@ -30,7 +30,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ADMIN'];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -59,10 +59,6 @@ class Utilisateur implements UserInterface
      */
     private $vendeur;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $administrateur;
 
 
     /**
@@ -237,19 +233,6 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-
-    public function getAdministrateur(): ?bool
-    {
-        return $this->administrateur;
-    }
-
-    public function setAdministrateur(bool $administrateur): self
-    {
-        $this->administrateur = $administrateur;
-
-        return $this;
-    }
-
 
 
     public function getAdresse(): ?string

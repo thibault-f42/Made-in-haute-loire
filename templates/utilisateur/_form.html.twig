@@ -1,13 +1,36 @@
 <div class="formulaireInformationCompte">
-{{ form_start(form) }}
     {{ form_start(form) }}
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.telephone) }}
-    {{ form_row(form.adresse) }}
-    {{ form_row(form.codePostal) }}
-    {{ form_row(form.ville) }}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Telephone</th>
+            <th>Adresse</th>
+            <th>Vendeur</th>
+            <th>IsVerified</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ utilisateur.id }}</td>
+            <td>{{ utilisateur.email }}</td>
+            <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+            <td>{{ utilisateur.nom }}</td>
+            <td>{{ utilisateur.prenom }}</td>
+            <td>{{ utilisateur.telephone }}</td>
+            <td>{{ utilisateur.adresse }}</td>
+            <td>{{ form_row(form.vendeur) }}</td>
+            <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
+            <td>
+                <button class="btn btn-outline-success" type="submit">Enregistrer</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<button class="btn btn-outline-success" type="button">Inscription</button>
 {{ form_end(form) }}
