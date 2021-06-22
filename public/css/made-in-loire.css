@@ -141,6 +141,7 @@ img
     max-width: 100%;
     height: auto;
 }
+
 .contenaire
 {
     width: 100%;
@@ -149,6 +150,7 @@ img
     margin-right: auto;
     margin-left: auto;
 }
+
 .card
 {
     flex-direction: row;
@@ -163,6 +165,7 @@ img
 .background-Texte {
     background: #FFFFFF;
 }
+
 .border-bot-rows {
     border-bottom: 1px solid #DDD;
 }
@@ -171,4 +174,61 @@ img
 {
     height: 400Px;
     width: 400px;
+}
+/** CSS detail.produit.twig **/
+
+.card-title
+{
+    border-bottom: 5px forestgreen double;
+    border-radius: 30px;
+    margin-bottom: 25px;
+}
+
+h3
+{
+
+    margin-bottom: 25px;
+    font-family: "Times New Roman";
+}
+
+section
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+article
+{
+    margin: 30px 50px;
+    padding: 20%;
+    border-top: 10px double #0D58BE;
+    border-bottom: 10px double #0D58BE;
+    border-radius: 30px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h3, .card, .card-body, .card-text, a, img
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section, .card, .card-body, .card-text, a, img, h3
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px)
+{
+    body
+    {
+        margin: auto;
+    }
 }

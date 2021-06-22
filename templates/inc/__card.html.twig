@@ -1,10 +1,12 @@
 {% for produit in  produits %}
-    <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
+    <div class = "col-lg-6 col-md-6 col-sm-12 mb-4">
         <div class="card">
             {% if produit.fichiers is not empty %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
+                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
+                    <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
             {% else %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
+                    <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
             {% endif%}
             <div class="card-body">
                 <h5 class="card-title">{{ produit.nomArticle }}   </h5>
@@ -19,7 +21,7 @@
             <div>
                 {% if app.user%}
                     {% if app.user.entreprise == produit.entreprise %}
-                        <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-outline-success">Modifier</a>
                     {% else %}
                         <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">
                             <i class="bi bi-search"></i>
