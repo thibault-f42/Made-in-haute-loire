@@ -30,7 +30,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ROLE_USER'];
+    private $roles = ['ADMIN'];
 
     /**
      * @var string The hashed password
@@ -59,6 +59,10 @@ class Utilisateur implements UserInterface
      */
     private $vendeur;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $administrateur;
 
 
     /**
@@ -86,16 +90,6 @@ class Utilisateur implements UserInterface
      * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="utilisateur")
      */
     private $commandes;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $activationToken;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $tokenMDP;
 
     public function __construct()
     {
@@ -234,6 +228,19 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
+    public function getAdministrateur(): ?bool
+    {
+        return $this->administrateur;
+    }
+
+    public function setAdministrateur(bool $administrateur): self
+    {
+        $this->administrateur = $administrateur;
+
+        return $this;
+    }
+
+
 
     public function getAdresse(): ?string
     {
@@ -313,30 +320,6 @@ class Utilisateur implements UserInterface
                 $commande->setUtilisateur(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getActivationToken(): ?string
-    {
-        return $this->activationToken;
-    }
-
-    public function setActivationToken(?string $activationToken): self
-    {
-        $this->activationToken = $activationToken;
-
-        return $this;
-    }
-
-    public function getTokenMDP(): ?string
-    {
-        return $this->tokenMDP;
-    }
-
-    public function setTokenMDP(?string $tokenMDP): self
-    {
-        $this->tokenMDP = $tokenMDP;
 
         return $this;
     }

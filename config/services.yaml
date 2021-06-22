@@ -7,7 +7,6 @@ parameters:
     images_img_directory: '%kernel.project_dir%/public/img'
     images_entreprises_directory: '%kernel.project_dir%/public/img/EntreprisePhoto'
     images_kbis_directory: '%kernel.project_dir%/public/img/KbisPhoto'
-    images_entreprises_carteID_directory : '%kernel.project_dir%/public/img/EntrepriseCarteID'
     images_produits_directory: '%kernel.project_dir%/public/img/ProduitPhoto'
 
 

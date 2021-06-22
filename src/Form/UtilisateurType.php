@@ -3,9 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Utilisateur;
-use PhpParser\Node\Stmt\Label;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,8 +12,17 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vendeur', CheckboxType::class, ['label'=>false])
-
+            ->add('email')
+            ->add('password')
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('vendeur')
+            ->add('administrateur')
+            ->add('adresse')
+            ->add('isVerified')
+            ->add('ville')
+            ->add('entreprise')
         ;
     }
 

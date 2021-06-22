@@ -20,7 +20,6 @@ class CommandeController extends AbstractController
      */
     public function index(CommandeRepository $commandeRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandeRepository->findAll(),
         ]);
@@ -31,7 +30,6 @@ class CommandeController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
@@ -55,7 +53,6 @@ class CommandeController extends AbstractController
      */
     public function show(Commande $commande): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
         ]);
@@ -66,7 +63,6 @@ class CommandeController extends AbstractController
      */
     public function edit(Request $request, Commande $commande): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
 
@@ -87,7 +83,6 @@ class CommandeController extends AbstractController
      */
     public function delete(Request $request, Commande $commande): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($commande);
