@@ -1,0 +1,10 @@
+
+
+{% block title %}Activation{% endblock %}
+
+{% block body %}
+<h1>activation de votre compte</h1>
+    <p>Vous venez de creer un compte sur notre site, veuillez cliquer sur le lien ci dessous pour l'activer</p>
+
+    <a href="{{ absolute_url(path('activation', {'token' : token})) }}">Activation de mon compte</a>
+{% endblock %}
