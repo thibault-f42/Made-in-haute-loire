@@ -45,9 +45,9 @@
                         {{ligne.produit.prix * ligne.quantite}} €
                     </div>
                     <div class="col-4">
-                        <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}  ) }}" class="btn btn-success"><i class="bi bi-cart-plus"></i> </a>
-                        <a href="{{ path('panier_remove',{'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}" class="btn btn-warning"> <i class="bi bi-cart-dash"></i> </a>
-                        <a href="{{ path('panier_delete',  {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}) }}" class="btn btn-danger"><i class="bi bi-cart-x"></i> </a>
+                        <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}  ) }}" class="btn btn-success" style="margin-top: 40px"><i class="bi bi-cart-plus"></i> </a>
+                        <a href="{{ path('panier_remove',{'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}" class="btn btn-warning" style="margin-top: 40px"> <i class="bi bi-cart-dash"></i> </a>
+                        <a href="{{ path('panier_delete',  {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}) }}" class="btn btn-danger" style="margin-top: 40px"><i class="bi bi-cart-x"></i> </a>
                     </div>
                 </div>
             </div>
@@ -59,4 +59,5 @@
             total : {{ total }} €
         </div>
     </div>
+    <div style="text-align: center"><a href="{{ path('commandeApperçu') }}"><button class="btn btn-outline-success">continuer</button></a></div>
 {% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apperçu de commande{% endblock %}
+
+{% block body %}
+
+    <h3>Résumé de votre commande</h3>
+
+    <div class="row">
+
+        {#        affichage de la table dans la partie gauche#}
+        <div class="col-4">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">produit</th>
+                    <th scope="col">quantité</th>
+                    <th scope="col">total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for  ligne in dataPanier  %}
+                    <tr>
+                        <th scope="row"><a href="{{ path('produit_detail', {'id' : ligne.produit.id}) }}"><span>{{ ligne.produit.nomArticle}}</span></a></th>
+                        <td>{{ ligne.quantite}}</td>
+                        <td>{{ ligne.quantite * ligne.produit.prix}} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4 border">
+
+            {#       afichage des informations de livraison #}
+            {% if app.user.adresseLivraison %}
+                <div>
+                    <span>Addresse : {{  app.user.adresseLivraison.adresse }}</span>
+                </div>
+                <div>
+                    <span>Ville : {{ app.user.adresseLivraison.ville}}</span>
+                </div>
+                <div class="card">
+                    <span>Informations à nous communiquer : {{ app.user.adresseLivraison.InformationsImportantes}}</span>
+                </div>
+            {% else %}
+                {{ form_start(adresseForm) }}
+                {{ form_row(adresseForm.ville) }}
+                {{ form_row(adresseForm.adresse) }}
+                {{ form_row(adresseForm.InformationsImportantes) }}
+                <button type="submit" class="btn btn-outline-success">enregistrer</button>
+                {{ form_end(adresseForm) }}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

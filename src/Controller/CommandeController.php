@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\AdresseLivraison;
 use App\Entity\Commande;
+use App\Entity\Produit;
+use App\Form\AdresseLivraisonType;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,6 +20,43 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommandeController extends AbstractController
 {
+    /**
+     * @Route("/résumé/", name="commandeApperçu")
+     */
+    public function apperçuCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
+    {
+
+
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+
+        $form = $this->createForm(AdresseLivraisonType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $adresseLivraison=$form->getData();
+            $adresseLivraison->addUtilisateur($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($adresseLivraison);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('commandeApperçu');
+
+        }
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+        return $this->render('commande/apperçuCommande.html.twig', ['dataPanier'=>$dataPanier, 'adresseForm'=>$form->createView()]);
+    }
+
     /**
      * @Route("/", name="commande_index", methods={"GET"})
      */

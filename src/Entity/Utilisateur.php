@@ -97,6 +97,12 @@ class Utilisateur implements UserInterface
      */
     private $tokenMDP;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AdresseLivraison::class, inversedBy="utilisateurs")
+     */
+    private $adresseLivraison;
+
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -341,6 +347,16 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
+    public function getAdresseLivraison(): ?AdresseLivraison
+    {
+        return $this->adresseLivraison;
+    }
 
+    public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
+
+        return $this;
+    }
 
 }

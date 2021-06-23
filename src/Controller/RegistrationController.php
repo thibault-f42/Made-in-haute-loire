@@ -51,6 +51,8 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
 
+
+
             // do anything else you need here, like send an email
             $message = (new \Swift_Message('Activation de votre compte'))
                 ->setFrom('MadeInLHL@LoireHauteLoire.fr')
