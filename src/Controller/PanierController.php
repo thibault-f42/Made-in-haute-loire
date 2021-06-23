@@ -30,10 +30,7 @@ class PanierController extends AbstractController
         foreach ($panier as $id => $quantite)
         {
             $produit = $produitRepository->find($id);
-            $dataPanier[]= [
-                "produit" => $produit,
-                "quantite" => $quantite
-            ] ;
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
 
             $total  += $produit->getPrix() * $quantite;
         }
@@ -42,9 +39,9 @@ class PanierController extends AbstractController
     }
 
     /**
-     * @Route("/add/{id}", name="panier_add")
+     * @Route("/add/{id}/{provenance}", name="panier_add")
      */
-    public function ajoutProduit(Produit $produit, SessionInterface $session): Response
+    public function ajoutProduit(Produit $produit, SessionInterface $session, String $provenance): Response
     {
 //        récupération du panier
 
@@ -60,14 +57,13 @@ class PanierController extends AbstractController
 //        on enregistre ça en session
         $session->set("panier", $panier);
 
-
-        return $this->redirectToRoute('panier_index');
+        return $this->redirectToRoute($provenance);
     }
 
     /**
-     * @Route("/remove/{id}", name="panier_remove")
+     * @Route("/remove/{id}/{provenance}", name="panier_remove")
      */
-    public function retireProduit(Produit $produit, SessionInterface $session): Response
+    public function retireProduit(Produit $produit, SessionInterface $session, String $provenance): Response
     {
 //        récupération du panier
 
@@ -87,14 +83,13 @@ class PanierController extends AbstractController
 //        on enregistre ça en session
         $session->set("panier", $panier);
 
-
-        return $this->redirectToRoute('panier_index');
+        return $this->redirectToRoute($provenance);
     }
 
     /**
-     * @Route("/delete/{id}", name="panier_delete")
+     * @Route("/delete/{id}/{provenance}", name="panier_delete")
      */
-    public function supprimeProduit(Produit $produit, SessionInterface $session): Response
+    public function supprimeProduit(Produit $produit, SessionInterface $session, String $provenance): Response
     {
 //        récupération du panier
 
@@ -109,14 +104,13 @@ class PanierController extends AbstractController
 //        on enregistre ça en session
         $session->set("panier", $panier);
 
-
-        return $this->redirectToRoute('panier_index');
+        return $this->redirectToRoute($provenance);
     }
 
     /**
-     * @Route("/set/{id}", name="panier_set")
+     * @Route("/set/{id}/{provenance}", name="panier_set")
      */
-    public function setProduit(Produit $produit, SessionInterface $session, Request $request): Response
+    public function setProduit(Produit $produit, SessionInterface $session, Request $request, String $provenance): Response
     {
 //        récupération du panier
         $panier = $session->get("panier", []);
@@ -125,6 +119,7 @@ class PanierController extends AbstractController
 //      on enregistre ça en session
         $session->set("panier", $panier);
 
-        return $this->redirectToRoute('panier_index');
+        return $this->redirectToRoute($provenance);
     }
+
 }
