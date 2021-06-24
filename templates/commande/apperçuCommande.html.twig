@@ -7,7 +7,6 @@
     <h3>Résumé de votre commande</h3>
 
     <div class="row">
-
         {#        affichage de la table dans la partie gauche#}
         <div class="col-4">
             <table class="table">
@@ -29,17 +28,19 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-4 border">
+{#       todo :  enlever la balise style quand dimitri aura corrigé son css#}
+        <div class="col-4  card" style="flex-direction: column ">
 
             {#       afichage des informations de livraison #}
             {% if app.user.adresseLivraison %}
+                <h4>adresse de livraison</h4>
                 <div>
                     <span>Addresse : {{  app.user.adresseLivraison.adresse }}</span>
                 </div>
                 <div>
                     <span>Ville : {{ app.user.adresseLivraison.ville}}</span>
                 </div>
-                <div class="card">
+                <div>
                     <span>Informations à nous communiquer : {{ app.user.adresseLivraison.InformationsImportantes}}</span>
                 </div>
             {% else %}
@@ -50,6 +51,9 @@
                 <button type="submit" class="btn btn-outline-success">enregistrer</button>
                 {{ form_end(adresseForm) }}
             {% endif %}
+        </div>
+        <div class="col-4">
+            <div style="text-align: center"><a href="{{ path('generationCommande') }}"><button class="btn btn-outline-success">continuer</button></a></div>
         </div>
     </div>
 

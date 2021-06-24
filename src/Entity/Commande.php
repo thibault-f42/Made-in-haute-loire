@@ -36,12 +36,7 @@ class Commande
      */
     private $prix;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pointLivraison;
-
-    /**
+     /**
      * @ORM\Column(type="date")
      */
     private $dateCommande;
@@ -60,6 +55,12 @@ class Commande
      * @ORM\Column(type="text")
      */
     private $descriptif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=AdresseLivraison::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adresseLivraison;
 
     public function __construct()
     {
@@ -123,19 +124,7 @@ class Commande
 
         return $this;
     }
-
-    public function getPointLivraison(): ?string
-    {
-        return $this->pointLivraison;
-    }
-
-    public function setPointLivraison(string $pointLivraison): self
-    {
-        $this->pointLivraison = $pointLivraison;
-
-        return $this;
-    }
-
+    
     public function getDateCommande(): ?\DateTimeInterface
     {
         return $this->dateCommande;
@@ -180,6 +169,18 @@ class Commande
     public function setDescriptif(string $descriptif): self
     {
         $this->descriptif = $descriptif;
+
+        return $this;
+    }
+
+    public function getAdresseLivraison(): ?AdresseLivraison
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
 
         return $this;
     }

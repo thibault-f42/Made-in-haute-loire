@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use function Sodium\add;
 
 /**
  * @Route("/commande")
@@ -57,6 +58,56 @@ class CommandeController extends AbstractController
         return $this->render('commande/apperçuCommande.html.twig', ['dataPanier'=>$dataPanier, 'adresseForm'=>$form->createView()]);
     }
 
+    /**
+     * @Route("/CommandeValidee", name="generationCommande", methods={"GET","POST"})
+     */
+    public function generationCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
+    {
+        $commande = new Commande();
+
+
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $commande->addProduit($produit);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+        $commande->setPrix($total);
+        $jourCommande = date_create();
+        //création d'une deuxieme variable pour le délai de livraison
+        $jour = date_create();
+
+
+        $commande->setDateCommande($jourCommande);
+
+        $delaiLivraison = new \DateInterval('P14D');
+        $jourLivraison = $jour->add($delaiLivraison);
+
+        $commande->setDateLivraison($jourLivraison);
+
+        $codeCommande  = $this->creerCodeCommande();
+        $commande->setCodeCommande($codeCommande);
+        $utilisateur = $this->getUser();
+        $commande->setUtilisateur($utilisateur);
+        $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
+
+        $commande->setDescriptif('Commande passée avec succès');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        $this->addFlash('message', "Commande validée avec succès");
+
+        return $this->redirectToRoute('Accueil');
+
+    }
     /**
      * @Route("/", name="commande_index", methods={"GET"})
      */
@@ -137,5 +188,11 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_index');
+    }
+
+
+    public function  creerCodeCommande ()
+    {
+        return "";
     }
 }
