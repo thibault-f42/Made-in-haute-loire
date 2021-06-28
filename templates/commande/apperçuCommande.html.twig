@@ -29,8 +29,7 @@
             </table>
         </div>
 {#       todo :  enlever la balise style quand dimitri aura corrigé son css#}
-        <div class="col-4  card" style="flex-direction: column ">
-
+        <div class="col-4  card" style="flex-direction: column">
             {#       afichage des informations de livraison #}
             {% if app.user.adresseLivraison %}
                 <h4>adresse de livraison</h4>
@@ -53,7 +52,7 @@
             {% endif %}
         </div>
         <div class="col-4">
-            <div style="text-align: center"><a href="{{ path('generationCommande') }}"><button class="btn btn-outline-success">continuer</button></a></div>
+            <div style="text-align: center"><a href="{{ path('commandeValidation') }}"><button class="btn btn-outline-success">continuer</button></a></div>
         </div>
     </div>
 

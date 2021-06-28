@@ -22,12 +22,51 @@ use function Sodium\add;
 class CommandeController extends AbstractController
 {
     /**
+     * @Route("/validation/", name="commandeValidation")
+     */
+
+    public function validationCommande(Session $session, Request $request, ProduitRepository $produitRepository)
+    {
+
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+
+        if (isset($total) && $total != 0) {
+
+            //On instancie STRIPE
+            \Stripe\Stripe::setApiKey('sk_test_51J6B95KScutnDNiWqWYi2xLcLG3dzdBbX8Y1Z6ooI8EECYh23dm6bJoxeMUFKmmyt3BkQS22Tjd78PApMDNzMkH2004a57nXNE');
+
+            //on crée l'intention de paiment stripe
+            $intent = \Stripe\PaymentIntent::create(['amount'=>$total*100, 'currency'=>'eur']);
+
+
+        }
+        else
+        {
+            $this->addFlash('danger','une erreur est survenue lors du paiement, annulation de la transaction');
+            return $this->redirectToRoute('Accueil');
+        }
+
+        return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
+    }
+
+    /**
      * @Route("/résumé/", name="commandeApperçu")
      */
     public function apperçuCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
     {
-
-
         $panier= $session->get("panier", []);
 
         //on initialise le tableau de produits
@@ -55,6 +94,11 @@ class CommandeController extends AbstractController
             $total  += $produit->getPrix() * $quantite;
         }
 
+        if (empty($dataPanier)){
+            $this->addFlash('danger', 'Votre panier est vide');
+            return $this->redirectToRoute('panier_index');
+        }
+
         return $this->render('commande/apperçuCommande.html.twig', ['dataPanier'=>$dataPanier, 'adresseForm'=>$form->createView()]);
     }
 
@@ -79,6 +123,11 @@ class CommandeController extends AbstractController
             $total  += $produit->getPrix() * $quantite;
         }
 
+        if (empty($dataPanier)){
+            $this->addFlash('danger', 'Votre panier est vide');
+            return $this->redirectToRoute('panier_index');
+        }
+
         $commande->setPrix($total);
         $jourCommande = date_create();
         //création d'une deuxieme variable pour le délai de livraison
@@ -99,6 +148,9 @@ class CommandeController extends AbstractController
         $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
 
         $commande->setDescriptif('Commande passée avec succès');
+
+
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($commande);
         $entityManager->flush();

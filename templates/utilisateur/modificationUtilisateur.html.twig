@@ -10,9 +10,20 @@
     <div class="col-12">
         <div class="titreInformationCompte">
             <h3>Information du Compte</h3>
-            <div class="buttonDelete">
-            {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
-            {{ include('utilisateur/_delete_form.html.twig') }}
+
+            {{ form_start(form)}}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.telephone) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.codePostal) }}
+            {{ form_row(form.ville) }}
+            <button class="btn btn-outline-success" type="submit">Enregistrer</button>
+            {{ form_end(form) }}
+
+
+
         </div>
             <a href="{{ path('utilisateur_index') }}">Retour Liste</a>
     </div>

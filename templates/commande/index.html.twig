@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.prix }}</td>
-                <td>{{ commande.pointLivraison }}</td>
+                <td>{{ commande.adresseLivraison.id }}</td>
                 <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.dateLivraison ? commande.dateLivraison|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.codeCommande }}</td>
