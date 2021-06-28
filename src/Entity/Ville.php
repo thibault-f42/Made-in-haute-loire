@@ -63,12 +63,18 @@ class Ville
      */
     private $entreprises;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdresseLivraison::class, mappedBy="ville")
+     */
+    private $adresseLivraison;
+
 
 
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
+        $this->adresseLivraison = new ArrayCollection();
     }
 
 
@@ -223,6 +229,36 @@ class Ville
             // set the owning side to null (unless already changed)
             if ($entreprise->getVille() === $this) {
                 $entreprise->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdresseLivraison[]
+     */
+    public function getAdresseLivraison(): Collection
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function addAdresse(AdresseLivraison $aadresseLivraison): self
+    {
+        if (!$this->adresseLivraison->contains($adresseLivraison)) {
+            $this->adresseLivraison[] = $adresseLivraison;
+            $adresseLivraison->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresseLivraison(AdresseLivraison $adresseLivraison): self
+    {
+        if ($this->adresseLivraison->removeElement($adresseLivraison)) {
+            // set the owning side to null (unless already changed)
+            if ($adresseLivraison->getVille() === $this) {
+                $adresseLivraison->setVille(null);
             }
         }
 

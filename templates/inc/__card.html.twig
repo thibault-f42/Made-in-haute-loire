@@ -26,7 +26,7 @@
                         <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">
                             <i class="bi bi-search"></i>
                             </a>
-                        <a href="{{ path('panier_add', {'id' : produit.id} ) }}" class="btn btn-success">
+                        <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : app.request.attributes.get('_route')}  ) }}" class="btn btn-success">
                             <i class="bi bi-cart-plus"></i>
                         </a>
 

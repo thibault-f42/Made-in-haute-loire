@@ -2,19 +2,164 @@
 
 namespace App\Controller;
 
+use App\Entity\AdresseLivraison;
 use App\Entity\Commande;
+use App\Entity\Produit;
+use App\Form\AdresseLivraisonType;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use function Sodium\add;
 
 /**
  * @Route("/commande")
  */
 class CommandeController extends AbstractController
 {
+    /**
+     * @Route("/validation/", name="commandeValidation")
+     */
+
+    public function validationCommande(Session $session, Request $request, ProduitRepository $produitRepository)
+    {
+
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+
+        if (isset($total) && $total != 0) {
+
+            //On instancie STRIPE
+            \Stripe\Stripe::setApiKey('sk_test_51J6B95KScutnDNiWqWYi2xLcLG3dzdBbX8Y1Z6ooI8EECYh23dm6bJoxeMUFKmmyt3BkQS22Tjd78PApMDNzMkH2004a57nXNE');
+
+            //on crée l'intention de paiment stripe
+            $intent = \Stripe\PaymentIntent::create(['amount'=>$total*100, 'currency'=>'eur']);
+
+
+        }
+        else
+        {
+            $this->addFlash('danger','une erreur est survenue lors du paiement, annulation de la transaction');
+            return $this->redirectToRoute('Accueil');
+        }
+
+        return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
+    }
+
+    /**
+     * @Route("/résumé/", name="commandeApperçu")
+     */
+    public function apperçuCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
+    {
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+
+        $form = $this->createForm(AdresseLivraisonType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $adresseLivraison=$form->getData();
+            $adresseLivraison->addUtilisateur($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($adresseLivraison);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('commandeApperçu');
+
+        }
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+        if (empty($dataPanier)){
+            $this->addFlash('danger', 'Votre panier est vide');
+            return $this->redirectToRoute('panier_index');
+        }
+
+        return $this->render('commande/apperçuCommande.html.twig', ['dataPanier'=>$dataPanier, 'adresseForm'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/CommandeValidee", name="generationCommande", methods={"GET","POST"})
+     */
+    public function generationCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
+    {
+        $commande = new Commande();
+
+
+        $panier= $session->get("panier", []);
+
+        //on initialise le tableau de produits
+        $dataPanier = [];
+        $total = 0 ;
+        foreach ($panier as $id => $quantite)
+        {
+            $produit = $produitRepository->find($id);
+            $commande->addProduit($produit);
+            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
+            $total  += $produit->getPrix() * $quantite;
+        }
+
+        if (empty($dataPanier)){
+            $this->addFlash('danger', 'Votre panier est vide');
+            return $this->redirectToRoute('panier_index');
+        }
+
+        $commande->setPrix($total);
+        $jourCommande = date_create();
+        //création d'une deuxieme variable pour le délai de livraison
+        $jour = date_create();
+
+
+        $commande->setDateCommande($jourCommande);
+
+        $delaiLivraison = new \DateInterval('P14D');
+        $jourLivraison = $jour->add($delaiLivraison);
+
+        $commande->setDateLivraison($jourLivraison);
+
+        $codeCommande  = $this->creerCodeCommande();
+        $commande->setCodeCommande($codeCommande);
+        $utilisateur = $this->getUser();
+        $commande->setUtilisateur($utilisateur);
+        $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
+
+        $commande->setDescriptif('Commande passée avec succès');
+
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        $this->addFlash('message', "Commande validée avec succès");
+
+        return $this->redirectToRoute('Accueil');
+
+    }
     /**
      * @Route("/", name="commande_index", methods={"GET"})
      */
@@ -90,5 +235,11 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_index');
+    }
+
+
+    public function  creerCodeCommande ()
+    {
+        return "";
     }
 }

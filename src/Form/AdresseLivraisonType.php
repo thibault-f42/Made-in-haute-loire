@@ -2,31 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Commande;
+use App\Entity\AdresseLivraison;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommandeType extends AbstractType
+class AdresseLivraisonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prix')
-            ->add('adresseLivraison')
-            ->add('dateCommande')
-            ->add('dateLivraison')
-            ->add('codeCommande')
-            ->add('descriptif')
-            ->add('utilisateur')
-            ->add('produit')
+            ->add('adresse')
+            ->add('InformationsImportantes')
+            ->add('ville')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Commande::class,
+            'data_class' => AdresseLivraison::class,
         ]);
     }
 }

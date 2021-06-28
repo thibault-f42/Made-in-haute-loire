@@ -30,6 +30,7 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/new", name="utilisateur_new", methods={"GET","POST"})
      */
@@ -52,6 +53,7 @@ class UtilisateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="utilisateur_show", methods={"GET"})
@@ -83,7 +85,6 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id}", name="utilisateurProfil", methods={"GET"})
      */
@@ -105,7 +106,7 @@ class UtilisateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('utilisateur_index');
+            return $this->redirectToRoute('Accueil');
         }
 
         if ($request->get('ajax') && $request->get('modif_utilisateur')['codePostal']) {

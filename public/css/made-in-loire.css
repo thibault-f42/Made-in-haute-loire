@@ -4,6 +4,8 @@ body
     background-color: #FFFFFF;
     flex-direction: column;
 }
+
+
 .filtreAccueil
 {
     flex-direction: row;
@@ -23,6 +25,10 @@ body
 {
     box-shadow: 2px 2px 2px 2px #FFFFFF;
     border-radius: 500px;
+}
+.quiSommeNous
+{
+    background-color: #5eb5e0;
 }
 
 nav, footer
