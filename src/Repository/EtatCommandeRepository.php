@@ -2,30 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Entreprise;
+use App\Entity\EtatCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Entreprise|null find($id, $lockMode = null, $lockVersion = null)
- * @method Entreprise|null findOneBy(array $criteria, array $orderBy = null)
- * @method Entreprise[]    findAll()
- * @method Entreprise[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EtatCommande|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EtatCommande|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EtatCommande[]    findAll()
+ * @method EtatCommande[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EntrepriseRepository extends ServiceEntityRepository
+class EtatCommandeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Entreprise::class);
+        parent::__construct($registry, EtatCommande::class);
     }
 
-
-
-
-
-
     // /**
-    //  * @return Entreprise[] Returns an array of Entreprise objects
+    //  * @return EtatCommande[] Returns an array of EtatCommande objects
     //  */
     /*
     public function findByExampleField($value)
@@ -42,7 +37,7 @@ class EntrepriseRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Entreprise
+    public function findOneBySomeField($value): ?EtatCommande
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

@@ -79,6 +79,11 @@ class Produit
      */
     private $commandes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=SousCommande::class, mappedBy="Produit")
+     */
+    private $sousCommandes;
+
 
     
 
@@ -86,6 +91,7 @@ class Produit
     {
         $this->fichiers = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->sousCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +260,33 @@ class Produit
     {
         if ($this->commandes->removeElement($commande)) {
             $commande->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SousCommande[]
+     */
+    public function getSousCommandes(): Collection
+    {
+        return $this->sousCommandes;
+    }
+
+    public function addSousCommande(SousCommande $sousCommande): self
+    {
+        if (!$this->sousCommandes->contains($sousCommande)) {
+            $this->sousCommandes[] = $sousCommande;
+            $sousCommande->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(SousCommande $sousCommande): self
+    {
+        if ($this->sousCommandes->removeElement($sousCommande)) {
+            $sousCommande->removeProduit($this);
         }
 
         return $this;

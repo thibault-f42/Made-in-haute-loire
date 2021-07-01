@@ -4,7 +4,7 @@ window.onload = () => {
     let elements = stripe.elements()
 
     // TODO : CHANGER LE LIEN LORS DU PASSAGE ONLINE POUR PAGE ACCUEIL
-    let redirect = "/Made-in-haute-loire/public/"
+    let redirect = "/Made-in-haute-loire/public/commande/CommandeValidee"
 
     //chargement des objets de la page
     let cardHolderName = document.getElementById('cardholder-name')
@@ -31,7 +31,7 @@ window.onload = () => {
 
     cardButton.addEventListener("click", ()=>{
 
-        console.log(clientSecret);
+        document.location.href = redirect
         stripe.handleCardPayment(
             clientSecret,
             card,

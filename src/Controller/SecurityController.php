@@ -113,7 +113,6 @@ class SecurityController extends AbstractController
         }
 
         if($request->isMethod('POST')){
-
             if ($request->request->get('motDePasse') ==  $request->request->get('motDePasseConfirm'))
             {
                 $utilisateur->setTokenMDP(null);

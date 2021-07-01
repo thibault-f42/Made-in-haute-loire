@@ -102,10 +102,16 @@ class Utilisateur implements UserInterface
      */
     private $adresseLivraison;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SousCommande::class, mappedBy="Utilisateur", orphanRemoval=true)
+     */
+    private $sousCommandes;
+
 
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->sousCommandes = new ArrayCollection();
     }
 
 
@@ -355,6 +361,36 @@ class Utilisateur implements UserInterface
     public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
     {
         $this->adresseLivraison = $adresseLivraison;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SousCommande[]
+     */
+    public function getSousCommandes(): Collection
+    {
+        return $this->sousCommandes;
+    }
+
+    public function addSousCommande(SousCommande $sousCommande): self
+    {
+        if (!$this->sousCommandes->contains($sousCommande)) {
+            $this->sousCommandes[] = $sousCommande;
+            $sousCommande->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(SousCommande $sousCommande): self
+    {
+        if ($this->sousCommandes->removeElement($sousCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getUtilisateur() === $this) {
+                $sousCommande->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

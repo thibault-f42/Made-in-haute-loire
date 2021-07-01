@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\AdresseLivraison;
 use App\Entity\Commande;
+use App\Entity\Entreprise;
 use App\Entity\Produit;
+use App\Entity\SousCommande;
 use App\Form\AdresseLivraisonType;
 use App\Form\CommandeType;
+use App\Form\EtatSousCommandeType;
+use App\Form\FiltreCommandeType;
 use App\Repository\CommandeRepository;
+use App\Repository\EntrepriseRepository;
+use App\Repository\EtatCommandeRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\SousCommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use function Sodium\add;
 
 /**
  * @Route("/commande")
@@ -38,7 +43,6 @@ class CommandeController extends AbstractController
         {
             $produit = $produitRepository->find($id);
             $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
-
             $total  += $produit->getPrix() * $quantite;
         }
 
@@ -59,8 +63,78 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('Accueil');
         }
 
+
+
         return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
     }
+
+    /**
+     * @Route("/changeEtat/", name="changeEtatSousCommande")
+     */
+    public function changeEtatSousCommande(Request $request, SousCommandeRepository $commandeRepository, EtatCommandeRepository $etatCommandeRepository)
+    {
+
+        $i=0;
+        $sousCommandes[]= "";
+
+        //on récupère un tableau de données pour l'état
+        while ($request->get('select-'.$i))
+        {
+            $sousCommandes[$i]=['id'=>($request->get('sousCommande-'.$i)), 'etat'=>($request->get('select-'.$i))];
+            $i++;
+        }
+
+        $entityManager =  $this->getDoctrine()->getManager();
+
+        foreach ($sousCommandes as $entree)
+        {
+            $id = $entree['id'];
+            $etat = $entree['etat'];
+
+            $sousCommande = $commandeRepository->find($id);
+            $etatCommande = $etatCommandeRepository->find($etat);
+            $sousCommande->setEtat($etatCommande);
+            $entityManager->persist($sousCommande);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('affichecommandes');
+    }
+
+
+
+    /**
+     * @Route("/commandesBoard/", name="affichecommandes")
+     */
+    public function commandePanneau(Request $request,
+                                    Session $session,
+                                    ProduitRepository $produitRepository,
+                                    EntrepriseRepository $entrepriseRepository,
+                                    EtatCommandeRepository $etatCommandeRepository,
+                                    SousCommandeRepository $sousCommandeRepository): Response
+    {
+        if ($entreprise= $this->getUser()->getEntreprise()) {
+
+            $entreprise=   $entrepriseRepository->find($this->getUser()->getEntreprise()->getId());
+            $sousCommandes = $entreprise->getSousCommandes();
+            $formSousCommande=  $this->createForm(FiltreCommandeType::class, ['entreprise' => $entreprise]);
+
+            $etatsCommandes = $etatCommandeRepository->findAll();
+            $formSousCommande->handleRequest($request);
+            if ($formSousCommande->isSubmitted() && $formSousCommande->isValid())
+            {
+                $data = $formSousCommande->getData();
+                $sousCommandes = $sousCommandeRepository->filtreSousCommande($data, $entreprise);
+
+                return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
+            }
+            return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
+        }
+        else
+        {
+            return $this->render('commande/listeCommandesClient.html.twig');
+        }
+    }
+
 
     /**
      * @Route("/résumé/", name="commandeApperçu")
@@ -105,9 +179,10 @@ class CommandeController extends AbstractController
     /**
      * @Route("/CommandeValidee", name="generationCommande", methods={"GET","POST"})
      */
-    public function generationCommande(Request $request, Session $session, ProduitRepository $produitRepository): Response
+    public function generationCommande(Request $request, Session $session, ProduitRepository $produitRepository, EtatCommandeRepository $etatCommandeRepository): Response
     {
         $commande = new Commande();
+
 
 
         $panier= $session->get("panier", []);
@@ -118,10 +193,13 @@ class CommandeController extends AbstractController
         foreach ($panier as $id => $quantite)
         {
             $produit = $produitRepository->find($id);
-            $commande->addProduit($produit);
+
+            $sousCommande = $this->creerSousCommande($produit, $quantite, $etatCommandeRepository);
+            $commande->addSousCommande($sousCommande);
             $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
             $total  += $produit->getPrix() * $quantite;
         }
+
 
         if (empty($dataPanier)){
             $this->addFlash('danger', 'Votre panier est vide');
@@ -132,7 +210,6 @@ class CommandeController extends AbstractController
         $jourCommande = date_create();
         //création d'une deuxieme variable pour le délai de livraison
         $jour = date_create();
-
 
         $commande->setDateCommande($jourCommande);
 
@@ -246,5 +323,17 @@ class CommandeController extends AbstractController
     public function  creerCodeCommande ()
     {
         return "";
+    }
+
+    public function creerSousCommande(Produit $produit, int $quantite, EtatCommandeRepository $etatCommandeRepository) {
+        $sousCommande = new SousCommande();
+        $sousCommande->addProduit($produit);
+        $sousCommande->setEntreprise($produit->getEntreprise());
+        $sousCommande->setUtilisateur($this->getUser());
+        $sousCommande->setQuantite($quantite);
+        $etat = $etatCommandeRepository->findOneBy(['etat'=>'Commande validée']) ;
+        $sousCommande->setEtat($etat);
+
+        return $sousCommande;
     }
 }
