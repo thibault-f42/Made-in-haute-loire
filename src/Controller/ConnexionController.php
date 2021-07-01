@@ -16,7 +16,6 @@ class ConnexionController extends AbstractController
     {
 
 
-        dump ($authenticationUtils);
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }

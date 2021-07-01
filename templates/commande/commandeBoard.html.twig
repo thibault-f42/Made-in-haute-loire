@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-2">
+            {{ form_row(form.etatCommande) }}
+        </div>
+        <div class="col-2">
+            {{ form_row(form.dateMin) }}
+        </div>
+        <div class="col-2">
+            {{ form_row(form.dateMax) }}
+        </div>
+        <div class="col-2">
+            {{ form_row(form.produit) }}
+        </div>
+    </div>
+    <button class="btn-primary ">{{ button_label|default('rechercher ') }}</button>
+    {{ form_end(form) }}
+    <form action="{{ path('changeEtatSousCommande') }}" method ="post" id="formEtat" name="formEtat">
+        {% set i = 0 %}
+        {% for sousCommande in sousCommandes %}
+            {% if sousCommande.etat != 'Commande reçue' %}
+                <div class="row border-bot-rows">
+                    <div class="col-4">
+                        <input type="hidden" value="{{ sousCommande.id }}" name = "sousCommande-{{~i}}">
+                        <div>
+                            {% for produit in sousCommande.produit %}
+                                {{ produit.nomArticle }}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            Quantite :   {{ sousCommande.quantite }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            {{ sousCommande.utilisateur.adresseLivraison.adresse }}
+                        </div>
+                        <div>
+                            {{ sousCommande.utilisateur.adresseLivraison.ville }}
+                        </div>
+                        <div>
+                            {{ sousCommande.utilisateur.nom }}
+                            {{ sousCommande.utilisateur.prenom }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            Etat de la commande :
+                            <select name="select-{{~i}}">
+                                {% for etat in etatsCommandes %}
+                                    <option value="{{ etat.id }}"
+                                            {% if (etat.etat == sousCommande.etat) %} selected {%endif%}> {{ etat.etat }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            date de commande : {{ sousCommande.commande.dateCommande|date("d/m/Y", "Europe/Paris") }}
+                        </div>
+                    </div>
+                </div>
+                {% set i = i + 1 %}
+            {% endif %}
+        {% endfor %}
+        {% if sousCommandes is not empty %}
+            <button type="submit">Valider</button>
+        {% else %}
+            <div>Vous n'avez pas de commande en cours</div>
+        {% endif %}
+    </form>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
