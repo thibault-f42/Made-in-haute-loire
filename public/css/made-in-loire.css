@@ -216,7 +216,7 @@ section
     margin-top: 30px;
 }
 
-article
+article,  .ajoutProduit
 {
 
     padding: 20%;
@@ -291,4 +291,46 @@ section, .card, .card-body, .card-text, a, img, h3
 {
     width: 1000px;
     height: 350px;
+}
+
+/** CSS VitrinePartenaire.html.twig **/
+
+.h3Vitrine
+{
+    width: 600px;
+    margin-left: 290px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    margin-top: 25px;
+    border-bottom: 10px double #0D58BE;
+    border-radius: 20px;
+}
+.boutonAjouterProduitVitrine, .boutonModifierProduit
+{
+    text-align: center;
+}
+/** modifier produit **/
+
+
+.imgModifierProduit, .modifierProduit
+{
+    display: flex;
+    flex-direction: row;
+}
+
+/** modifier entreprise **/
+
+.photoModifierEntreprise
+{
+    margin-bottom: 20px;
+    text-align: center;
+
+    margin-top: 25px;
+}
+
+.modifierEntreprise, .photoModifierEntreprise
+{
+    display: flex;
+    justify-content: space-between;
 }

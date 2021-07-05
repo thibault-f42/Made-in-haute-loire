@@ -2,8 +2,8 @@
 
 {% block body %}
 
-
-    <div class="col-3">
+<div class="ajoutProduit">
+    <div class="col-6">
         {{ form_start(ajoutProduitForm) }}
         {{ form_row(ajoutProduitForm.nomArticle) }}
         {{ form_row(ajoutProduitForm.description) }}
@@ -12,10 +12,10 @@
         {{ form_row(ajoutProduitForm.categorie) }}
         {{ form_row(ajoutProduitForm.sousCategorie) }}
         {{ form_row(ajoutProduitForm.photos) }}
-        <button type="submit" class="btn btn-primary">Ajout produit</button>
+        <button type="submit" class="btn btn-outline-primary">Ajout produit</button>
         {{ form_end(ajoutProduitForm) }}
     </div>
-
+</div>
 
     <script src="{{ asset('Javascripts/Categorie.js') }}"></script>
     <script>requeteAjaxGet('#produit_categorie', 'change', '#produit_sousCategorie')</script>
