@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Data\SearchCommande;
 use App\Entity\Commande;
 use App\Entity\Entreprise;
 use App\Entity\Produit;
@@ -15,6 +16,7 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\EtatCommandeRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SousCommandeRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +71,38 @@ class CommandeController extends AbstractController
     }
 
     /**
+     * @Route("/commandesBoard/", name="afficheSousCommandes")
+     */
+    public function commandePanneau(Request $request,
+                                    Session $session,
+                                    EntrepriseRepository $entrepriseRepository,
+                                    EtatCommandeRepository $etatCommandeRepository,
+                                    SousCommandeRepository $sousCommandeRepository): Response
+    {
+        $entreprise=   $entrepriseRepository->find($this->getUser()->getEntreprise()->getId());
+
+        $data= new SearchCommande();
+        $data->entreprise= $entreprise;
+        $formSousCommande=  $this->createForm(FiltreCommandeType::class, $data);
+        $etatsCommandes = $etatCommandeRepository->findAll();
+        $formSousCommande->handleRequest($request);
+
+        $sousCommandes = $entreprise->getSousCommandes();
+
+        if ($formSousCommande->isSubmitted() && $formSousCommande->isValid())
+        {
+            $sousCommandes = $sousCommandeRepository->filtreSousCommande($data, $entreprise);
+            return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
+        }
+
+
+
+        return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
+
+
+    }
+
+    /**
      * @Route("/changeEtat/", name="changeEtatSousCommande")
      */
     public function changeEtatSousCommande(Request $request, SousCommandeRepository $commandeRepository, EtatCommandeRepository $etatCommandeRepository)
@@ -97,43 +131,26 @@ class CommandeController extends AbstractController
             $entityManager->persist($sousCommande);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('affichecommandes');
+        return $this->redirectToRoute('afficheSousCommandes');
     }
-
 
 
     /**
-     * @Route("/commandesBoard/", name="affichecommandes")
+     * @Route("/commandes/", name="affichecommandesClient")
      */
-    public function commandePanneau(Request $request,
+    public function commandeClient(Request $request,
                                     Session $session,
-                                    ProduitRepository $produitRepository,
-                                    EntrepriseRepository $entrepriseRepository,
-                                    EtatCommandeRepository $etatCommandeRepository,
-                                    SousCommandeRepository $sousCommandeRepository): Response
+                                    UtilisateurRepository $utilisateurRepository): Response
     {
-        if ($entreprise= $this->getUser()->getEntreprise()) {
 
-            $entreprise=   $entrepriseRepository->find($this->getUser()->getEntreprise()->getId());
-            $sousCommandes = $entreprise->getSousCommandes();
-            $formSousCommande=  $this->createForm(FiltreCommandeType::class, ['entreprise' => $entreprise]);
+        $utilisateur = $utilisateurRepository->find($this->getUser()->getId());
 
-            $etatsCommandes = $etatCommandeRepository->findAll();
-            $formSousCommande->handleRequest($request);
-            if ($formSousCommande->isSubmitted() && $formSousCommande->isValid())
-            {
-                $data = $formSousCommande->getData();
-                $sousCommandes = $sousCommandeRepository->filtreSousCommande($data, $entreprise);
+        $commandes = $utilisateur->getCommandes();
 
-                return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
-            }
-            return $this->render('commande/commandeBoard.html.twig', ['sousCommandes' => $sousCommandes ,'etatsCommandes'=>$etatsCommandes, 'form'=>$formSousCommande->createView()]);
-        }
-        else
-        {
-            return $this->render('commande/listeCommandesClient.html.twig');
-        }
+        return $this->render('commande/listeCommandesClient.html.twig', ['commandes'=>$commandes]);
+
     }
+
 
 
     /**
@@ -327,7 +344,7 @@ class CommandeController extends AbstractController
 
     public function creerSousCommande(Produit $produit, int $quantite, EtatCommandeRepository $etatCommandeRepository) {
         $sousCommande = new SousCommande();
-        $sousCommande->addProduit($produit);
+        $sousCommande->setProduit($produit);
         $sousCommande->setEntreprise($produit->getEntreprise());
         $sousCommande->setUtilisateur($this->getUser());
         $sousCommande->setQuantite($quantite);

@@ -49,6 +49,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         }
         $i=0;
 
+        $produitMap= [];
         foreach ($produits as $produit) {
 
             $produitMap[$i] = ['nomArticle'=>$produit->getNomarticle(), 'longitude'=>$produit->getEntreprise()->getVille()->getLongitude(), 'latitude'=> $produit->getEntreprise()->getVille()->getLatitude()

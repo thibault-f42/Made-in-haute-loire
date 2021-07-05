@@ -80,9 +80,10 @@ class Produit
     private $commandes;
 
     /**
-     * @ORM\ManyToMany(targetEntity=SousCommande::class, mappedBy="Produit")
+     * @ORM\OneToMany(targetEntity=SousCommande::class, mappedBy="produit", orphanRemoval=true)
      */
     private $sousCommandes;
+
 
 
     
@@ -277,7 +278,7 @@ class Produit
     {
         if (!$this->sousCommandes->contains($sousCommande)) {
             $this->sousCommandes[] = $sousCommande;
-            $sousCommande->addProduit($this);
+            $sousCommande->setProduit($this);
         }
 
         return $this;
@@ -286,7 +287,10 @@ class Produit
     public function removeSousCommande(SousCommande $sousCommande): self
     {
         if ($this->sousCommandes->removeElement($sousCommande)) {
-            $sousCommande->removeProduit($this);
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getProduit() === $this) {
+                $sousCommande->setProduit(null);
+            }
         }
 
         return $this;

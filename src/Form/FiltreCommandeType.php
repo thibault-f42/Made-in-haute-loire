@@ -31,11 +31,11 @@ class FiltreCommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $entreprise = $options['data']['entreprise']->getId();
+        $entreprise = $options['data']->getEntreprise()->getId();
 
         $builder
 
-            ->add('etatCommande', EntityType::class, ['class'=>EtatCommande::class, 'choice_label'=>'etat'])
+            ->add('etatCommande', EntityType::class, ['class'=>EtatCommande::class, 'choice_label'=>'etat', 'placeholder'=>'Toutes mes commandes', 'required'=>false])
             ->add('dateMin', DateType::class, ['widget'=>'single_text', 'required'=>false])
             ->add('dateMax', DateType::class, ['widget'=>'single_text','required'=>false])
             ->add('produit' ,EntityType::class, [
@@ -54,7 +54,7 @@ class FiltreCommandeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => null,
+            'data_class' => SearchCommande::class
         ]);
     }
 
