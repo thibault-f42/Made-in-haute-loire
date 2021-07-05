@@ -76,4 +76,6 @@ class SearchData
     {
         return $this->sousCategories;
     }
+
+
 }

@@ -21,7 +21,6 @@
     <form action="{{ path('changeEtatSousCommande') }}" method ="post" id="formEtat" name="formEtat">
         {% set i = 0 %}
         {% for sousCommande in sousCommandes %}
-            {% if sousCommande.etat != 'Commande reçue' %}
                 <div class="row border-bot-rows">
                     <div class="col-4">
                         <input type="hidden" value="{{ sousCommande.id }}" name = "sousCommande-{{~i}}">
@@ -62,7 +61,6 @@
                     </div>
                 </div>
                 {% set i = i + 1 %}
-            {% endif %}
         {% endfor %}
         {% if sousCommandes is not empty %}
             <button type="submit">Valider</button>

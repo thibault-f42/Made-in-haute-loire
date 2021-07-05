@@ -5,6 +5,7 @@ namespace App\Data;
 
 
 
+use App\Entity\Entreprise;
 use App\Entity\EtatCommande;
 use App\Entity\Produit;
 use App\Entity\SousCategorie;
@@ -41,4 +42,13 @@ class SearchCommande
 
        public $produit;
 
+    /**
+     * @var Entreprise
+     */
+
+    public $entreprise;
+
+    public function  getEntreprise (){
+        return $this->entreprise;
+    }
 }

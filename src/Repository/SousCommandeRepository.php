@@ -34,13 +34,11 @@ class SousCommandeRepository extends ServiceEntityRepository
             ->createQueryBuilder('sc')
             ->select('sc','e', 'p', 'c')
             ->join('sc.entreprise' , 'e')
-            ->join('sc.Produit', 'p')
+            ->join('sc.produit', 'p')
             ->join('sc.commande', 'c')
             ->andWhere('sc.entreprise = :ent')
             ->setParameter('ent', $entreprise->getId())
         ;
-
-
 
         if (!empty($data->etatCommande))
         {
@@ -61,6 +59,13 @@ class SousCommandeRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('c.dateCommande <= :dm')
                 ->setParameter('dm', $data->dateMax);
+        }
+
+        if (!empty($data->produit))
+        {
+            $query = $query
+                ->andWhere('p.id <= :pr')
+                ->setParameter('pr', $data->produit);
         }
 
         return $query->getQuery()->getResult();

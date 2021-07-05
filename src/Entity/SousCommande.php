@@ -19,10 +19,7 @@ class SousCommande
      */
     private $id;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="sousCommandes")
-     */
-    private $Produit;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="sousCommandes")
@@ -53,6 +50,12 @@ class SousCommande
      */
     private $etat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="sousCommandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $produit;
+
 
     public function __construct()
     {
@@ -64,29 +67,6 @@ class SousCommande
         return $this->id;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduit(): Collection
-    {
-        return $this->Produit;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->Produit->contains($produit)) {
-            $this->Produit[] = $produit;
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        $this->Produit->removeElement($produit);
-
-        return $this;
-    }
 
     public function getUtilisateur(): ?Utilisateur
     {
@@ -144,6 +124,18 @@ class SousCommande
     public function setEtat(?EtatCommande $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
 
         return $this;
     }
