@@ -27,6 +27,7 @@ class Utilisateur implements UserInterface
      */
     private $email;
 
+//    Pour le premier utilisateur, passe le role en : ROLE_ADMIN
     /**
      * @ORM\Column(type="json")
      */
@@ -58,7 +59,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $vendeur;
-
 
 
     /**

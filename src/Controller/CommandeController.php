@@ -52,7 +52,7 @@ class CommandeController extends AbstractController
         if (isset($total) && $total != 0) {
 
             //On instancie STRIPE
-            \Stripe\Stripe::setApiKey('sk_test_51J6B95KScutnDNiWqWYi2xLcLG3dzdBbX8Y1Z6ooI8EECYh23dm6bJoxeMUFKmmyt3BkQS22Tjd78PApMDNzMkH2004a57nXNE');
+            \Stripe\Stripe::setApiKey('METTRE LA CLE API PRIVEE ICI');
 
             //on crée l'intention de paiment stripe
             $intent = \Stripe\PaymentIntent::create(['amount'=>$total*100, 'currency'=>'eur']);
