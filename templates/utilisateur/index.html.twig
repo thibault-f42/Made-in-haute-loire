@@ -13,12 +13,10 @@
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Telephone</th>
                 <th>Vendeur</th>
-                <th>Administrateur</th>
                 <th>Adresse</th>
                 <th>IsVerified</th>
                 <th>actions</th>
@@ -30,12 +28,10 @@
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.password }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.telephone }}</td>
                 <td>{{ utilisateur.vendeur ? 'Yes' : 'No' }}</td>
-                <td>{{ utilisateur.administrateur ? 'Yes' : 'No' }}</td>
                 <td>{{ utilisateur.adresse }}</td>
                 <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
@@ -50,6 +46,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('utilisateur_new') }}">Create new</a>
 {% endblock %}

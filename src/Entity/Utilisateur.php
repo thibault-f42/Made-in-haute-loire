@@ -30,7 +30,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ADMIN'];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -59,10 +59,6 @@ class Utilisateur implements UserInterface
      */
     private $vendeur;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $administrateur;
 
 
     /**
@@ -91,7 +87,6 @@ class Utilisateur implements UserInterface
      */
     private $commandes;
 
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -116,7 +111,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $Actif;
-
 
 
     public function __construct()
@@ -257,19 +251,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getAdministrateur(): ?bool
-    {
-        return $this->administrateur;
-    }
-
-    public function setAdministrateur(bool $administrateur): self
-    {
-        $this->administrateur = $administrateur;
-
-        return $this;
-    }
-
-
 
     public function getAdresse(): ?string
     {
@@ -353,7 +334,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-
     public function getActivationToken(): ?string
     {
         return $this->activationToken;
@@ -386,7 +366,6 @@ class Utilisateur implements UserInterface
     public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
     {
         $this->adresseLivraison = $adresseLivraison;
-
 
         return $this;
     }
