@@ -11,10 +11,8 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('Accueil') }}">Accueil <span class="sr-only"></span></a>
             </li>
-            {% if is_granted("ROLE_ADMIN") %}
-            <li class="">
-                <a class="nav-link" href="{{ path('adminBoard') }}">Panneau d'administration</a>
-            </li>
+            {% if app.user %}
+
             {% endif %}
             {% if app.user %}
                 <div class="dropdown">
@@ -23,9 +21,11 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <li><a class="dropdown-item" href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">Mes informations </a></li>
-                        {% if app.user.entreprise and app.user.vendeur %}
+
+                        {% if app.user.entreprise %}
                             <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
                             <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : app.user.entreprise.id} ) }}">Ma vitrine</a></li>
+
                         {% else%}
                             {% if not app.user.vendeur and app.user.entreprise %}
                                 <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
@@ -76,16 +76,17 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Connexion</button>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
                         </form>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a>
-                        <a class="dropdown-item" href="{{ path('motDePasseOublie') }}">Mot de passe oublié ?</a>
+                        <a class="dropdown-item" href="#">New around here? Sign up</a>
+                        <a class="dropdown-item" href="#">Forgot password?</a>
                     </div>
                 </div>
             {% endif %}
             <li class="nav-icon ">
+
                 <a class="nav-link" href="{{ path('panier_index') }}"> <i class="bi bi-cart"></i> Panier</a>
             </li>
         </ul>
