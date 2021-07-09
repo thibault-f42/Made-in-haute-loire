@@ -1,34 +1,10 @@
 {% for produit in  produits %}
-
-            {# nouveau design card #}
-
-            <div class="card mb-3" style="max-width: 940px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        {% if produit.fichiers is not empty %}
-                            <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                                <img src="{{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }}" class="img-fluid rounded-start" alt="photo-produit" height="auto"></a>
-                        {% else %}
-                            <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                                <img src="{{ asset('img/Erreurs/notFound.png')}} " class="img-fluid rounded-start" alt="photo-erreur" ></a>
-                        {% endif%}
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ produit.nomArticle }}</h5>
-                            <p class="card-text"><small class="text-muted">{{ produit.description | split('', 35)[0] }}
-                                    {% if (produit.description | length) > 35 %}
-                                        ....
-                                    {% endif %}</small>
-                            </p>
-                            <b class="">{{produit.prix ~ ' €'}}</b>
-                        </div>
-
-        {# bouton dans card #}
-            <div class="boutonModifierProduit">
-                {% if app.user%}
-                    {% if app.user.entreprise == produit.entreprise %}
-                        <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-outline-success">Modifier</a>
+    {% if produit.entreprise.utilisateur.vendeur %}
+        {% if produit.entreprise.utilisateur.actif %}
+            <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    {% if produit.fichiers is not empty %}
+                        <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
                     {% else %}
                         <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
                     {% endif%}
@@ -61,29 +37,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-            </div>
-
-    {#  <div class = "col-lg-6 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-            {% if produit.fichiers is not empty %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                    <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
-            {% else %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                    <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
-            {% endif%}
-            <div class="card-body">
-                <h5 class="card-title">{{ produit.nomArticle }}   </h5>
-                <p class="card-text" style="white-space: nowrap">
-                    {{ produit.description | split('', 35)[0] }}
-                    {% if (produit.description | length) > 35 %}
-                        ....
-                    {% endif %}
-                </p>
-                <b class="">{{produit.prix ~ ' €'}}</b>
-            </div>
-    #}
-
+        {% endif %}
+    {% endif %}
 {% endfor %}

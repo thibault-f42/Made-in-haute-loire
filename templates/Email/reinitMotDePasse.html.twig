@@ -1,0 +1,10 @@
+
+
+{% block title %}Activation{% endblock %}
+
+{% block body %}
+<h1>activation de votre compte</h1>
+    <p>Vous venez de faire une demande de réinitialisation de mot de passe, veuillez cliquer sur le lien ci-dessous</p>
+
+    <a href="{{ absolute_url(path('app_reset_password', {'token' : token})) }}">Réinitialiser mon mot de passe</a>
+{% endblock %}
