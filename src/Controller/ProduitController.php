@@ -170,30 +170,6 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/new", name="produit_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $produit = new Produit();
-        $form = $this->createForm(Produit1Type::class, $produit);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($produit);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('produit_index');
-        }
-
-        return $this->render('produit/new.html.twig', [
-            'produit' => $produit,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="produit_delete", methods={"POST"})
      */
     public function delete(Request $request, Produit $produit)

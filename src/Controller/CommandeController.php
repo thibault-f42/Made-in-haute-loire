@@ -265,29 +265,6 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/new", name="commande_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($commande);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('commande_index');
-        }
-
-        return $this->render('commande/new.html.twig', [
-            'commande' => $commande,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="commande_show", methods={"GET"})

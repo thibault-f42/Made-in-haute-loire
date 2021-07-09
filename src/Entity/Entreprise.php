@@ -70,6 +70,7 @@ class Entreprise
 
     /**
      * @ORM\OneToOne(targetEntity=Utilisateur::class, mappedBy="entreprise", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $utilisateur;
 

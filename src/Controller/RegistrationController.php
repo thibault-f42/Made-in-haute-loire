@@ -41,10 +41,11 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //On génére un  toker d'activation
+            //On génére un  token d'activation
             $user->setActivationToken(md5(uniqid()));
 
             $user->setVendeur(false);
+            $user->setActif(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

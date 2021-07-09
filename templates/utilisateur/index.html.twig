@@ -35,13 +35,13 @@
                 <td>{{ utilisateur.adresse }}</td>
                 <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Consulter</a>
+                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Aucun utilisateur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

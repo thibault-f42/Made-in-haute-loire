@@ -47,7 +47,7 @@
                 </div>
                 <div class="card-body" >
                     <p class="cart-text">
-                      {{ entreprise.description }}
+                        {{ entreprise.description }}
                     </p>
                 </div>
             </div>
@@ -55,6 +55,11 @@
         </div>
         <div class="row mb-2 background-section">
             {{ include('inc/__card.html.twig') }}
+            {% if app.user.vendeur == false %}
+                {% if app.user.entreprise == entreprise %}
+                  <div> Les produits que vous ajouterez s'afficheront lorsque votre compte vendeur sera validé</div>
+                {% endif %}
+            {% endif %}
             <div>
                 {% if  app.user%}
                     {% if app.user.entreprise == entreprise %}

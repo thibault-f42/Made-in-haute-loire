@@ -107,6 +107,11 @@ class Utilisateur implements UserInterface
      */
     private $sousCommandes;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $Actif;
+
 
     public function __construct()
     {
@@ -391,6 +396,18 @@ class Utilisateur implements UserInterface
                 $sousCommande->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->Actif;
+    }
+
+    public function setActif(?bool $Actif): self
+    {
+        $this->Actif = $Actif;
 
         return $this;
     }

@@ -25,6 +25,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
      */
     public function home (UtilisateurRepository $utilisateurRepository, AuthenticationUtils $authenticationUtils,Request $request, ProduitRepository $produitRepository, SousCategorieRepository $sousCategorieRepository)  {
 
+
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
@@ -68,7 +69,6 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
             'content' => $this->renderView('categorie/_selectCategorie.html.twig', compact('sousCategories'))
         ]);
     }
-
 
 
         return $this->render('Accueil.html.twig', ['produits' => $produits, 'filtreFormulaire' => $filtreFormulaire->createView(), 'produitMap' => $produitMap] );

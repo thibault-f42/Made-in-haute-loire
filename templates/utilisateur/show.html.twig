@@ -50,9 +50,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('utilisateur_index') }}">back to list</a>
+    <a href="{{ path('utilisateur_index') }}">Retour</a>
 
-    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
 
     {{ include('utilisateur/_delete_form.html.twig') }}
 {% endblock %}
