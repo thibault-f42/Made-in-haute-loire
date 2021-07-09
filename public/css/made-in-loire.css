@@ -4,21 +4,6 @@ body
     background-color: #FFFFFF;
     flex-direction: column;
 }
-
-.choix
-{
-    border-bottom: 5px dashed #0D58BE;
-    border-radius: 30px;
-    margin-top: 10px;
-
-}
-
-.logo
-{
-    box-shadow: 2px 2px 2px 2px #FFFFFF;
-    border-radius: 500px;
-}
-
 nav, footer
 {
     border-top: 10px double #FFFFFF;
@@ -26,10 +11,12 @@ nav, footer
     border-radius: 30px;
     background-color: forestgreen;
 }
-.container
+.logo
 {
-    flex-direction: row;
+    box-shadow: 2px 2px 2px 2px #FFFFFF;
+    border-radius: 500px;
 }
+
 label
 {
     margin-left: 80px;
@@ -79,7 +66,7 @@ aside, p
     text-align: justify;
 }
 
-    /** CSS login.html.twig **/
+/** CSS login.html.twig **/
 .buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
 {
     text-align: center;
@@ -120,7 +107,7 @@ aside, p
 }
 .formulaireInformationCompte
 {
-    border-bottom: 30px #b0413e;
+    border-bottom: 30px #B0413E;
 }
 
 h3, p, h5
@@ -159,12 +146,7 @@ img
 }
 /** CSS index.html.twig **/
 
-.background-Texte {
-    background: #FFFFFF;
-}
-.border-bot-rows {
-    border-bottom: 1px solid #DDD;
-}
+
 
 #maCarte
 {
