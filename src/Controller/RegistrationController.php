@@ -41,19 +41,17 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //On génére un  toker d'activation
+            //On génére un  token d'activation
             $user->setActivationToken(md5(uniqid()));
 
-            if ($user->getRoles() == 'ADMIN'){
-                $user->setAdministrateur(true);
-            } else {
-                $user->setAdministrateur(false);
-            }
             $user->setVendeur(false);
+            $user->setActif(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+
+
 
 
             // do anything else you need here, like send an email

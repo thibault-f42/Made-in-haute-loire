@@ -31,6 +31,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
@@ -113,7 +114,6 @@ class SecurityController extends AbstractController
         }
 
         if($request->isMethod('POST')){
-
             if ($request->request->get('motDePasse') ==  $request->request->get('motDePasseConfirm'))
             {
                 $utilisateur->setTokenMDP(null);

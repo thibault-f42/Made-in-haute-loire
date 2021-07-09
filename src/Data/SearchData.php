@@ -50,7 +50,7 @@ class SearchData
     public $prixMin;
 
     /**
-     * @Assert\GreaterThanOrEqual(propertyPath="prix", message="Cette date doit être supérieure à la date de départ")
+     * @Assert\GreaterThanOrEqual(propertyPath="prix", message="Le prix maximum doit être supérieur au prix minimum")
      * @var float
      */
 
@@ -76,4 +76,6 @@ class SearchData
     {
         return $this->sousCategories;
     }
+
+
 }

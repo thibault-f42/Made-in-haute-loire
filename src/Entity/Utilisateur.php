@@ -30,7 +30,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ADMIN'];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -59,10 +59,6 @@ class Utilisateur implements UserInterface
      */
     private $vendeur;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $administrateur;
 
 
     /**
@@ -101,9 +97,26 @@ class Utilisateur implements UserInterface
      */
     private $tokenMDP;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AdresseLivraison::class, inversedBy="utilisateurs")
+     */
+    private $adresseLivraison;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SousCommande::class, mappedBy="Utilisateur", orphanRemoval=true)
+     */
+    private $sousCommandes;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $Actif;
+
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->sousCommandes = new ArrayCollection();
     }
 
 
@@ -238,19 +251,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getAdministrateur(): ?bool
-    {
-        return $this->administrateur;
-    }
-
-    public function setAdministrateur(bool $administrateur): self
-    {
-        $this->administrateur = $administrateur;
-
-        return $this;
-    }
-
-
 
     public function getAdresse(): ?string
     {
@@ -358,6 +358,58 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
+    public function getAdresseLivraison(): ?AdresseLivraison
+    {
+        return $this->adresseLivraison;
+    }
 
+    public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SousCommande[]
+     */
+    public function getSousCommandes(): Collection
+    {
+        return $this->sousCommandes;
+    }
+
+    public function addSousCommande(SousCommande $sousCommande): self
+    {
+        if (!$this->sousCommandes->contains($sousCommande)) {
+            $this->sousCommandes[] = $sousCommande;
+            $sousCommande->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(SousCommande $sousCommande): self
+    {
+        if ($this->sousCommandes->removeElement($sousCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getUtilisateur() === $this) {
+                $sousCommande->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->Actif;
+    }
+
+    public function setActif(?bool $Actif): self
+    {
+        $this->Actif = $Actif;
+
+        return $this;
+    }
 
 }

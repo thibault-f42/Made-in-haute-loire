@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for commande in commandes %}
+        <div class="row border-bot-rows">
+            <div class="col-4">
+                <div>
+                    {% for sousCommande in commande.sousCommande %}
+                        {% if  sousCommande.etat.etat != 'Commande reçue'%}
+                            <div class="row">
+                                <div class="col-4">
+                                    {{ sousCommande.produit.nomArticle }}
+                                </div>
+                                <div class="col-1"> {{ sousCommande.quantite }}</div>
+                                <div class="col-3"> {{ sousCommande.quantite * sousCommande.produit.prix}} € </div>
+                                <div class="col-4"> {{ sousCommande.etat.etat}} € </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div>
+                    {#                    Quantite :   {{ commande.sousCommande.quantite }}#}
+                </div>
+            </div>
+            <div class="col-4">
+                <div>
+                    {{ commande.utilisateur.adresseLivraison.adresse }}
+                </div>
+                <div>
+                    {{ commande.utilisateur.adresseLivraison.ville }}
+                </div>
+                <div>
+                    {{ commande.utilisateur.nom }}
+                    {{ commande.utilisateur.prenom }}
+                </div>
+            </div>
+            <div class="col-4">
+                <div>
+                </div>
+                <div>
+                    date de commande : {{ commande.dateCommande|date("d/m/Y", "Europe/Paris") }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if commandes is empty %}
+        <div>Vous n'avez pas de commande en cours</div>
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

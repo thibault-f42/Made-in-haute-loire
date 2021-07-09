@@ -70,6 +70,7 @@ class Entreprise
 
     /**
      * @ORM\OneToOne(targetEntity=Utilisateur::class, mappedBy="entreprise", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $utilisateur;
 
@@ -83,6 +84,12 @@ class Entreprise
      */
     private $commandes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SousCommande::class, mappedBy="entreprise", orphanRemoval=true)
+     */
+    private $sousCommandes;
+
+
 
 
     public function __construct()
@@ -90,6 +97,7 @@ class Entreprise
         $this->produits = new ArrayCollection();
         $this->fichier = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->sousCommandes = new ArrayCollection();
     }
 
 
@@ -305,5 +313,36 @@ class Entreprise
 
         return $this;
     }
+
+    /**
+     * @return Collection|SousCommande[]
+     */
+    public function getSousCommandes(): Collection
+    {
+        return $this->sousCommandes;
+    }
+
+    public function addSousCommande(SousCommande $sousCommande): self
+    {
+        if (!$this->sousCommandes->contains($sousCommande)) {
+            $this->sousCommandes[] = $sousCommande;
+            $sousCommande->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(SousCommande $sousCommande): self
+    {
+        if ($this->sousCommandes->removeElement($sousCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getEntreprise() === $this) {
+                $sousCommande->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

@@ -3,11 +3,11 @@
 {% block title %}Edit SousCategorie{% endblock %}
 
 {% block body %}
-    <h1>Edit SousCategorie</h1>
+    <h1>Modification</h1>
 
-    {{ include('sous_categorie/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('sous_categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('sous_categorie_index') }}">back to list</a>
+    <a href="{{ path('sous_categorie_index') }}">Retour</a>
 
     {{ include('sous_categorie/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <form id="payment-form" method="post">
+        <div id="errors">
+            {#            contient les messages d'erreur de paiement Stripe                     #}
+        </div>
+        <input type="text" name="cardholder-name" id="cardholder-name" placeholder="Titulaire de la carte">
+        <div id="card-element" class="col-3"><!--Stripe.js injects the Card Element--></div>
+        <div id="card-errors"></div>
+        <button id="cardButton" name="cardButton" type="button" data-secret="{{ intent['client_secret'] }}">
+{#                                                                          La donnée 'client_secret' n'est pas a risque et peut etre affichée                              #}
+            <span id="button-text">Valider</span>
+        </button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ asset('Javascripts/preStripe.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

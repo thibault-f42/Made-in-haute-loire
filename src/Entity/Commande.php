@@ -19,29 +19,19 @@ class Commande
      */
     private $id;
 
-
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $utilisateur;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="commandes")
-     */
-    private $produit;
 
     /**
      * @ORM\Column(type="float")
      */
     private $prix;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pointLivraison;
-
-    /**
+     /**
      * @ORM\Column(type="date")
      */
     private $dateCommande;
@@ -61,10 +51,27 @@ class Commande
      */
     private $descriptif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AdresseLivraison::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $adresseLivraison;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SousCommande::class, mappedBy="commande", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $sousCommande;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $etat;
+
     public function __construct()
     {
-        $this->produit = new ArrayCollection();
+        $this->sousCommande = new ArrayCollection();
     }
+
 
 
     public function getId(): ?int
@@ -88,29 +95,6 @@ class Commande
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduit(): Collection
-    {
-        return $this->produit;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produit->contains($produit)) {
-            $this->produit[] = $produit;
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        $this->produit->removeElement($produit);
-
-        return $this;
-    }
 
     public function getPrix(): ?float
     {
@@ -123,19 +107,7 @@ class Commande
 
         return $this;
     }
-
-    public function getPointLivraison(): ?string
-    {
-        return $this->pointLivraison;
-    }
-
-    public function setPointLivraison(string $pointLivraison): self
-    {
-        $this->pointLivraison = $pointLivraison;
-
-        return $this;
-    }
-
+    
     public function getDateCommande(): ?\DateTimeInterface
     {
         return $this->dateCommande;
@@ -180,6 +152,60 @@ class Commande
     public function setDescriptif(string $descriptif): self
     {
         $this->descriptif = $descriptif;
+
+        return $this;
+    }
+
+    public function getAdresseLivraison(): ?AdresseLivraison
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(?AdresseLivraison $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SousCommande[]
+     */
+    public function getSousCommande(): Collection
+    {
+        return $this->sousCommande;
+    }
+
+    public function addSousCommande(SousCommande $sousCommande): self
+    {
+        if (!$this->sousCommande->contains($sousCommande)) {
+            $this->sousCommande[] = $sousCommande;
+            $sousCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(SousCommande $sousCommande): self
+    {
+        if ($this->sousCommande->removeElement($sousCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getCommande() === $this) {
+                $sousCommande->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?string $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

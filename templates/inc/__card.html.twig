@@ -1,38 +1,42 @@
 {% for produit in  produits %}
-    <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card">
-            {% if produit.fichiers is not empty %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
-            {% else %}
-                <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
-            {% endif%}
-            <div class="card-body">
-                <h5 class="card-title">{{ produit.nomArticle }}   </h5>
-                <p class="card-text" style="white-space: nowrap">
-                    {{ produit.description | split('', 35)[0] }}
-                    {% if (produit.description | length) > 35 %}
-                        ....
-                    {% endif %}
-                </p>
-                <b class="">{{produit.prix ~ ' €'}}</b>
-            </div>
-            <div>
-                {% if app.user%}
-                    {% if app.user.entreprise == produit.entreprise %}
-                        <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+    {% if produit.entreprise.utilisateur.vendeur %}
+        {% if produit.entreprise.utilisateur.actif %}
+            <div class = "col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    {% if produit.fichiers is not empty %}
+                        <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
                     {% else %}
-                        <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">
-                            <i class="bi bi-search"></i>
-                            </a>
-                        <a href="{{ path('panier_add', {'id' : produit.id} ) }}" class="btn btn-success">
-                            <i class="bi bi-cart-plus"></i>
-                        </a>
+                        <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                    {% endif%}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nomArticle }}   </h5>
+                        <p class="card-text" style="white-space: nowrap">
+                            {{ produit.description | split('', 35)[0] }}
+                            {% if (produit.description | length) > 35 %}
+                                ....
+                            {% endif %}
+                        </p>
+                        <b class="">{{produit.prix ~ ' €'}}</b>
+                    </div>
+                    <div>
+                        {% if app.user%}
+                            {% if app.user.entreprise == produit.entreprise %}
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                            {% else %}
+                                <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </a>
+                                <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : app.request.attributes.get('_route')}  ) }}" class="btn btn-success">
+                                    <i class="bi bi-cart-plus"></i>
+                                </a>
 
-                    {% endif %}
-                {% else %}
-                    <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
-                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('produit_detail', {'id' : produit.id} ) }}" class="btn btn-primary">Détails</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
+    {% endif %}
 {% endfor %}

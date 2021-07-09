@@ -17,7 +17,7 @@ class AdminController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstrac
 
 {
     /**
-     * @Route("/Admin", name="adminBoard", methods={"GET"})
+     * @Route("/adminBoard", name="adminBoard", methods={"GET"})
      */
     public function index(): Response
     {
