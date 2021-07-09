@@ -6,31 +6,40 @@
 
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
-          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html" media="screen and (max-width: 1280px)" href="petite_resolution.css"/>
 <section>
-        <h3> Chez {{ produit.entreprise }}</h3>
-    <div class="contenaire">
-            <div class="row">
 
-        <div class = "col-lg-6 col-md-6 col-sm-12 col-mb-4">
-            <div class="card" style="height: 420px; ">
+        <div class="container">
+   <article>
+        <h3> Chez {{ produit.entreprise }}</h3>
+
+
+        <div class = "col-lg-7 col-md-6 col-sm-6 col-mb-6">
+            <div class="card" style="width: 18rem; height: 25rem;">
 
             {% for photo in produit.fichiers %}
 
                 {% if produit.fichiers is not empty %}
-                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
+
+                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}">
+                        <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
                 {% else %}
-                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}">
+                        <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+
                 {% endif%}
                 <div class="card-body">
                     <h5 class="card-title">{{ produit.nomArticle }}   </h5>
                     <p class="card-text">{{ produit.description }}</p>
-                    <b class="">{{produit.prix ~ ' €'}}</b>
+                    <b class="produitPrix">{{produit.prix ~ ' €'}}</b>
                 </div>
+
             </div>
         {% endfor %}
         </div>
+   </article>
     </div>
+
 </div>
 </section>
 

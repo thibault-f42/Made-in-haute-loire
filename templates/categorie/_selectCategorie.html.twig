@@ -1,6 +1,6 @@
 {% if sousCategories %}
     {% if sousCategories|length > 1 %}
-        <option value="">Sous-catégorie</option>
+        <option value="">Sous-categorie</option>
         {% for sousCategorie in sousCategories %}
             <option value={{ sousCategorie.id }}>{{ sousCategorie.nom }}</option>
         {% endfor %}

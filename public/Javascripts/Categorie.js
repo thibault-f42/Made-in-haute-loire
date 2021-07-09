@@ -68,13 +68,9 @@ function requeteAjaxGet(selectorElementAction, typeAction, selectorReponse, modi
 
 
 
-        listeSousCategorie = document.getElementById('sousCategorie');
 
-        listeSousCategorie.removeAttribute("disabled");
-         if (document.querySelector(selectorElementAction).value === ""){
-             listeSousCategorie.setAttribute("disabled", true);
 
-         }
+        console.log (document.querySelector(selectorElementAction).value)
                 event.preventDefault();
 
                 const Params = new URLSearchParams();
