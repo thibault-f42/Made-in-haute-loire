@@ -121,7 +121,7 @@ class SecurityController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($utilisateur);
                 $entityManager->flush();
-                $this->addFlash('message', "Mot de passe motifié avec succès");
+                $this->addFlash('message', "Mot de passe modifié avec succès");
 
                 return $this->redirectToRoute('app_login');
             }
