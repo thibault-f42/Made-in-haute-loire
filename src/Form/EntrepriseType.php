@@ -17,10 +17,6 @@ class EntrepriseType extends AbstractType
             ->add('telephone')
             ->add('email')
             ->add('siret')
-            ->add('description')
-            ->add('ville')
-            ->add('utilisateur')
-            ->add('commandes')
         ;
     }
 
