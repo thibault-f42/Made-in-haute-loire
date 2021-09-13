@@ -3,13 +3,29 @@
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block body %}
-    <div class="col-3">
-
-    </div>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
+    <section class="informationDuCompte">
+        <div class="col-12">
+            <div class="titreInformationCompte">
+                <h3>Votre Compte</h3>
+                {{ form_start(form)}}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.prenom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.telephone) }}
+                {{ form_row(form.adresse) }}
+                {{ form_row(form.codePostal) }}
+                {{ form_row(form.ville) }}
+                <button class="btn btn-outline-success" type="submit">Enregistrer</button>
+                {{ form_end(form) }}
+            </div>
+            <a href="{{ path('utilisateur_index') }}">Retour Liste</a>
+        </div>
+    </section>
 {% endblock %}
-
- {% block javascripts %}
-     <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
-     <script>requeteAjaxGet('#modif_utilisateur_codePostal', 'change', '#modif_utilisateur_ville')</script>
-     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
- {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
+    <script>requeteAjaxGet('#modif_utilisateur_codePostal', 'change', '#modif_utilisateur_ville')</script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+{% endblock %}

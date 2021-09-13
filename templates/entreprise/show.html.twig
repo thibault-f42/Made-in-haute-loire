@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entreprise{% endblock %}
+
+{% block body %}
+    <h1>Entreprise</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entreprise.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entreprise.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ entreprise.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ entreprise.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entreprise.email }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ entreprise.siret }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entreprise.description }}</td>
+            </tr>
+            <tr>
+            <th>Extrait de Kbis</th>
+                {% if entreprise.fichier is not empty %}
+                {% for fichier in entreprise.fichier %}
+                    {% if fichier.typeFichier == 'Document_Kbis_Entreprise'  %}
+                        <td><img src="{{ asset('img/KbisPhoto/'~fichier.urlFichier) }}" alt="kbis" height="auto"</td>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
+            </tr>
+            <tr>
+            <th>Carte d'identité</th>
+                {% if entreprise.fichier is not empty %}
+                    {% for fichier in entreprise.fichier %}
+                        {% if fichier.typeFichier == 'Document_carte_ID_Entreprise'  %}
+                            <td><img src="{{ asset('img/EntrepriseCarteID/'~fichier.urlFichier) }}" alt="kbis" height="auto"</td>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('entreprise_index') }}">Retour</a>
+
+    <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}">Modifier</a>
+
+    {{ include('entreprise/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,6 +3,8 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
     <h1>Utilisateur index</h1>
 
     <table class="table">
@@ -11,12 +13,10 @@
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Telephone</th>
                 <th>Vendeur</th>
-                <th>Administrateur</th>
                 <th>Adresse</th>
                 <th>IsVerified</th>
                 <th>actions</th>
@@ -28,26 +28,22 @@
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.password }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.telephone }}</td>
                 <td>{{ utilisateur.vendeur ? 'Yes' : 'No' }}</td>
-                <td>{{ utilisateur.administrateur ? 'Yes' : 'No' }}</td>
                 <td>{{ utilisateur.adresse }}</td>
                 <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Consulter</a>
+                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Aucun utilisateur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('utilisateur_new') }}">Create new</a>
 {% endblock %}

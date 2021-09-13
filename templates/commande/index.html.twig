@@ -23,23 +23,21 @@
             <tr>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.prix }}</td>
-                <td>{{ commande.pointLivraison }}</td>
+                <td>{{ commande.adresseLivraison.id }}</td>
                 <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.dateLivraison ? commande.dateLivraison|date('Y-m-d') : '' }}</td>
                 <td>{{ commande.codeCommande }}</td>
                 <td>{{ commande.descriptif }}</td>
                 <td>
-                    <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                    <a href="{{ path('commande_show', {'id': commande.id}) }}">Consulter</a>
+                    <a href="{{ path('commande_edit', {'id': commande.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas de commande trouvées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('commande_new') }}">Create new</a>
 {% endblock %}

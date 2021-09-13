@@ -27,6 +27,7 @@ class SousCategorie
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="sousCategories")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $categorie;
 

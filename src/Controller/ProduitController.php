@@ -2,12 +2,8 @@
 
 namespace App\Controller;
 
-use App\Data\SearchData;
-use App\Entity\Entreprise;
 use App\Entity\Fichier;
 use App\Entity\Produit;
-use App\Entity\Utilisateur;
-use App\Form\FiltreType;
 use App\Form\Produit1Type;
 use App\Form\ProduitType;
 use App\Repository\EntrepriseRepository;
@@ -15,7 +11,6 @@ use App\Repository\FichierRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SousCategorieRepository;
 use App\Repository\UtilisateurRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,6 +28,8 @@ class ProduitController extends AbstractController
      */
     public function index(ProduitRepository $produitRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
         ]);
@@ -40,25 +37,27 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="produit_detail", methods={"GET","POST"})
+     * @Route("/{id}/detail-produit", name="produit_detail", methods={"GET","POST"})
      */
     public function afficheDetailProduit(Request $request, Produit $produit): Response
     {
+
         return $this->render('produit/detailProduit.html.twig', [
             'produit' => $produit,
         ]);
     }
 
-
-
     /**
-     * @Route("/{id}/Vitrine", name="produitPartenaire", methods={"GET"})
+     * @Route("/mes-produit", name="produitPartenaire", methods={"GET"})
      */
-    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, Entreprise $entreprise): Response
+    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository): Response
     {
 
+        $utilisateur= $utilisateurRepository->find($this->getUser());
+        $entreprise = $utilisateur->getEntreprise();
         $produitsPartenaire =$entreprise->getProduits();
         $photosEntreprise= $fichierRepository->findBy(['typeFichier' => 'Photos_presentation_entreprise', 'entreprise'=>$entreprise]);
+
 
 
         return $this->render('produit/VitrinePartenaire.html.twig', [
@@ -171,33 +170,11 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/new", name="produit_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $produit = new Produit();
-        $form = $this->createForm(Produit1Type::class, $produit);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($produit);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('produit_index');
-        }
-
-        return $this->render('produit/new.html.twig', [
-            'produit' => $produit,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="produit_delete", methods={"POST"})
      */
     public function delete(Request $request, Produit $produit)
     {
+
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($produit);
@@ -214,6 +191,7 @@ class ProduitController extends AbstractController
      */
     public function edit(Request $request, Produit $produit): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(Produit1Type::class, $produit);
         $form->handleRequest($request);
 
@@ -243,8 +221,7 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
-        $user = $this->getUser();
-
+        $entreprise=$produit->getEntreprise();
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -277,7 +254,11 @@ class ProduitController extends AbstractController
 
             }
 
-            return $this->redirectToRoute('produitPartenaire');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($produit);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('produitPartenaire' , ['id'=>$entreprise->getId()]);
         }
 
         return $this->render('produit/modifierProduit.html.twig', [

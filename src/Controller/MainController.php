@@ -25,6 +25,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
      */
     public function home (UtilisateurRepository $utilisateurRepository, AuthenticationUtils $authenticationUtils,Request $request, ProduitRepository $produitRepository, SousCategorieRepository $sousCategorieRepository)  {
 
+
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
@@ -47,7 +48,16 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         } else {
             $produits = $produitRepository->findAll();
         }
+        $i=0;
 
+        $produitMap= [];
+        foreach ($produits as $produit) {
+
+            $produitMap[$i] = ['nomArticle'=>$produit->getNomarticle(), 'longitude'=>$produit->getEntreprise()->getVille()->getLongitude(), 'latitude'=> $produit->getEntreprise()->getVille()->getLatitude()
+            , 'urlFichier'=>!empty($produit->getFichiers()[0])?$produit->getFichiers()[0]->getUrlFichier():"notFound.png"] ;
+
+            $i++;
+        }
 
         //ajax
         if ($request->get('ajax') && $request->get('categorie')) {
@@ -60,7 +70,8 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         ]);
     }
 
-        return $this->render('Accueil.html.twig', ['produits' => $produits, 'filtreFormulaire' => $filtreFormulaire->createView()] );
+
+        return $this->render('Accueil.html.twig', ['produits' => $produits, 'filtreFormulaire' => $filtreFormulaire->createView(), 'produitMap' => $produitMap] );
 
     }
 

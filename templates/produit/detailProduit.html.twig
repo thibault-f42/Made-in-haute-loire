@@ -5,20 +5,35 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
+          xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
+<section>
+        <h3> Chez {{ produit.entreprise }}</h3>
+    <div class="contenaire">
+            <div class="row">
 
-        <h3>{{ produit.nomArticle }}</h3>
-        <div class="row">
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-mb-4">
+            <div class="card" style="height: 420px; ">
+
             {% for photo in produit.fichiers %}
-                <div class = "col-lg-3 col-md-6 col-sm-12 mb-4">
-                    <img src={{ asset('img/ProduitPhoto/'~photo.urlFichier) }} alt="photo_entreprise" class="rounded">
+
+                {% if produit.fichiers is not empty %}
+                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
+                {% else %}
+                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
+                {% endif%}
+                <div class="card-body">
+                    <h5 class="card-title">{{ produit.nomArticle }}   </h5>
+                    <p class="card-text">{{ produit.description }}</p>
+                    <b class="">{{produit.prix ~ ' €'}}</b>
                 </div>
-            {% endfor %}
-        </div>
-        <div>
-            <a href="{{ path('produitPartenaire', {'id' : produit.entreprise.id}) }}">Vitrine de "{{ produit.entreprise.nom }}"</a>
+            </div>
+        {% endfor %}
         </div>
     </div>
+</div>
+</section>
+
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
     {% endblock %}

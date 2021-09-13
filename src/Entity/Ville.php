@@ -43,12 +43,12 @@ class Ville
     private $canton;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="float")
      */
     private $longitude;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="float")
      */
     private $latitude;
 
@@ -63,12 +63,18 @@ class Ville
      */
     private $entreprises;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdresseLivraison::class, mappedBy="ville")
+     */
+    private $adresseLivraison;
+
 
 
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
+        $this->adresseLivraison = new ArrayCollection();
     }
 
 
@@ -158,7 +164,7 @@ class Ville
         return $this;
     }
 
-    public function getLongitude(): ?int
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
@@ -170,7 +176,7 @@ class Ville
         return $this;
     }
 
-    public function getLatitude(): ?int
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
@@ -223,6 +229,36 @@ class Ville
             // set the owning side to null (unless already changed)
             if ($entreprise->getVille() === $this) {
                 $entreprise->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdresseLivraison[]
+     */
+    public function getAdresseLivraison(): Collection
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function addAdresse(AdresseLivraison $aadresseLivraison): self
+    {
+        if (!$this->adresseLivraison->contains($adresseLivraison)) {
+            $this->adresseLivraison[] = $adresseLivraison;
+            $adresseLivraison->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresseLivraison(AdresseLivraison $adresseLivraison): self
+    {
+        if ($this->adresseLivraison->removeElement($adresseLivraison)) {
+            // set the owning side to null (unless already changed)
+            if ($adresseLivraison->getVille() === $this) {
+                $adresseLivraison->setVille(null);
             }
         }
 
