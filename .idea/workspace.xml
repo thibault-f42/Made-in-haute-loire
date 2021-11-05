@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EntrepriseFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Panier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Panier/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/commande/apperçuCommande.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/commande/apperçuCommande.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entreprise/Formulaire-Inscription-Entreprise.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entreprise/Formulaire-Inscription-Entreprise.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entreprise/Partenaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entreprise/Partenaire.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entreprise/modifierEntreprise.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entreprise/modifierEntreprise.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inc/__card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inc/__footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__footer.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inc/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/ProduitPartenaire.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/ProduitPartenaire.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/VitrinePartenaire.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/detailProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/detailProduit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/modifierProduit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/modifierProduit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/inscription.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/inscription.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/modificationUtilisateur.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/modificationUtilisateur.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Mise à jour front" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -271,7 +248,16 @@
       <workItem from="1635226901387" duration="5759000" />
       <workItem from="1635332045039" duration="1853000" />
       <workItem from="1636027187852" duration="605000" />
+      <workItem from="1636124743049" duration="303000" />
     </task>
+    <task id="LOCAL-00001" summary="Mise à jour front">
+      <created>1636124815810</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1636124815810</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +274,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Mise à jour front" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mise à jour front" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
