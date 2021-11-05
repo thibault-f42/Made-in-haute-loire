@@ -3,12 +3,12 @@
 {% block title %}Apperçu de commande{% endblock %}
 
 {% block body %}
-
+<div class="container">
     <h3>Résumé de votre commande</h3>
 
     <div class="row">
-        {#        affichage de la table dans la partie gauche#}
-        <div class="col-4">
+        {# affichage de la table dans la partie gauche #}
+        <div class="col-6 ArtCmd">
             <table class="table">
                 <thead>
                 <tr>
@@ -18,42 +18,48 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for  ligne in dataPanier  %}
+                {% for  ligne in dataPanier %}
                     <tr>
-                        <th scope="row"><a href="{{ path('produit_detail', {'id' : ligne.produit.id}) }}"><span>{{ ligne.produit.nomArticle}}</span></a></th>
-                        <td>{{ ligne.quantite}}</td>
-                        <td>{{ ligne.quantite * ligne.produit.prix}} €</td>
+                        <th scope="row"><a
+                                    href="{{ path('produit_detail', {'id' : ligne.produit.id}) }}"><span>{{ ligne.produit.nomArticle }}</span></a>
+                        </th>
+                        <td>{{ ligne.quantite }}</td>
+                        <td>{{ ligne.quantite * ligne.produit.prix }} €</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-{#       todo :  enlever la balise style quand dimitri aura corrigé son css#}
-        <div class="col-4  card" style="flex-direction: column">
-            {#       afichage des informations de livraison #}
-            {% if app.user.adresseLivraison %}
-                <h4>adresse de livraison</h4>
-                <div>
-                    <span>Addresse : {{  app.user.adresseLivraison.adresse }}</span>
-                </div>
-                <div>
-                    <span>Ville : {{ app.user.adresseLivraison.ville}}</span>
-                </div>
-                <div>
-                    <span>Informations à nous communiquer : {{ app.user.adresseLivraison.InformationsImportantes}}</span>
-                </div>
-            {% else %}
-                {{ form_start(adresseForm) }}
-                {{ form_row(adresseForm.ville) }}
-                {{ form_row(adresseForm.adresse) }}
-                {{ form_row(adresseForm.InformationsImportantes) }}
-                <button type="submit" class="btn btn-outline-success">enregistrer</button>
-                {{ form_end(adresseForm) }}
-            {% endif %}
+        <div class="col-3">
+            <div class="card">
+                {# afichage des informations de livraison #}
+                {% if app.user.adresseLivraison %}
+                    <h4>adresse de livraison</h4>
+                    <div>
+                        <span>Addresse : {{ app.user.adresseLivraison.adresse }}</span>
+                    </div>
+                    <div>
+                        <span>Ville : {{ app.user.adresseLivraison.ville }}</span>
+                    </div>
+                    <div>
+                        <span>Informations à nous communiquer : {{ app.user.adresseLivraison.InformationsImportantes }}</span>
+                    </div>
+                {% else %}
+                    {{ form_start(adresseForm) }}
+                    {{ form_row(adresseForm.ville) }}
+                    {{ form_row(adresseForm.adresse) }}
+                    {{ form_row(adresseForm.InformationsImportantes) }}
+                    <button type="submit" class="btn btn-outline-success">enregistrer</button>
+                    {{ form_end(adresseForm) }}
+                {% endif %}
+            </div>
+            <div style="text-align: center"><a href="{{ path('commandeValidation') }}">
+                    <button class="btn btn-outline-success button">Passer au paiement</button>
+                </a></div>
         </div>
-        <div class="col-4">
-            <div style="text-align: center"><a href="{{ path('commandeValidation') }}"><button class="btn btn-outline-success">continuer</button></a></div>
-        </div>
+
     </div>
+</div>
+
 
 {% endblock %}

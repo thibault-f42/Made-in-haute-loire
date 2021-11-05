@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Fichier;
 use App\Entity\Produit;
+use App\Form\FiltreType;
 use App\Form\Produit1Type;
 use App\Form\ProduitType;
 use App\Repository\EntrepriseRepository;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Data\SearchData;
 
 /**
  * @Route("/produit")
@@ -41,7 +43,6 @@ class ProduitController extends AbstractController
      */
     public function afficheDetailProduit(Request $request, Produit $produit): Response
     {
-
         return $this->render('produit/detailProduit.html.twig', [
             'produit' => $produit,
         ]);
@@ -50,18 +51,39 @@ class ProduitController extends AbstractController
     /**
      * @Route("/mes-produit", name="produitPartenaire", methods={"GET"})
      */
-    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository): Response
+    public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, ProduitRepository $produitRepository, Request $request): Response
     {
 
         $utilisateur= $utilisateurRepository->find($this->getUser());
         $entreprise = $utilisateur->getEntreprise();
         $produitsPartenaire =$entreprise->getProduits();
         $photosEntreprise= $fichierRepository->findBy(['typeFichier' => 'Photos_presentation_entreprise', 'entreprise'=>$entreprise]);
+        $data = new SearchData();
 
+        $filtreFormulaire = $this->createForm(FiltreType::class, $data);
+        $filtreFormulaire->handleRequest($request);
+//        Traitement du formulaire de filtre
 
+        if ($filtreFormulaire->isSubmitted() && $filtreFormulaire->isValid()) {
+
+            $produits = $produitRepository->findSearch($data);
+
+        } else {
+            $produits = $produitRepository->findAll();
+        }
+        $i=0;
+
+        $produitMap= [];
+        foreach ($produits as $produit) {
+
+            $produitMap[$i] = ['nomArticle'=>$produit->getNomarticle(), 'longitude'=>$produit->getEntreprise()->getVille()->getLongitude(), 'latitude'=> $produit->getEntreprise()->getVille()->getLatitude()
+                , 'urlFichier'=>!empty($produit->getFichiers()[0])?$produit->getFichiers()[0]->getUrlFichier():"notFound.png"] ;
+
+            $i++;
+        }
 
         return $this->render('produit/VitrinePartenaire.html.twig', [
-            'produits' => $produitsPartenaire, 'entreprise'=> $entreprise, 'photosEntreprise'=>$photosEntreprise
+            'produits' => $produitsPartenaire, 'entreprise'=> $entreprise, 'photosEntreprise'=>$photosEntreprise, 'produitMap' => $produitMap
         ]);
     }
 
@@ -111,7 +133,7 @@ class ProduitController extends AbstractController
                     //On stocke le chemin d'accès en base de données
                     $fichier = new Fichier();
                     $fichier->setUrlFichier($nomFichier);
-                    $fichier->setTypeFichier('Photos_presentation_entreprise');
+                    $fichier->setTypeFichier('Photos_presentation_produit');
 
                     //on ajoute le fichier a notre entreprise
                     $ajoutProduit->addFichier($fichier);

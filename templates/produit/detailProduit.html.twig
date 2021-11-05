@@ -7,35 +7,67 @@
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
-<section>
+    <section>
         <h3> Chez {{ produit.entreprise }}</h3>
-    <div class="contenaire">
+        <div class="container">
             <div class="row">
+                <div class="col-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nomArticle }}   </h5>
+                    </div>
+                </div>
+                <div class="img__full col-10">
+                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}" class="item__image">
+                        <img id="img__full"
+                             src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top"
+                             alt="photo-produit" height="auto">
+                    </a>
+                    <div class="col-10">
+                        <div id="carousel1">
 
-        <div class = "col-lg-6 col-md-6 col-sm-12 col-mb-4">
-            <div class="card" style="height: 420px; ">
+                                {% if produit.fichiers is not empty %}
+                                    <div class="item">
+                                        <a href="{{ path('produit_detail', {'id' : produit.id } ) }}" class="item__image">
+                                            <img id="img__carousel"
+                                                 src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top"
+                                                 alt="photo-produit" height="auto">
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img
+                                                src={{ asset('img/Erreurs/notFound.png') }} class="card-img-top"
+                                                alt="photo-erreur"></a>
+                                {% endif %}
 
-            {% for photo in produit.fichiers %}
-
-                {% if produit.fichiers is not empty %}
-                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }} class="card-img-top" alt="photo-produit" height="auto"></a>
-                {% else %}
-                    <a href="{{ path('produit_detail', {'id' : produit.id } ) }}"> <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" ></a>
-                {% endif%}
-                <div class="card-body">
-                    <h5 class="card-title">{{ produit.nomArticle }}   </h5>
-                    <p class="card-text">{{ produit.description }}</p>
-                    <b class="">{{produit.prix ~ ' €'}}</b>
+                        </div>
+                </div>
+                </div>
+                <div class="col-4">
+                    <div class="card-body">
+                        <p class="card-text">{{ produit.description }}</p>
+                        <b class="">{{ produit.prix ~ ' €' }}</b>
+                        <li><a class="dropdown-item"
+                               href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Ma vitrine</a>
+                        </li>
+                    </div>
+                    <div >
+                        {% if app.user %}
+                        {% if app.user.entreprise != produit.entreprise %}
+                            <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
+                                   class="btn button">
+                                    Ajouter au panier
+                                </a>
+                        {% endif %}
+                            {% endif %}
+                    </div>
                 </div>
             </div>
-        {% endfor %}
         </div>
-    </div>
-</div>
-</section>
+    </section>
 
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
+        <script src="{{ asset('Javascripts/carousel.js') }}" async></script>
     {% endblock %}
 {% endblock %}
 

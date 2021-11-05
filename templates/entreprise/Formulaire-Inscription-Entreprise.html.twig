@@ -5,31 +5,40 @@
 {% endblock %}
 
 {% block body %}
-<div class="creationProduit">
-    <div class = "col-10">
-        {{ form_start(EntrepriseForm) }}
-        {{ form_row(EntrepriseForm.nom) }}
-        {{ form_row(EntrepriseForm.siret) }}
-        {{ form_row(EntrepriseForm.adresse) }}
-        {{ form_row(EntrepriseForm.email) }}
-        {{ form_row(EntrepriseForm.telephone) }}
-        {{ form_row(EntrepriseForm.codePostal) }}
-        {{ form_row(EntrepriseForm.ville) }}
-        {{ form_row(EntrepriseForm.justificatifSiret) }}
-        {{ form_row(EntrepriseForm.carteIdentite) }}
-        {{ form_row(EntrepriseForm.photos) }}
-        {{ form_row(EntrepriseForm.description) }}
-        <div class="boutonPublier">
-        <button class="btn btn-outline-success" type="submit">Publier</button>
+    <div class="creationProduit">
+        <div class="col-12">
+            <div class="col-2">
+                {{ form_start(EntrepriseForm) }}
+                {{ form_row(EntrepriseForm.nom) }}
+                {{ form_row(EntrepriseForm.siret) }}
+                {{ form_row(EntrepriseForm.email) }}
+                {{ form_row(EntrepriseForm.telephone) }}
+            </div>
+            <div class="col-1"></div>
+            <div class="col-4">
+                {{ form_row(EntrepriseForm.adresse) }}
+                {{ form_row(EntrepriseForm.codePostal) }}
+                {{ form_row(EntrepriseForm.ville) }}
+                {{ form_row(EntrepriseForm.description) }}
+            </div>
+            <div class="col-1"></div>
+            <div class="col-2">
+                {{ form_row(EntrepriseForm.justificatifSiret) }}
+                {{ form_row(EntrepriseForm.carteIdentite) }}
+                {{ form_row(EntrepriseForm.photos) }}
+                {{ form_end(EntrepriseForm) }}
+            </div>
         </div>
-    {{ form_end(EntrepriseForm) }}
     </div>
-</div>
+    <div class="boutonPublier">
+        <button class="btn button" type="submit">Publier</button>
+    </div>
+
     {% block javascripts %}
         <div class="boutonPhoto">
-        <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
-        <script>requeteAjaxGet('#entreprise_form_codePostal', 'change', '#entreprise_form_ville')</script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
+            <script>requeteAjaxGet('#entreprise_form_codePostal', 'change', '#entreprise_form_ville')</script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         </div>
 
     {% endblock %}

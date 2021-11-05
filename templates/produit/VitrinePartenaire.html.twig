@@ -5,86 +5,96 @@
 {% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
     <div class="container">
-        <h3>Chez {{ entreprise.nom }}</h3>
-        <div class="row mb-2 background-section">
-            <div class="col-6">
-                <div>
-                    <form action="" class="background-Texte"> TODO : Formulaire de filtres </form>
-                </div>
+        <div class="vitrine">
+            <div class="title">
+                <h3>{{ entreprise.nom }}</h3>
             </div>
-            <div class="col-6 mb-4 card">
-                <div id="carouselExampleIndicators" class="carousel slide carousel-dark" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% if photosEntreprise is not empty %}
-                            {% for fichier in entreprise.fichier %}
-                                {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
-                                    {% if fichier.urlFichier == photosEntreprise[0].urlFichier  %}
-                                        <div class="carousel-item active">
-                                            <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" class="d-block w-100" alt="...">
-                                        </div>
-                                    {% else %}
-                                        <div class="carousel-item">
-                                            <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" class="d-block w-100" alt="...">
-                                        </div>
+            <div class="row mb-2 background-section">
+                <div class="col-6 mb-4 card">
+                    <div id="carouselExampleIndicators" class="carousel carousel-dark" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if photosEntreprise is not empty %}
+                                {% for fichier in entreprise.fichier %}
+                                    {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
+                                        {% if fichier.urlFichier == photosEntreprise[0].urlFichier %}
+                                            <div class="carousel-item active">
+                                                <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}"
+                                                     class="d-block w-100" alt="...">
+                                            </div>
+                                        {% else %}
+                                            <div class="carousel-item">
+                                                <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}"
+                                                     class="d-block w-100" alt="...">
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/Erreurs/notFound.png')}}" class="d-block w-100" alt="">
-                            </div>
-                        {% endif%}
+                                {% endfor %}
+                            {% else %}
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('img/Erreurs/notFound.png') }}" class="d-block w-100" alt="">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <div class="card-body" >
+                    {# <div class="card-body" >
                     <p class="cart-text">
                         {{ entreprise.description }}
                     </p>
+                </div> #}
+                </div>
+                <div>
+                    {% if  app.user %}
+                        {% if app.user.entreprise == entreprise %}
+                            <a href="{{ path('AjoutProduit') }}" class="btn button">Ajouter un produit</a>
+                        {% else %}
+                            <a href="{{ path('Accueil' ) }}" class="btn button">Retour à la liste de produits</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ path('Accueil' ) }}" class="btn button">Retour à la liste de produits</a>
+                    {% endif %}
                 </div>
             </div>
-
         </div>
         <div class="row mb-2 background-section">
             {{ include('inc/__card.html.twig') }}
             {% if app.user.vendeur == false %}
                 {% if app.user.entreprise == entreprise %}
-                  <div> Les produits que vous ajouterez s'afficheront lorsque votre compte vendeur sera validé</div>
+                    <div> Les produits que vous ajouterez s'afficheront lorsque votre compte vendeur sera validé</div>
                 {% endif %}
             {% endif %}
-            <div>
-                {% if  app.user%}
-                    {% if app.user.entreprise == entreprise %}
-                        <a href="{{ path('AjoutProduit') }}" class="btn btn-primary" >Ajouter un produit</a>
-                    {% else %}
-                        <a href="{{ path('Accueil' ) }}" class="btn btn-primary">Retour à la liste de produits</a>
-                    {% endif %}
-                {% else %}
-                    <a href="{{ path('Accueil' ) }}" class="btn btn-primary">Retour à la liste de produits</a>
-                {% endif %}
-            </div>
+
         </div>
-        <div class="row background-section">
-            <div class="col-6">
+        <div class="background-section">
+            <div class="col-12">
             </div>
-            <div class = col-6>
+            <div class="col-11 entreprise">
                 <h3>Entreprise basée à : </h3>
-                <div class="maps">
-                    <iframe src="https://www.google.com/maps/d/embed?mid=1Vp-lHS6dz1rwNdc-i4V7KSXU_cRMZOy_"
-                            width="500" height="500"></iframe>
-                </div>
+
+                <div id="map" class="map"></div>
             </div>
         </div>
     </div>
-    {% block javascripts %}
-        <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
-    {% endblock %}
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="{{ asset('Javascripts/Maps.js') }}"></script>
+    <script>afficheEntreprise({{ produitMap| json_encode | raw }})</script>
 {% endblock %}

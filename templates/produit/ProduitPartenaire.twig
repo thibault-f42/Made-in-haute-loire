@@ -16,7 +16,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ produit.nomArticle }}</h5>
                                 <p class="card-text">{{ produit.description }}</p>
-                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn button">Modifier</a>
                             </div>
                         </div>
                     {% else %}
@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ produit.nomArticle }}</h5>
                                 <p class="card-text">{{ produit.description }}</p>
-                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn btn-primary">Modifier</a>
+                                <a href="{{ path('modifierProduit', {'id' : produit.id} ) }}" class="btn button">Modifier</a>
                             </div>
                         </div>
                     {% endif%}

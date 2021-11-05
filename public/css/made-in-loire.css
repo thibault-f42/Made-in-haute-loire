@@ -1,177 +1,122 @@
-body
-{
-    display: flex;
-    background-color: #FFFFFF;
-    flex-direction: column;
+.liseret {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
-
-.filtreAccueil
-{
-    flex-direction: row;
-    height: 200px;
-
-}
-
-.choix
-{
-    border-bottom: 5px dashed #0D58BE;
-    border-radius: 30px;
-    margin-top: 10px;
-
-}
-
-.logo
-{
+.logo {
+    position: relative;
+    margin-left: 30px;
     box-shadow: 2px 2px 2px 2px #FFFFFF;
     border-radius: 500px;
-}
-.quiSommeNous
-{
-    background-color: #5eb5e0;
+    height: 50%;
+    width: 20%;
 }
 
-nav, footer
-{
-    border-top: 10px double #FFFFFF;
-    border-bottom: 10px double #FFFFFF;
-    border-radius: 30px;
-    background-color: forestgreen;
-}
-.container
-{
-    flex-direction: row;
-    margin-left: 60px;
-}
-label
-{
-    margin-left: 80px;
+#navbarNav {
+    position: absolute;
+    right: 40px;
 }
 
-select, option
-{
-    margin-right: 40px;
-    margin-bottom: 40px;
-}
-
-.d-block
-{
-    height: 300px;
-}
-
-img
-{
-    width: 150px;
-    object-fit: cover;
-}
-
-section
-{
-    flex-direction: row;
-}
-
-.boutonRecherche
-{
-    text-align: center;
-    margin-top: 20px;
-    margin-left: 250px;
-    margin-right: 250px;
-}
-section
-{
-    width: 50%;
-    justify-content: space-between;
-}
-h2
-{
-    text-align: center;
-}
-
-aside, p
-{
-    text-align: justify;
-}
-
-/** CSS login.html.twig **/
-.buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous
-{
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-.Connexion, .buttonConnexion
-{
-    margin-left: 450px;
-    margin-right: 400px;
-}
-
-.form-control
-{
+.form-control {
     margin-bottom: 20px;
     margin-top: 20px;
     border-radius: 10px;
 }
 
-.Connexion
-{
+.form-label, .form-check-label {
+    margin-left: 10px;
     text-align: center;
+}
+.banniere {
+    width: 100%;
+}
+
+.textBanniere h2 {
+    font-size: 18px;
+    padding-bottom: 30px;
+}
+
+.quiSommeNous {
+    background-color: #5eb5e0;
+}
+
+.d-block {
+    height: 300px;
+}
+
+/** CSS login.html.twig **/
+.buttonConnexion, .SeSouvenirDeMoi, .Connectez-Vous {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.Connexion, .buttonConnexion {
+    margin-left: 450px;
+    margin-right: 400px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.Connexion {
+    text-align: center;
+}
+
+.checkbox {
+    margin-left: 10px;
+    text-align: center;
+}
+
+.cadre_scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 430px;
+}
+
+.col-12 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.55);
 }
 
 /** CSS modifierProduit.html.twig **/
 
 /** CSS modificationUtilisateur.html.twig **/
-.btn
-{
+.btn {
     flex-wrap: nowrap;
     justify-content: center;
 }
 
-.informationDuCompte
-{
+.informationDuCompte {
     margin-left: 300px;
     margin-top: 20px;
 }
-.formulaireInformationCompte
-{
+
+.formulaireInformationCompte {
     border-bottom: 30px #b0413e;
 }
 
-h3, p, h5
-{
-    text-align: center;
-}
 
-.creationProduit
-{
-    text-align: center;
-    margin: 20px 350px 20px 400px;
-    border-radius: 10px;
-}
 
-img
-{
-    max-width: 100%;
-    height: auto;
-}
-
-.contenaire
-{
-    width: 100%;
-    padding-left: 450px;
-    padding-right: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.card
-{
+.card {
     flex-direction: row;
 }
 
-.copyright
-{
+.copyright {
     margin-left: 20px;
 }
+
 /** CSS index.html.twig **/
 
 .background-Texte {
@@ -182,42 +127,53 @@ img
     border-bottom: 1px solid #DDD;
 }
 
-#maCarte
-{
-    height: 400Px;
-    width: 400px;
+#maCarte {
+    height: 95%;
+    width: 100%;
+    border-radius: 30px;
+    margin-bottom: 3%;
 }
+
+#map {
+    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.colorTitle3 {
+    width: 50%;
+    padding: 3% 0 0 0 !important;
+    background: #228B22;
+    margin-left: 30%;
+    -webkit-transform: skew(-30deg);
+    -moz-transform: skew(-30deg);
+    -o-transform: skew(-30deg);
+    tranform: skew(-30deg);
+}
+
+.allProduits h3 {
+    color: white;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 25px;
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -o-transform: skew(30deg);
+    tranform: skew(30deg);
+}
+
 /** CSS detail.produit.twig **/
 
-.card-title
-{
+.card-title {
     border-bottom: 5px forestgreen double;
     border-radius: 30px;
     margin-bottom: 25px;
 }
-h2
-{
-    font-family: "Times New Roman";
-}
-h3
-{
 
-    margin-bottom: 25px;
-    font-family: "Times New Roman";
-}
 
-section
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
 
-article,  .ajoutProduit
-{
+article, .ajoutProduit {
 
     padding: 20%;
     border-top: 10px double #0D58BE;
@@ -233,106 +189,150 @@ article,  .ajoutProduit
     width: 550px;
 }
 
-h3, .card, .card-body, .card-text, a, img
-{
+.card, .card-body, .card-text, .card-prix, a, img {
     margin-left: auto;
     margin-right: auto;
+    color: black;
+    position: center;
 
 
 }
 
-section, .card, .card-body, .card-text, a, img, h3
-{
+section, .card, .card-body, .card-text, .card-prix, a, img, h3 {
     display: block;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
 }
 
-@media all and (min-width: 1024px) and (max-width: 1280px)
-{
-    body
-    {
+.img-fluid {
+    height: 200px;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+    body {
         margin: auto;
     }
 }
 
+
 /** CSS inscription.html.twig **/
 
-.formulaireInscription, .h1Inscription
-{
-    width: 1270px;
-    display: flex;
+.register {
     flex-direction: row;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 15px;
+    display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-.h1Inscription
-{
-    width: 500px;
-    margin-left: 390px;
-
-    margin-top: 25px;
-    border-bottom: 10px double #0D58BE;
-    border-radius: 20px;
-
-}
-.boutonInscription
-{
-    margin-left: 50px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+.agree {
+    margin-bottom: 2%;
 }
 
 /** CSS Panier index.html.twig **/
 
-.h1VotrePanier
-{
-    width: 1000px;
-    height: 350px;
+.title {
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+#quantity, #sousTotal {
+    text-align: left;
+}
+
+.produitName {
+    margin-bottom: 5%;
+}
+
+.imgPanier {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#sousTotal {
+    text-align: center;
+    margin-top: 20%;
+    margin-bottom: 1%;
+}
+
+/**CSS apperçuCommande.html.twig */
+
+.ArtCmd {
+    margin-left: 10%;
+}
+
+/**CSS Partenaire.html.twig */
+
+.imgEntreprise {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+/** CSS modifierEntreprise.html.twig */
+
+.modify {
+    display: flex;
+    position: relative;
+    text-align: left;
+}
+
+.description {
+
+    text-align: left;
+    justify-content: left;
+    margin-left: 8%;
 }
 
 /** CSS VitrinePartenaire.html.twig **/
 
-.h3Vitrine
-{
-    width: 600px;
-    margin-left: 290px;
-    margin-bottom: 20px;
-    text-align: center;
+.entreprise {
+    width: 50%;
+    margin-left: 25%;
+}
 
-    margin-top: 25px;
-    border-bottom: 10px double #0D58BE;
-    border-radius: 20px;
+/**
+CSS Formulaire-Inscription-Entreprise.html.twig
+ */
+
+.creationProduit {
+    display: flex;
+    width: 90%;
+    text-align: left;
+    border-radius: 10px;
 }
-.boutonAjouterProduitVitrine, .boutonModifierProduit
-{
-    text-align: center;
-}
+
 /** modifier produit **/
 
 
-.imgModifierProduit, .modifierProduit
-{
+.imgModifierProduit, .modifierProduit {
     display: flex;
     flex-direction: row;
 }
 
 /** modifier entreprise **/
 
-.photoModifierEntreprise
-{
+.photoModifierEntreprise {
     margin-bottom: 20px;
     text-align: center;
 
     margin-top: 25px;
 }
 
-.modifierEntreprise, .photoModifierEntreprise
-{
+.modifierEntreprise, .photoModifierEntreprise {
     display: flex;
     justify-content: space-between;
 }
 
+/*
+CSS DetailProduit
+ */
+.img__full, #img__full {
+    width: 350px;
+    height: 40%;
+}
 

@@ -4,60 +4,71 @@
 
 {% block body %}
     <div class="container">
-    <h1>Votre panier</h1>
-    {% for  ligne in dataPanier  %}
-        <div class="row border-bot-rows">
-            <div class="col-3">
-                {% if ligne.produit.fichiers is not empty %}
-                    <img src={{ asset('img/ProduitPhoto/'~ligne.produit.fichiers[0].urlFichier) }}>
-                {% else %}
-                    <img src={{ asset('img/Erreurs/notFound.png')}} class="card-img-top" alt="photo-erreur" >
-                {% endif %}
-                <div class="row">
-                    <ul>
-                        <div class="col-6">
-                            {{ ligne.produit.nomArticle }}
-                        </div>
-                        <div class="col-6">
-                            {{  ligne.produit.prix}} €
-                        </div>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-4">
-                        <form method="post" action="{{ path('panier_set', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}">
-                            <div class="row">
-                                <label for="inputQuantite">Quantite</label>
-                                <div class="col-4">
-                                    <input type="text" value="{{ ligne.quantite }}" name="quantite" id="inputQuantite" class="form-control">
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-success" type="submit" style="margin: 20px">
-                                        <i class="bi bi-cart-check"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-4">
-                        {{ligne.produit.prix * ligne.quantite}} €
-                    </div>
-                    <div class="col-4">
-                        <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}" class="btn btn-success" style="margin-top: 40px"><i class="bi bi-cart-plus"></i> </a>
-                        <a href="{{ path('panier_remove',{'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}" class="btn btn-warning" style="margin-top: 40px"> <i class="bi bi-cart-dash"></i> </a>
-                        <a href="{{ path('panier_delete',  {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}" class="btn btn-danger" style="margin-top: 40px"><i class="bi bi-cart-x"></i> </a>
-                    </div>
-                </div>
-            </div>
+        <div class="title">
+            <h1>Votre panier</h1>
         </div>
-    {% else %}
-        votre panier est vide
-    {% endfor %}
-        <div>
+        {% for  ligne in dataPanier %}
+            <div class="row border-bot-rows imgPanier">
+                <div class="col-2">
+                    {% if ligne.produit.fichiers is not empty %}
+                        <img src={{ asset('img/ProduitPhoto/'~ligne.produit.fichiers[0].urlFichier) }}>
+                    {% else %}
+                        <img src={{ asset('img/Erreurs/notFound.png') }} class="card-img-top" alt="photo-erreur">
+                    {% endif %}
+
+                </div>
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-4">
+                            <form method="post"
+                                  action="{{ path('panier_set', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')} ) }}">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-12 produitName">
+                                            {{ ligne.produit.nomArticle }}
+                                        </div>
+                                    </div>
+                                    <label for="inputQuantite" id="quantity">Quantitée</label>
+                                    <div class="col-4">
+                                        <input type="text" value="{{ ligne.quantite }}" name="quantite"
+                                               id="inputQuantite" class="form-control">
+                                    </div>
+                                    <div class="col-4">
+                                        <button class="btn btn-success" type="submit" style="margin: 20px">
+                                            <i class="bi bi-cart-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-3">
+                            <div class="col-12">
+                                <label id="sousTotal">Sous-total</label>
+                            </div>
+                            <div class="col-12 ">
+                                <label id="sousTotal">{{ ligne.produit.prix * ligne.quantite }} €</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 buttonPanier">
+                        <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
+                           class="btn btn-success" style="margin-top: 40px"><i class="bi bi-cart-plus"></i> </a>
+                        <a href="{{ path('panier_remove',{'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
+                           class="btn btn-warning" style="margin-top: 40px"> <i class="bi bi-cart-dash"></i> </a>
+                        <a href="{{ path('panier_delete',  {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
+                           class="btn btn-danger" style="margin-top: 40px"><i class="bi bi-cart-x"></i> </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            votre panier est vide
+        {% endfor %}
+        <div class="border-bot-rows">
             total : {{ total }} €
+            <div style="text-align: center"><a href="{{ path('commandeApperçu') }}">
+                    <button class="btn btn-outline-success button">Passer la commande</button>
+                </a></div>
         </div>
     </div>
-    <div style="text-align: center"><a href="{{ path('commandeApperçu') }}"><button class="btn btn-outline-success">continuer</button></a></div>
+
 {% endblock %}

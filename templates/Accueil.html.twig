@@ -1,44 +1,48 @@
-
 {% extends 'base.html.twig' %}
 
 
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     <div class="row">
-        <div class = col-12>
+        <div>
+            <a href="{{ path('Accueil') }}"><img src="{{ asset('logo/liseret_tricolore.png') }}" alt="image"
+                                                 class="banniere"></a>
+            <div class="textBanniere">
+                <h2>DES PRODUITS RESPONSABLES ET 100% FABRIQUÉS EN LOIRE ET HAUTE LOIRE</h2>
+            </div>
+        </div>
+        <div class="col-12">
             <div class="container">
-                <h2>Filtres</h2>
-                {{ form_start(filtreFormulaire)  }}
+                {{ form_start(filtreFormulaire) }}
 
                 <div class="row mb-2">
                     <div class="col-2">
-                        {{form_row(filtreFormulaire.departement) }}
+                        {{ form_row(filtreFormulaire.departement) }}
                     </div>
                     <div class="col-2">
                         {{ form_row(filtreFormulaire.canton) }}
                     </div>
                     <div class="col-2">
-                        {{form_row(filtreFormulaire.categorie)}}
+                        {{ form_row(filtreFormulaire.categorie) }}
                     </div>
-                    <div class="col-2" id="sousCategorieDiv" >
-                        {{form_row(filtreFormulaire.sousCategorie,  {'attr':{'disabled': true }}) }}
+                    <div class="col-2" id="sousCategorieDiv">
+                        {{ form_row(filtreFormulaire.sousCategorie) }}
                     </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-1">
+                    <div class="col-2">
                         {{ form_row(filtreFormulaire.prixMin) }}
                     </div>
-                    <div class="col-1">
-
+                    <div class="col-2">
                         {{ form_row(filtreFormulaire.prixMax) }}
                     </div>
                 </div>
-                <div class="row col-1">
-                    <button class="btn-primary ">{{ button_label|default('rechercher ') }}</button>
+                <div class="col-1">
+                    <button class="btn button">{{ button_label|default('rechercher ') }}</button>
                 </div>
                 {{ form_end(filtreFormulaire) }}
             </div>
@@ -46,13 +50,17 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-9">
-                <h3>Tous nos produits</h3>
-                <div class="row">
+            <div class="col-5">
+                <div class="colorTitle3">
+                    <div class="allProduits">
+                        <h3>Tous nos produits</h3>
+                    </div>
+                </div>
+                <div class="cadre_scroll">
                     {{ include('inc/__card.html.twig') }}
                 </div>
             </div>
-            <div class = col-3>
+            <div class=col-7>
                 <div id="maCarte" class="maps">
                 </div>
             </div>
@@ -61,15 +69,18 @@
     <script src="{{ asset('Javascripts/Categorie.js') }}"></script>
     <script>requeteAjaxGet('#categorie', 'change', '#sousCategorie')</script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-    {#    important !!! le JS LEAFLET DOIT ETRE PLACÉ APRES LE CSS LEAFLET#}
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
+    {# important !!! le JS LEAFLET DOIT ETRE PLACÉ APRES LE CSS LEAFLET #}
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
-    {#    le script markerCluster doit etre déclaré APRES le script Leaflet#}
+    {# le script markerCluster doit etre déclaré APRES le script Leaflet #}
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    <script src="{{ asset('Javascripts/Map.js') }}">   </script>
-    <script>afficheProduits({{produitMap| json_encode | raw}})</script>
+    <script src="{{ asset('Javascripts/Map.js') }}"></script>
+    <script>afficheProduits({{ produitMap| json_encode | raw }})</script>
+
 {% endblock %}
 
 {% block title %}
