@@ -64,7 +64,7 @@ class Entreprise
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=14, unique=true)
      */
     private $siret;
 
