@@ -68,16 +68,12 @@ class Ville
      */
     private $adresseLivraison;
 
-
-
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
         $this->adresseLivraison = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {
@@ -243,7 +239,7 @@ class Ville
         return $this->adresseLivraison;
     }
 
-    public function addAdresse(AdresseLivraison $aadresseLivraison): self
+    public function addAdresse(AdresseLivraison $adresseLivraison): self
     {
         if (!$this->adresseLivraison->contains($adresseLivraison)) {
             $this->adresseLivraison[] = $adresseLivraison;

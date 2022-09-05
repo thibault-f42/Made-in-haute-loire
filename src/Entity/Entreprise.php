@@ -53,7 +53,7 @@ class Entreprise
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise",  cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise")
      */
     private $fichier;
 
@@ -64,12 +64,12 @@ class Entreprise
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=14, unique=true)
      */
     private $siret;
 
     /**
-     * @ORM\OneToOne(targetEntity=Utilisateur::class, mappedBy="entreprise", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Utilisateur::class, mappedBy="entreprise")
      */
     private $utilisateur;
 
