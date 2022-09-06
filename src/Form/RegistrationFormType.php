@@ -28,17 +28,16 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class, ['required' => false])
-            ->add('prenom', TextType::class, ['required' => false])
-            ->add('email', TextType::class, ['required' => false])
-            ->add('adresse', TextType::class, ['required' => false])
+            ->add('nom')
+            ->add('prenom')
+            ->add('email')
+            ->add('adresse')
             ->add('codePostal', TextType::class, [
                 'mapped'=>false,
                 'attr' => ['placeholder'=>'Indiquez votre code postal'],
-                'label'=> 'Code Postal',
-                'required' => false
+                'label'=> 'Code Postal'
                 ])
-            ->add('telephone', TextType::class, ['required' => false])
+            ->add('telephone')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -53,7 +52,6 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les valeurs pour les champs mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
 
