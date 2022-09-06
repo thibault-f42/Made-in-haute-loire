@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Ajout d'un message flash 'Validation ajout panier'">
-      <change beforePath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scss/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -254,7 +249,7 @@
       <workItem from="1662358237732" duration="765000" />
       <workItem from="1662359014800" duration="5958000" />
       <workItem from="1662365691199" duration="7553000" />
-      <workItem from="1662448439797" duration="13383000" />
+      <workItem from="1662448439797" duration="14092000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour front">
       <created>1636124815810</created>
@@ -277,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662457347200</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct">
+      <created>1662470788269</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662470788269</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +300,8 @@
     <MESSAGE value="Mise à jour front" />
     <MESSAGE value="Modification de l'entité &quot;Entreprise&quot;&#10;--&gt; Le siret posait problème pour l'affichage de la page accueil" />
     <MESSAGE value="Ajout d'un message flash 'Validation ajout panier'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout d'un message flash 'Validation ajout panier'" />
+    <MESSAGE value="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
