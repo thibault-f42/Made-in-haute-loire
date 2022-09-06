@@ -49,6 +49,9 @@ class PanierController extends AbstractController
         $id = $produit->getId();
         if(!empty($panier[$id])){
             $panier[$id]++;
+            $this->addFlash('success', "L'article a bien été ajouté au
+            panier !");
+            return $this->redirectToRoute('Accueil',['id'=> $produit->getId()]);
         }
         else{
             $panier[$id] = 1;

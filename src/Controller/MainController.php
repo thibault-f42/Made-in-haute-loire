@@ -60,7 +60,7 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         }
 
         //ajax
-        if ($request->get('ajax') && $request->get('categorie')) {
+       if ($request->get('ajax') && $request->get('categorie')) {
 
             $categorieString = $request->get('categorie');
             $categorie = (int)$categorieString;

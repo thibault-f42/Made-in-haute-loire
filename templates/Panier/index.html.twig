@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-3 buttonPanier">
-                        <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
+                       <a href="{{ path('panier_add', {'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
                            class="btn btn-success" style="margin-top: 40px"><i class="bi bi-cart-plus"></i> </a>
                         <a href="{{ path('panier_remove',{'id' : ligne.produit.id , 'provenance' : app.request.attributes.get('_route')}) }}"
                            class="btn btn-warning" style="margin-top: 40px"> <i class="bi bi-cart-dash"></i> </a>
