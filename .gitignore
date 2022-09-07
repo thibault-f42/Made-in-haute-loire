@@ -55,3 +55,5 @@
 *.local
 
 .idea/*
+migrations/Version20220905063750.php
+migrations/Version20220905063418.php
