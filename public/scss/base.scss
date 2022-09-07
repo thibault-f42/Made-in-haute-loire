@@ -52,15 +52,27 @@ section {
 }
 
 .flash{
-  padding: 10px;
+  color : whitesmoke;
   font-weight: bold;
-  font-size: 1.4rem;
-  margin: 1rem 0;
-  border-radius: 15px;
-  content-visibility:
+  display: inline;
+  text-align: center;
+  align-items: center !important;
+  align-content: center !important;
+  border-radius: 33px;
+  border: 2px solid #408f20;
 }
 
 .flash-success {
-  background-color: #228B22;
+ background-color: #6bb26b;
+  max-width: 25em !important;
+  max-height: 5em !important;
+  padding: 25px !important;
+  border-radius: 33px;
 
+}
+
+.cross, .close{
+  max-width: 15px;
+  max-height: 15px;
+  margin-bottom: 17px;
 }

@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Modification de l'entité &quot;Entreprise&quot;&#10;--&gt; Le siret posait problème pour l'affichage de la page accueil">
-      <change beforePath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Made-in-haute-loire.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/ProduitPhoto/a2145815e143fa5bec97c42cec08f8ad.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scss/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PanierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PanierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Panier/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Panier/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inc/__card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__card.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,18 +158,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Wamp64/www/Made-in-haute-loire&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Wamp64/www/Made-in-haute-loire/public/img/Tools",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Wamp64\www\Made-in-haute-loire\public\img\Tools" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\public\css" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\templates\inc" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\templates\produit" />
@@ -259,7 +249,7 @@
       <workItem from="1662358237732" duration="765000" />
       <workItem from="1662359014800" duration="5958000" />
       <workItem from="1662365691199" duration="7553000" />
-      <workItem from="1662448439797" duration="7210000" />
+      <workItem from="1662448439797" duration="14092000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour front">
       <created>1636124815810</created>
@@ -275,7 +265,21 @@
       <option name="project" value="LOCAL" />
       <updated>1662372119077</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Ajout d'un message flash 'Validation ajout panier'">
+      <created>1662457347200</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1662457347200</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct">
+      <created>1662470788269</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662470788269</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +299,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mise à jour front" />
     <MESSAGE value="Modification de l'entité &quot;Entreprise&quot;&#10;--&gt; Le siret posait problème pour l'affichage de la page accueil" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification de l'entité &quot;Entreprise&quot;&#10;--&gt; Le siret posait problème pour l'affichage de la page accueil" />
+    <MESSAGE value="Ajout d'un message flash 'Validation ajout panier'" />
+    <MESSAGE value="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
