@@ -644,11 +644,17 @@ INSERT INTO `adresse_livraison` (`id`, `ville_id`, `adresse`, `informations_impo
 (3, 16028, 'drsfge dfsgv erzdfg resz', 'reg sedg'),
 (4, 16028, 'drsfge dfsgv erzdfg resz', 'regdfb f');
 
+INSERT INTO `utilisateur` (`id`, `ville_id`, `entreprise_id`, `adresse_livraison_id`, `email`, `roles`, `password`, `nom`, `prenom`, `telephone`, `vendeur`, `adresse`, `is_verified`, `activation_token`, `token_mdp`, `actif`) VALUES
+(20, 16325, NULL, NULL, 'admin@admin.admin', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$VlFMLnVsVnFiQkE3NXVhYQ$/t9/cSTbOIVE4x7BftlwfGf2Jza/Ak9rlEEmf963IaI', 'admin', 'admin', '0987654321', 0, 'adminadmin', 0, '91f773ca384330efc07e9dcf22b4e41f', NULL, 1),
+(21, 16191, NULL, NULL, 'user@user.user', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$YU5WZUR0Z2xGcFZvZmlIUg$19aEub62aC7tV0aGk5VEWjo4hjGkx5fvCYkLCmjnERY', 'user', 'user', '01234565789', 0, 'useruser', 0, '7a742da68c240d73808838eab36cd2d3', NULL, 1),
+(22, 16042, 10, NULL, 'vendeur@vendeur.vendeur', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$c3paSzE1dUFsajBYZXN5eg$IzoyRpCIE1nsP3K7Ni1PFehWOX7BbE33F6sZvA0y9s4', 'vendeur', 'vendeur', '0987654321', 0, 'vendeurvendeur', 0, '522608844e5147e2eb2c75f6310794ff', NULL, 1);
+
 INSERT INTO `utilisateur` (`id`, `ville_id`, `email`, `roles`, `password`, `nom`, `prenom`, `telephone`, `vendeur`, `adresse`, `is_verified`, `entreprise_id`, `activation_token`, `token_mdp`, `adresse_livraison_id`, `actif`) VALUES
 (15, 16132, 'test@test.fr', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$dGJORGVOVkxuQThySUdBag$NjPl2gXdrHDMoATbowLA8gHQHGpv896xqfB9g9VR4/o', 'test', 'test', '0123456789', 1, 'ez fezf ezf', 0, 8, '2fa9028ec4e2d325a934d7225adad4a1', NULL, NULL, 1),
 (16, 16576, 'dombouif2@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$eDNNV3FBQXk1a3BSREtiOQ$/japPc1FD78bxMj1mcHD1v6OohXoEwtc48IlQ0AkSLo', 'benoit', 'domnin', '0123456789', 0, 'rue des colibri', 0, NULL, '0220d67340847550645d008f1d445d2f', NULL, 3, 1),
 (18, 16063, 'test2@test2.fr', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$OTM1ZGguTy9rM1JNNFlDTQ$6+Atrpg1JSbYT+ZAggG3Vz07ZYFu4gnVlohTWIewjq0', 'test2', 'test2', '0123456789', 1, 'dzebhai ehjszf eqjskl', 0, 9, 'b31ea575e5377a22bb735ad9672e6bf9', NULL, 4, 1),
 (19, 16256, 'test3@test.fr', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$V28uaVFRVmdZQm1TZXF5RA$EWl2IrJN0o6nqBxjtdU2NIhGIFOD2g1NaShTW6BD/Y0', 'test3', 'test', '0123456789', 0, 'ez fezf ezf', 0, NULL, '61b73278327c9530953c9756bf5cb540', NULL, NULL, 1);
+
 
 INSERT INTO `commande` (`id`, `utilisateur_id`, `prix`, `date_commande`, `date_livraison`, `code_commande`, `descriptif`, `adresse_livraison_id`, `etat`) VALUES
 (24, 16, 123, '2021-09-16', '2021-09-17', '01', 'tabouret', 3, '6'),
