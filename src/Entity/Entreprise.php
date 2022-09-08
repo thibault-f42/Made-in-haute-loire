@@ -53,7 +53,7 @@ class Entreprise
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise")
+     * @ORM\OneToMany(targetEntity=Fichier::class, mappedBy="entreprise", cascade={"persist"})
      */
     private $fichier;
 

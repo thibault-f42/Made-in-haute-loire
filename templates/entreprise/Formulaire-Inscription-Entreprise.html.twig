@@ -5,35 +5,37 @@
 {% endblock %}
 
 {% block body %}
-    <div class="creationProduit">
-        <div class="col-12">
-            <div class="col-2">
-                {{ form_start(EntrepriseForm) }}
-                {{ form_row(EntrepriseForm.nom) }}
-                {{ form_row(EntrepriseForm.siret) }}
-                {{ form_row(EntrepriseForm.email) }}
-                {{ form_row(EntrepriseForm.telephone) }}
-            </div>
-            <div class="col-1"></div>
-            <div class="col-4">
-                {{ form_row(EntrepriseForm.adresse) }}
-                {{ form_row(EntrepriseForm.codePostal) }}
-                {{ form_row(EntrepriseForm.ville) }}
-                {{ form_row(EntrepriseForm.description) }}
-            </div>
-            <div class="col-1"></div>
-            <div class="col-2">
-                {{ form_row(EntrepriseForm.justificatifSiret) }}
-                {{ form_row(EntrepriseForm.carteIdentite) }}
-                {{ form_row(EntrepriseForm.photos) }}
-                {{ form_end(EntrepriseForm) }}
+    {{ form_start(EntrepriseForm) }}
+        <div class="creationProduit">
+            <div class="col-12">
+                <div class="col-2">
+
+                    {{ form_row(EntrepriseForm.nom) }}
+                    {{ form_row(EntrepriseForm.siret) }}
+                    {{ form_row(EntrepriseForm.email) }}
+                    {{ form_row(EntrepriseForm.telephone) }}
+                </div>
+                <div class="col-1"></div>
+                <div class="col-4">
+                    {{ form_row(EntrepriseForm.adresse) }}
+                    {{ form_row(EntrepriseForm.codePostal) }}
+                    {{ form_row(EntrepriseForm.ville) }}
+                    {{ form_row(EntrepriseForm.description) }}
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                    {{ form_row(EntrepriseForm.justificatifSiret) }}
+                    {{ form_row(EntrepriseForm.carteIdentite) }}
+                    {{ form_row(EntrepriseForm.photos) }}
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="boutonPublier">
-        <button class="btn button" type="submit">Publier</button>
-    </div>
 
+        <div class="boutonPublier">
+            <button class="btn button" type="submit">Publier</button>
+        </div>
+    {{ form_end(EntrepriseForm) }}
     {% block javascripts %}
         <div class="boutonPhoto">
             <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>

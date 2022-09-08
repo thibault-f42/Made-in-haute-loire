@@ -23,21 +23,21 @@ class EntrepriseFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('siret', TextType::class, ['required' => false, 'label' => 'SIRET'])
-            ->add('nom', TextType::class, ['required' => false])
-            ->add('adresse', TextType::class, ['required' => false])
-            ->add('telephone', TextType::class, ['required' => false])
-            ->add('email', TextType::class, ['required' => false])
+            ->add('siret', TextType::class, ['required' => true, 'label' => 'SIRET'])
+            ->add('nom', TextType::class, ['required' => true])
+            ->add('adresse', TextType::class, ['required' => true])
+            ->add('telephone', TextType::class, ['required' => true])
+            ->add('email', TextType::class, ['required' => true])
             ->add('photos', FileType::class, ['label' => 'Photos', 'multiple' => true, 'mapped' => false, 'required' => false])
             ->add('codePostal', TextType::class, [
                 'mapped' => false,
                 'attr' => ['placeholder' => 'Indiquez votre code postal'],
                 'label' => 'Code Postal',
-                'required' => false
+                'required' => true
             ])
-            ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => false ])
-            ->add('carteIdentite', FileType::class, ['label' => 'Carte d\'identité', 'multiple' => true, 'mapped' => false, 'required' => false ])
-            ->add('description', TextareaType::class, ['required'=>false, 'label'=>'Description de votre entreprise'])
+            ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => true ])
+            ->add('carteIdentite', FileType::class, ['label' => 'Carte d\'identité', 'multiple' => true, 'mapped' => false, 'required' => true ])
+            ->add('description', TextareaType::class, ['required'=>true, 'label'=>'Description de votre entreprise'])
         ;
 
         $builder->get('codePostal')->addEventListener(FormEvents::POST_SUBMIT,
