@@ -7,11 +7,11 @@
                     <div class="col-md-4">
                             {% if produit.fichiers is not empty %}
                                 <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                                    <img src="{{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }}"
+                                    <img class="image" src="{{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }}"
                                          class="img-fluid rounded-start" alt="photo-produit" height="auto"></a>
                             {% else %}
                                 <a href="{{ path('modifierProduit', {'id' : produit.id } ) }}">
-                                    <img src="{{ asset('img/Erreurs/notFound.png') }} " class="img-fluid rounded-start"
+                                    <img class="image" src="{{ asset('img/Erreurs/notFound.png') }} " class="img-fluid rounded-start"
                                          alt="photo-erreur"></a>
                             {% endif %}
                     </div>

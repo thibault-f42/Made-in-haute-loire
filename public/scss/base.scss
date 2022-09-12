@@ -2,9 +2,20 @@ body {
   display: grid;
   flex-direction: column;
   width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
   min-height: 100vh;
   grid-template-rows: auto 1fr auto;
+  overflow-x :hidden;
+  background-image:url("../img/background/bc-1.jpg");
+  background-size: cover;
+
+}
+
+.slogan{
+  font-size: 24px;
+  padding-bottom: 50px;
 }
 
 label {
@@ -15,7 +26,6 @@ select, option {
   margin-right: 40px;
   margin-bottom: 40px;
 }
-
 
 
 section {
@@ -75,4 +85,10 @@ section {
   max-width: 15px;
   max-height: 15px;
   margin-bottom: 17px;
+}
+
+/* Bugfix des forms ==> décalage lors des erreurs*/
+
+.d-block{
+  height: 50px !important;
 }

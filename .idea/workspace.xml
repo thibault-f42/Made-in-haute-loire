@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct" />
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire-old.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire-old.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/background/liseret_tricolore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo/banniere.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo/liseret_tricolore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo/made-in-loire.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo/made-in-loire2-small.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo/made-in-loire2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scss/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/scss/base.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/__card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__card.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/nav.html.twig" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -163,19 +177,23 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Wamp64/www/Made-in-haute-loire/public/img/Tools",
+    "last_opened_file_path": "C:/Wamp64/www/Made-in-haute-loire/public/logo",
+    "list.type.of.created.stylesheet": "CSS",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Wamp64\www\Made-in-haute-loire\public\logo" />
+      <recent name="C:\Wamp64\www\Made-in-haute-loire\public\img\background" />
       <recent name="C:\Wamp64\www\Made-in-haute-loire\public\img\Tools" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\public\css" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\templates\inc" />
-      <recent name="C:\wamp64\www\Made-in-haute-loire\templates\produit" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Wamp64\www\Made-in-haute-loire\public\logo" />
+      <recent name="C:\Wamp64\www\Made-in-haute-loire\public\img\Tools" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\public\scss" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\public" />
       <recent name="C:\wamp64\www\Made-in-haute-loire\public\css" />
@@ -249,7 +267,11 @@
       <workItem from="1662358237732" duration="765000" />
       <workItem from="1662359014800" duration="5958000" />
       <workItem from="1662365691199" duration="7553000" />
-      <workItem from="1662448439797" duration="14092000" />
+      <workItem from="1662448439797" duration="15584000" />
+      <workItem from="1662534586021" duration="5887000" />
+      <workItem from="1662620995272" duration="5037000" />
+      <workItem from="1662708459396" duration="2410000" />
+      <workItem from="1662967114510" duration="8191000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour front">
       <created>1636124815810</created>
@@ -279,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662470788269</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Modification du message flash 'Validation ajout panier'&#10;--&gt; Rendu correct">
+      <created>1662476314151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1662476314151</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
