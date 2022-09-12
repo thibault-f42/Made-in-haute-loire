@@ -215,10 +215,10 @@ section, .card, .card-body, .card-text, .card-prix, a, image, h3 {
 
 /** CSS Panier index.html.twig **/
 
-.title {
-    margin-bottom: 2%;
-    margin-top: 2%;
-}
+/*.title {*/
+/*    margin-bottom: 2%;*/
+/*    margin-top: 2%;*/
+/*}*/
 
 #quantity, #sousTotal {
     text-align: left;
