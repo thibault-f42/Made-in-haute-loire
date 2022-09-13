@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil">
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="- Animation du header&#10;- Début du footer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/nav.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/inc/__footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__footer.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -264,7 +263,7 @@
       <workItem from="1662620995272" duration="5037000" />
       <workItem from="1662708459396" duration="2410000" />
       <workItem from="1662967114510" duration="17379000" />
-      <workItem from="1663053926920" duration="4205000" />
+      <workItem from="1663053926920" duration="5884000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour front">
       <created>1636124815810</created>
@@ -329,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663054319313</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="- Animation du header&#10;- Début du footer">
+      <created>1663059632703</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663059632703</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,7 +362,8 @@
     <MESSAGE value="Nettoyage" />
     <MESSAGE value="Modification de la nav : le titre apparait sur toutes les pages" />
     <MESSAGE value="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil" />
+    <MESSAGE value="- Animation du header&#10;- Début du footer" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Animation du header&#10;- Début du footer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
