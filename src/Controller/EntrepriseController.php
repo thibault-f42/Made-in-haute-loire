@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entreprise;
 use App\Entity\Fichier;
+use App\Entity\Utilisateur;
 use App\Form\EntrepriseFormType;
 use App\Form\EntrepriseType;
 use App\Form\FichierType;
@@ -11,7 +12,9 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\FichierRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
+use App\Services\FromAdd;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,72 +88,41 @@ class EntrepriseController extends AbstractController
     /**
      * @Route ("/Inscription-Partenaire", name = "InscriptionFournisseur")
      */
-    public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,VilleRepository $villeRepository): Response
+    public function inscriptionPartenaire (Request $request,
+                                           EntityManagerInterface $entityManager,
+                                           VilleRepository $villeRepository,
+                                           UtilisateurRepository $utilisateurRepository,
+                                           FromAdd $fromAdd
+    ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $entreprise = new Entreprise();
-
-
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             //On recupère le user
-            $entreprise->setUtilisateur($this->getUser());
+            $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+            $entreprise->setUtilisateur($utilisateur);
 
             //On récupère les photos
-            $images= $form->get('photos')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($images as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('photos')->getData(),
+                $entreprise,
+                $this->getParameter('images_entreprises_directory'),
+                'Photos_presentation_entreprise');
 
             //On récupère les pieces justificatives
-            $Kbis= $form->get('justificatifSiret')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($Kbis as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_kbis_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Document_Kbis_Entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('justificatifSiret')->getData(),
+                $entreprise,
+                $this->getParameter('images_kbis_directory'),
+                'Document_Kbis_Entreprise');
 
             //On récupère les pieces justificatives
-            $cid= $form->get('carteIdentite')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($cid as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_carteID_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Document_carte_ID_Entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('carteIdentite')->getData(),
+                $entreprise,
+                $this->getParameter('images_entreprises_carteID_directory'),
+                'Document_carte_ID_Entreprise');
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entreprise);
