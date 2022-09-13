@@ -12,6 +12,9 @@ use App\Repository\FichierRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SousCategorieRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\FromAdd;
+use App\Services\Redirect;
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -55,8 +58,11 @@ class ProduitController extends AbstractController
     {
 
         $utilisateur= $utilisateurRepository->find($this->getUser());
+        if (!$utilisateur->getEntreprise()){
+            return $this->redirectToRoute('InscriptionFournisseur');
+        }
         $entreprise = $utilisateur->getEntreprise();
-        $produitsPartenaire =$entreprise->getProduits();
+        $produitsPartenaire = $entreprise->getProduits();
         $photosEntreprise= $fichierRepository->findBy(['typeFichier' => 'Photos_presentation_entreprise', 'entreprise'=>$entreprise]);
         $data = new SearchData();
 
@@ -91,10 +97,16 @@ class ProduitController extends AbstractController
      * @Route("/ajout-produit", name="AjoutProduit")
      * @return Response
      */
-    public function ajoutProduit(UtilisateurRepository $utilisateurRepository, Request $request, SousCategorieRepository $sousCategorieRepository): Response
+    public function ajoutProduit(UtilisateurRepository   $utilisateurRepository,
+                                 Request                 $request,
+                                 SousCategorieRepository $sousCategorieRepository): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur= $utilisateurRepository->find($this->getUser());
+        if (!$utilisateur->getVendeur()){
+            return $this->redirectToRoute('InscriptionFournisseur');
+        }
+
         $entreprise = $utilisateur->getEntreprise();
         $produitsPartenaire =$entreprise->getProduits();
 
@@ -194,7 +206,7 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{id}", name="produit_delete", methods={"POST"})
      */
-    public function delete(Request $request, Produit $produit)
+    public function delete(Request $request, Produit $produit, UtilisateurRepository $utilisateurRepository)
     {
 
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
@@ -238,15 +250,21 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{id}/Modification", name="modifierProduit", methods={"GET","POST"})
      */
-    public function modifier(Request $request, Produit $produit): Response
+    public function modifier(Request $request,
+                             Produit $produit,
+                             UtilisateurRepository $utilisateurRepository,FromAdd $fromAdd
+    ): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $last = $fromAdd->getLastPage($request);
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         $entreprise=$produit->getEntreprise();
 
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $utilisateur= $utilisateurRepository->find($this->getUser());
+        if ($form->isSubmitted() && $form->isValid() && ( $utilisateur->isAuthorProduit($produit) || $this->isGranted('ROLE_ADMIN'))){
 
 
             //On récupère les photos
@@ -279,10 +297,9 @@ class ProduitController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($produit);
             $entityManager->flush();
+            return $this->redirect($last);
 
-            return $this->redirectToRoute('produitPartenaire' , ['id'=>$entreprise->getId()]);
         }
-
         return $this->render('produit/modifierProduit.html.twig', [
             'produit' => $produit,
             'form' => $form->createView(),
