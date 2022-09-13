@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="">
+    <list default="true" id="c9e86f81-0f7a-461b-989a-efa14e4e408c" name="Default Changelist" comment="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Accueil.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/made-in-loire.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/made-in-loire.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/nav.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inc/__footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inc/__footer.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +23,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -162,17 +164,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Wamp64/www/Made-in-haute-loire/public/logo&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Wamp64/www/Made-in-haute-loire/public/logo",
+    "list.type.of.created.stylesheet": "SCSS",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Wamp64\www\Made-in-haute-loire\public\logo" />
@@ -262,7 +264,7 @@
       <workItem from="1662620995272" duration="5037000" />
       <workItem from="1662708459396" duration="2410000" />
       <workItem from="1662967114510" duration="17379000" />
-      <workItem from="1663053926920" duration="304000" />
+      <workItem from="1663053926920" duration="4205000" />
     </task>
     <task id="LOCAL-00001" summary="Mise à jour front">
       <created>1636124815810</created>
@@ -320,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662994812923</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil">
+      <created>1663054319313</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1663054319313</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +355,8 @@
     <MESSAGE value="- Début de création de la barre de navigation &#10;- Positionnement de la bannière + ajustement du slogan (à terminer)&#10;- Tri dans le vieux CSS + rangement du CSS (création de nouveaux fichiers avec des noms adaptés)" />
     <MESSAGE value="Nettoyage" />
     <MESSAGE value="Modification de la nav : le titre apparait sur toutes les pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification de la nav : le titre apparait sur toutes les pages" />
+    <MESSAGE value="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Ajout du favicon&#10;- Ajout du block &quot;title&quot; sur la page d'accueil" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
