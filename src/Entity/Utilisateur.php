@@ -126,6 +126,12 @@ class Utilisateur implements UserInterface
         $this->sousCommandes = new ArrayCollection();
     }
 
+    public function isAuthorProduit (Produit $produit){
+        if ($this == $produit->getEntreprise()->getUtilisateur()){
+            return true;
+        }
+        return false;
+    }
 
     public function getid(): ?int
     {
