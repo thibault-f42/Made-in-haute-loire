@@ -83,5 +83,18 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
         return $this->render('Admins/AdministrationSite.html.twig')  ;
     }
 
+    /**
+     * @Route ("/Conditions_générales_de_vente", name ="CGV")
+     */
+    public function cgv(){
+        return $this->render('legislatif/cgv.html.twig');
+    }
+
+    /**
+     * @Route ("/Mentions_legales", name ="ML")
+     */
+    public function mentions(){
+        return $this->render('legislatif/mentions_legales.html.twig');
+    }
 
 }
