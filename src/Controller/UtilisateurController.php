@@ -78,6 +78,7 @@ class UtilisateurController extends AbstractController
      */
     public function modificationCompte(Request $request, Utilisateur $utilisateur, VilleRepository  $villeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $form = $this->createForm(ModifUtilisateurType::class, $utilisateur);
         $form->handleRequest($request);

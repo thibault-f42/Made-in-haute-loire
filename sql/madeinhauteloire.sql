@@ -611,7 +611,6 @@ INSERT INTO `ville` (`id`, `canton_id`, `departement_id`, `nom`, `code_postal`, 
 (16613, 3, 43, 'SAINT-VICTOR-MALESCOURS', '43140', 4.31667, 45.2833),
 (16614, 6, 43, 'MAZERAT-AUROUZE', '43230', 3.56667, 45.1833);
 
-
 INSERT INTO `etat_commande` (`id`, `etat`) VALUES
 (1, 'Commande validée'),
 (4, 'En cours de préparation'),
@@ -625,7 +624,9 @@ INSERT INTO `sous_categorie` (`id`, `categorie_id`, `nom`) VALUES
 
 INSERT INTO `entreprise` (`id`, `ville_id`, `nom`, `adresse`, `telephone`, `email`, `siret`, `description`) VALUES
 (8, 16132, 'test', 'testesteste', '0123456789', 'test@test.fr', '00000000000000', 'test'),
-(9, 16063, 'test2', 'fcejz hfejszkf ejk', '0123456789', 'test2@test2.fr', '050520152', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n\'a pas fait que survivre cinq siècles, mais s\'est aussi adapté à la bureautique informatique, sans que son contenu n\'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.');
+(9, 16063, 'test2', 'fcejz hfejszkf ejk', '0123456789', 'test2@test2.fr', '050520152', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n\'a pas fait que survivre cinq siècles, mais s\'est aussi adapté à la bureautique informatique, sans que son contenu n\'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.'),
+(10, 16111, 'entreprise', 'entrepriseentreprise', '0987654321', 'entreprise@entreprise.entreprise', '09876543211234', 'entrepriseentrepriseentrepriseentreprise');
+
 INSERT INTO `adresse_livraison` (`id`, `ville_id`, `adresse`, `informations_importantes`) VALUES
 (3, 16028, 'drsfge dfsgv erzdfg resz', 'reg sedg'),
 (4, 16028, 'drsfge dfsgv erzdfg resz', 'regdfb f');
@@ -636,12 +637,12 @@ INSERT INTO `utilisateur` (`id`, `ville_id`, `entreprise_id`, `adresse_livraison
 (18, 16063, 9, 4, 'test2@test2.fr', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$OTM1ZGguTy9rM1JNNFlDTQ$6+Atrpg1JSbYT+ZAggG3Vz07ZYFu4gnVlohTWIewjq0', 'test2', 'test2', '0123456789', 1, 'dzebhai ehjszf eqjskl', 0, 'b31ea575e5377a22bb735ad9672e6bf9', NULL, 1),
 (19, 16256, NULL, NULL, 'test3@test.fr', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$V28uaVFRVmdZQm1TZXF5RA$EWl2IrJN0o6nqBxjtdU2NIhGIFOD2g1NaShTW6BD/Y0', 'test3', 'test', '0123456789', 0, 'ez fezf ezf', 0, '61b73278327c9530953c9756bf5cb540', NULL, 1),
 (22, 16111, NULL, NULL, 'user@user.user', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$bVpTM0paTW45R0pIOFRoOA$IYEKAx8H6abqxkGl+LEvrfFJykSemGy1JMgajL4oS+c', 'user', 'user', '0987654321', 0, 'useruser', 0, '691741c1793f7ae1567f2e8b41f4ec2e', NULL, 1),
-(23, 16107, NULL, NULL, 'admin@admin.admin', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZGk2S3BZT0hWWTljQ0hXTw$Fqki/EcmCW66oFDFv5j7Ejm151MWdTmhXQNUJTKm2Qo', 'admin', 'admin', '0987654322', 0, 'adminadmin', 0, 'b1b45dbeb8aa6f6ebb5ca8bcdc6674d6', NULL, 1),
-(24, 16135, NULL, NULL, 'vendeur@vendeur.vendeur', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$UmUuZzd0eFRGelk3dTRSTQ$QiWPufW/GN8sfj5KA7t8eVInvbypHtcdchJyOUq2hZ4', 'vendeur', 'vendeur', '0987654323', 0, 'vendeurvendeur', 0, '9e06806bf27f02af0a0d1a239a346200', NULL, 1);
+(23, 16107, NULL, NULL, 'admin@admin.admin', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZGk2S3BZT0hWWTljQ0hXTw$Fqki/EcmCW66oFDFv5j7Ejm151MWdTmhXQNUJTKm2Qo', 'admin', 'admin', '0987654322', 0, 'adminadmin', 0, 'b1b45dbeb8aa6f6ebb5ca8bcdc6674d6', NULL, 1),
+(24, 16135, 10, NULL, 'vendeur@vendeur.vendeur', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$UmUuZzd0eFRGelk3dTRSTQ$QiWPufW/GN8sfj5KA7t8eVInvbypHtcdchJyOUq2hZ4', 'vendeur', 'vendeur', '0987654323', 1, 'vendeurvendeur', 0, '9e06806bf27f02af0a0d1a239a346200', NULL, 1);
+
 INSERT INTO `commande` (`id`, `utilisateur_id`, `adresse_livraison_id`, `prix`, `date_commande`, `date_livraison`, `code_commande`, `descriptif`, `etat`) VALUES
 (24, 16, 3, 123, '2021-09-16', '2021-09-17', '01', 'tabouret', '6'),
 (25, 18, 4, 200, '2021-09-14', '2021-09-16', '02', 'une table', '6');
-
 
 INSERT INTO `produit` (`id`, `entreprise_id`, `sous_categorie_id`, `categorie_id`, `nom_article`, `description`, `prix`, `etat_vente`, `stock`, `code_produit`) VALUES
 (21, 8, 12, 6, 'tabouret', 'un jolie tabouret', 123, 'Disponible', 1, '421600080080060120021'),
@@ -649,7 +650,9 @@ INSERT INTO `produit` (`id`, `entreprise_id`, `sous_categorie_id`, `categorie_id
 (23, 8, 14, 6, 'table de salon', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n\'a pas fait que survivre cinq siècles, mais s\'est aussi adapté à la bureautique informatique, sans que son contenu n\'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.', 300, 'Disponible', 1, '421600080080060140023'),
 (24, 8, 14, 6, 'petite table coloré', 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n\'a pas fait que survivre cinq siècles, mais s\'est aussi adapté à la bureautique informatique, sans que son contenu n\'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.', 90, 'Disponible', 1, '421600080080060140024'),
 (25, 9, 14, 6, 'petite table coloré', 'gyui gyui', 1000, 'Disponible', 10, '421300080090060140025'),
-(26, 8, 12, 6, 'test', 'test', 100, 'Disponible', 2, '421600080080060120026');
+(26, 8, 12, 6, 'test', 'test', 100, 'Disponible', 2, '421600080080060120026'),
+(27, 10, 14, 6, 'produit 1', 'produit 1produit 1', 123, 'Disponible', 321, '421300080100060140027');
+
 INSERT INTO `canton_departement` (`canton_id`, `departement_id`) VALUES
 (1, 42),
 (2, 42),
@@ -677,4 +680,9 @@ INSERT INTO `fichier` (`id`, `entreprise_id`, `produit_id`, `url_fichier`, `type
 (110, NULL, 21, '8bc063115bb37d717de1765b6995dbc5.jpg', 'Photos_presentation_entreprise'),
 (111, 8, NULL, '7fdc6a36155d0b324ef5531de8968542.png', 'Photos_presentation_entreprise'),
 (112, 8, NULL, '09872566610b742b0a58d22c83e9e2c3.jpg', 'Photos_presentation_entreprise'),
-(113, NULL, 26, 'be0f6d76ce9bf82efd145f985839106a.jpg', 'Photos_presentation_produit');
+(113, NULL, 26, 'be0f6d76ce9bf82efd145f985839106a.jpg', 'Photos_presentation_produit'),
+(114, 10, NULL, 'aa723ffa78d43550c5c74677760fe2e9.png', 'Photos_presentation_entreprise'),
+(115, 10, NULL, '432464d5ef80208de74fc43762ea1bb3.png', 'Document_Kbis_Entreprise'),
+(116, 10, NULL, '9ef1dd89efd20fec06a989d08954ef3b.png', 'Document_carte_ID_Entreprise'),
+(117, NULL, 27, '506dab354930db77cdc1eceb7df7e3f4.png', 'Photos_presentation_produit');
+

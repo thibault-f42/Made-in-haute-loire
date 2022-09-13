@@ -40,6 +40,7 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
@@ -47,13 +48,14 @@ class SecurityController extends AbstractController
      * @Route ("/Motdepasseoublie", name="motDePasseOublie")
      */
     public function reinitMotDePasse(
+
         MotDePasseOublie $motDePasseOublie,
         Request $request,
         UtilisateurRepository $utilisateurRepository,
         \Swift_Mailer $mailer,
         TokenGeneratorInterface $tokenGenerator )
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form=$this->createForm(MotDePasseResetType::class);
         $form->handleRequest($request);
 
