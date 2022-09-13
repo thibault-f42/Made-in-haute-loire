@@ -87,7 +87,7 @@ class EntrepriseController extends AbstractController
      */
     public function inscriptionPartenaire (Request $request,  EntityManagerInterface $entityManager,VilleRepository $villeRepository): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $entreprise = new Entreprise();
 
 
