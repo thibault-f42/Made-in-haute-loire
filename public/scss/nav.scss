@@ -1,6 +1,6 @@
 .logo {
     position: relative;
-    margin-left: 1.75em;
+    margin-left: 1.5em;
     max-width: 110px;
     min-width: 110px;
 }
@@ -8,7 +8,7 @@
 .titre
 {
     display: flex;
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 .navbar{
@@ -34,8 +34,22 @@
     margin-left: 3.3%;
 }
 
+.bouton-connexion
+{
 
+    background-color: #6bb26b !important;
+    border-radius: 50px !important;
+}
 
+.container-btn{
+        display: flex;
+        justify-content: center;
+    }
+
+.bouton-connexion:hover{
+    background-color: #6dc46d !important;
+    color: whitesmoke !important;
+}
 /*==============================*/
 
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
@@ -86,4 +100,24 @@
 .navbar a:hover:before,
 .navbar a:hover:after{
     width: 100%;
+}
+
+/*
+Responsive
+*/
+
+@media only screen and (max-width: 768px){
+    h1{
+        visibility: hidden;
+    }
+
+    .slogan{
+        margin: 50px;
+    }
+}
+
+@media all and (orientation: portrait){
+    h1{
+        margin-right: 3em;
+    }
 }
