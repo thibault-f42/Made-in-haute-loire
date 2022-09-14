@@ -31,7 +31,11 @@ class EntrepriseController extends AbstractController
      * @Route ("/Partenaire", name = "Partenaire")
      */
     public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, Request $request)  {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $utilisateur= $utilisateurRepository->find($this->getUser());
+        if (!$utilisateur->getVendeur()){
+            return $this->redirectToRoute('InscriptionFournisseur');
+        }
         //préparation des données a afficher
 
 
@@ -99,7 +103,7 @@ class EntrepriseController extends AbstractController
         $entreprise = new Entreprise();
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
-
+        dump($form);
         if ($form->isSubmitted() && $form->isValid()) {
 
             //On recupère le user
