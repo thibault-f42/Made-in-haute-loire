@@ -33,11 +33,11 @@
                                        class="btn button">Modifier</a>
                                 {% else %}
                             <a href="{{ path('produit_detail', {'id' : produit.id} ) }}"
-                                       class="btn button">
+                                       class="btn button bouton-submit">
                                         <i class="bi bi-search"></i>
                                     </a>
                                     <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : app.request.attributes.get('_route')}  ) }}"
-                                       class="btn button">
+                                       class="btn button bouton-submit">
                                         <i class="bi bi-cart-plus"></i>
                                     </a>
 
