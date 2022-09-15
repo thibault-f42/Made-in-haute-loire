@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
+ * @UniqueEntity(fields={"$nom"}, message="Ce nom est déjà utilisé.")
  * @UniqueEntity(fields={"siret"}, message="Ce numéro de SIRET est déjà utilisé")
  */
 class Entreprise
@@ -35,7 +37,8 @@ class Entreprise
 
 
     /**
-     * @ORM\Column(type="string", length=12)
+     * @ORM\Column(type="string", length=20)
+     * @Assert\Regex("/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/")
      */
     private $telephone;
 
@@ -48,7 +51,10 @@ class Entreprise
 
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
