@@ -27,7 +27,7 @@
                         {{ 'Mon Compte' }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><a class="dropdown-item"
+                        <li class="animation"><a class="dropdown-item "
                                href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">Mes
                                 informations</a></li>
                         {% if app.user.entreprise and app.user.vendeur %}
@@ -39,14 +39,14 @@
                             {% if not app.user.vendeur and app.user.entreprise %}
                                 <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
                             {% else %}
-                                <li class="nav-item">
+                                <li class="nav-item animation">
                                     <a class="dropdown-item" href="{{ path('InscriptionFournisseur') }}">Devenir
                                         partenaire </a>
                                 </li>
                             {% endif %}
                         {% endif %}
                         {% if app.user.entreprise is not empty %}
-                            <li class="nav-item">
+                            <li class="nav-item animation">
                                 <a class="dropdown-item" href="{{ path('afficheSousCommandes') }}">Mes ventes</a>
                                 <a class="dropdown-item" href="{{ path('affichecommandesClient') }}">Mes commandes</a>
                             </li>
@@ -54,7 +54,7 @@
                             <a class="dropdown-item" href="{{ path('affichecommandesClient') }}">Mes commandes</a>
                         {% endif %}
                         {% if app.user %}
-                            <li class="nav-item ">
+                            <li class="nav-item animation">
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">Se deconnecter</a>
                             </li>
                         {% endif %}
