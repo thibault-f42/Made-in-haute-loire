@@ -30,7 +30,10 @@ class EntrepriseController extends AbstractController
     /**
      * @Route ("/Partenaire", name = "Partenaire")
      */
-    public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, Request $request)  {
+    public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository,
+                                       FichierRepository $fichierRepository,
+                                       Request $request)  {
+
         $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur= $utilisateurRepository->find($this->getUser());
         if (!$utilisateur->getVendeur()){
@@ -54,7 +57,7 @@ class EntrepriseController extends AbstractController
         if ($formAjoutPhoto->isSubmitted() && $formAjoutPhoto->isValid()) {
 
             //On recupère le user
-            $entreprise->setUtilisateur($this->getUser());
+            $entreprise->setUtilisateur($utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername())));
 
             //On récupère les photos
             $images= $formAjoutPhoto->get('fichier')->getData();
@@ -103,7 +106,10 @@ class EntrepriseController extends AbstractController
         $entreprise = new Entreprise();
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
-        dump($form);
+
+        $last = $fromAdd->getLastPage($request);
+
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             //On recupère le user
@@ -132,7 +138,7 @@ class EntrepriseController extends AbstractController
             $entityManager->persist($entreprise);
             $entityManager->flush();
 
-            return $this->redirectToRoute('Accueil');
+            return $this->redirectToRoute($last);
         }
 
 
@@ -179,8 +185,12 @@ class EntrepriseController extends AbstractController
     /**
      * @Route("/{id}/Modification", name="modifierEntreprise", methods={"GET","POST"})
      */
-    public function modifierEntreprise (Request $request, Entreprise $entreprise, VilleRepository $villeRepository)   {
-
+    public function modifierEntreprise (Request $request,
+                                        Entreprise $entreprise,
+                                        VilleRepository $villeRepository,
+                                        UtilisateurRepository $utilisateurRepository,
+                                        FromAdd $fromAdd)   {
+        //todo Tout le monde a accès à ça
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 
@@ -188,58 +198,26 @@ class EntrepriseController extends AbstractController
 
 
             //On recupère le user
-            $entreprise->setUtilisateur($this->getUser());
+            $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+            $entreprise->setUtilisateur($utilisateur);
 
             //On récupère les photos
-            $images= $form->get('photos')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($images as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('photos')->getData(),
+                $entreprise,
+                $this->getParameter('images_entreprises_directory'),
+                'Photos_presentation_entreprise');
 
             //On récupère les pieces justificatives
-            $Kbis= $form->get('justificatifSiret')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($Kbis as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_kbis_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Document_Kbis_Entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('justificatifSiret')->getData(),
+                $entreprise,
+                $this->getParameter('images_kbis_directory'),
+                'Document_Kbis_Entreprise');
 
             //On récupère les pieces justificatives
-            $cid= $form->get('carteIdentite')->getData();
-            //On boucle pour récupérer toutes les images
-            foreach ($cid as $image) {
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_carteID_directory'), $nomFichier);
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Document_carte_ID_Entreprise');
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-            }
+            $fromAdd->savePicture($form->get('carteIdentite')->getData(),
+                $entreprise,
+                $this->getParameter('images_entreprises_carteID_directory'),
+                'Document_carte_ID_Entreprise');
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($entreprise);
