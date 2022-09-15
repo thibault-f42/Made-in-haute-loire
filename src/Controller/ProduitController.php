@@ -99,10 +99,11 @@ class ProduitController extends AbstractController
      */
     public function ajoutProduit(UtilisateurRepository   $utilisateurRepository,
                                  Request                 $request,
-                                 SousCategorieRepository $sousCategorieRepository): Response
+                                 SousCategorieRepository $sousCategorieRepository,
+                                 FromAdd $fromAdd): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $utilisateur= $utilisateurRepository->find($this->getUser());
+        $utilisateur= $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
         if (!$utilisateur->getVendeur()){
             return $this->redirectToRoute('InscriptionFournisseur');
         }
@@ -125,33 +126,11 @@ class ProduitController extends AbstractController
             }
             else {$ajoutProduit->setEtatVente('Épuisé');
             }
-
-
-
-
-                //On récupère les photos
-                $images= $formAjoutProduit->get('photos')->getData();
-
-                //On boucle pour récupérer toutes les images
-                foreach ($images as $image) {
-
-                    // On génère un nom unique
-                    $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-
-                    // On copie le fichier dans le dossier upload
-                    $image->move(
-                        $this->getParameter('images_produits_directory'), $nomFichier);
-
-                    //On stocke le chemin d'accès en base de données
-                    $fichier = new Fichier();
-                    $fichier->setUrlFichier($nomFichier);
-                    $fichier->setTypeFichier('Photos_presentation_produit');
-
-                    //on ajoute le fichier a notre entreprise
-                    $ajoutProduit->addFichier($fichier);
-
-                }
-
+            //On récupère les photos
+            $fromAdd->savePicture($formAjoutProduit->get('photos')->getData(),
+                $ajoutProduit,
+                $this->getParameter('images_produits_directory'),
+                'Photos_presentation_produit');
 
             $codeproduit = " ";
 
@@ -202,7 +181,6 @@ class ProduitController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id}", name="produit_delete", methods={"POST"})
      */
@@ -217,8 +195,6 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('produit_index');
     }
-
-
 
     /**
      * @Route("/{id}/edit", name="produit_edit", methods={"GET","POST"})
@@ -240,11 +216,6 @@ class ProduitController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-
-
-
 
 
     /**

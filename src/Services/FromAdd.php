@@ -17,7 +17,7 @@ class FromAdd
         }
         return $lastUrl;
     }
-    public function savePicture($images , Entreprise $entreprise , $nomRepertorier, $type ){
+    public function savePicture($images , $destinataire , $nomRepertorier, $type ){
         //On boucle pour récupérer toutes les images
         foreach ($images as $image) {
             // On génère un nom unique
@@ -29,7 +29,7 @@ class FromAdd
             $fichier->setUrlFichier($nomFichier);
             $fichier->setTypeFichier($type);
             //on ajoute le fichier a notre entreprise
-            $entreprise->addFichier($fichier);
+            $destinataire->addFichier($fichier);
         }
     }
 

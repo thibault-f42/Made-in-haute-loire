@@ -6,9 +6,12 @@ use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=DepartementRepository::class)
+ * @UniqueEntity(fields={"$noDepartement"}, message="Ce numéro de département est déjà attribué ")
+ * @UniqueEntity(fields={"nom"}, message="Ce département existe déjà ")
  */
 class Departement
 {
@@ -40,10 +43,6 @@ class Departement
      */
     private $region;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Ville::class, mappedBy="departement")
-     */
-    private $villes;
 
     public function __construct()
     {
@@ -130,36 +129,6 @@ class Departement
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Ville[]
-     */
-    public function getVilles(): Collection
-    {
-        return $this->villes;
-    }
-
-    public function addVille(Ville $ville): self
-    {
-        if (!$this->villes->contains($ville)) {
-            $this->villes[] = $ville;
-            $ville->setDepartement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Ville $ville): self
-    {
-        if ($this->villes->removeElement($ville)) {
-            // set the owning side to null (unless already changed)
-            if ($ville->getDepartement() === $this) {
-                $ville->setDepartement(null);
-            }
-        }
 
         return $this;
     }
