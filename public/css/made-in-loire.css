@@ -276,13 +276,31 @@ section, .card, .card-body, .card-text, .card-prix, a, image, h3 {
 /**
 CSS Formulaire-Inscription-Entreprise.html.twig
  */
+@media only screen and (min-width: 570px){
+    .creationProduit {
 
-.creationProduit {
-    display: flex;
-    width: 90%;
-    text-align: left;
-    border-radius: 10px;
+        border-radius: 10px;
+        max-width: 600px;
+    }
+    .creationProduit > div {
+        padding: 20px;
+        text-align: left;
+    }
 }
+.creationProduit {
+
+    background-color: rgba(222, 220, 221, 0.64);
+    position: center;
+    text-align: center;
+    margin: auto;
+    width: 100vw;
+    pading: 100px;
+}
+textarea{
+    resize: none !important ;
+}
+
+
 
 /** modifier produit **/
 
@@ -313,4 +331,5 @@ CSS DetailProduit
     width: 350px;
     height: 40%;
 }
+
 

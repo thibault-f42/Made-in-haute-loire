@@ -7,29 +7,30 @@
 {% block body %}
     {{ form_start(EntrepriseForm) }}
         <div class="creationProduit">
-            <div class="col-12">
-                <div class="col-2">
 
-                    {{ form_row(EntrepriseForm.nom) }}
-                    {{ form_row(EntrepriseForm.siret) }}
-                    {{ form_row(EntrepriseForm.email) }}
-                    {{ form_row(EntrepriseForm.telephone) }}
-                </div>
-                <div class="col-1"></div>
-                <div class="col-4">
-                    {{ form_row(EntrepriseForm.adresse) }}
-                    {{ form_row(EntrepriseForm.codePostal) }}
-                    {{ form_row(EntrepriseForm.ville) }}
-                    {{ form_row(EntrepriseForm.description) }}
-                </div>
-                <div class="col-1"></div>
-                <div class="col-2">
-                    {{ form_row(EntrepriseForm.justificatifSiret) }}
-                    {{ form_row(EntrepriseForm.carteIdentite) }}
-                    {{ form_row(EntrepriseForm.photos) }}
+                    <div class="wrapper wrapper--w680 justify-content-center">
+                        <div class="row">
+                            <div class=" ">
+                                <div class="row sm-10" >
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.nom) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.siret) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.email) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.telephone) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.adresse) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.codePostal) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.ville) }}</div>
+                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.description) }}</div>
+                                    <div class="col-sm-4">{{ form_row(EntrepriseForm.justificatifSiret) }}</div>
+                                    <div class="col-sm-4">{{ form_row(EntrepriseForm.carteIdentite) }}</div>
+                                    <div class="col-sm-4"> {{ form_row(EntrepriseForm.photos) }}</div>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
 
-                </div>
-            </div>
+
         </div>
 
         <div class="boutonPublier">
@@ -45,4 +46,3 @@
 
     {% endblock %}
 {% endblock %}
-
