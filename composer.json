@@ -16,7 +16,7 @@
         "kylekatarnls/vicopo": "^1.2",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
-        "stripe/stripe-php": "^7.85",
+        "stripe/stripe-php": "^9.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",
