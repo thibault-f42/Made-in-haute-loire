@@ -191,6 +191,15 @@ class EntrepriseController extends AbstractController
                                         UtilisateurRepository $utilisateurRepository,
                                         FromAdd $fromAdd)   {
         //todo Tout le monde a accès à ça
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $utilisateur= $utilisateurRepository->find($this->getUser());
+        if (!$utilisateur->getVendeur()){
+            return $this->redirectToRoute('InscriptionFournisseur');
+        }elseif ($utilisateur->getEntreprise() != $entreprise){
+            return $this->redirectToRoute('InscriptionFournisseur');
+        }
+
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
 
