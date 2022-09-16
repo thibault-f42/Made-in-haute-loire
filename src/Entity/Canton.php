@@ -6,9 +6,11 @@ use App\Repository\CantonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CantonRepository::class)
+ * @UniqueEntity(fields={"nom"}, message="Ce canton existe déjà ")
  */
 class Canton
 {
@@ -30,7 +32,7 @@ class Canton
     private $villes;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Departement::class, inversedBy="cantons")
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="cantons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $departement;

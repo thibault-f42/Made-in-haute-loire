@@ -32,63 +32,37 @@ class EntrepriseController extends AbstractController
      */
     public function AccueilPartenaire (UtilisateurRepository $utilisateurRepository,
                                        FichierRepository $fichierRepository,
-                                       Request $request)  {
+                                       Request $request,
+                                       FromAdd $fromAdd)  {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $utilisateur= $utilisateurRepository->find($this->getUser());
+        $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
         if (!$utilisateur->getVendeur()){
             return $this->redirectToRoute('InscriptionFournisseur');
         }
         //préparation des données a afficher
-
-
-        $utilisateur= $utilisateurRepository->find($this->getUser());
         $entreprise = $utilisateur->getEntreprise();
-
         //On récupère les fichiers de l'entreprise
-
         $fichiers = $fichierRepository->findBy(array('entreprise'=>$entreprise->getId()));
 
         $ajoutphoto = new Fichier();
         $formAjoutPhoto = $this->createForm(FichierType::class, $ajoutphoto);
-
         $formAjoutPhoto->handleRequest($request);
 
         if ($formAjoutPhoto->isSubmitted() && $formAjoutPhoto->isValid()) {
 
-            //On recupère le user
-            $entreprise->setUtilisateur($utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername())));
-
             //On récupère les photos
-            $images= $formAjoutPhoto->get('fichier')->getData();
+            $fromAdd->savePicture($formAjoutPhoto->get('fichier')->getData(),
+                $entreprise,
+                $this->getParameter('images_entreprises_directory'),
+                'Photos_presentation_entreprise');
 
-            //On boucle pour récupérer toutes les images
-            foreach ($images as $image) {
-
-                // On génère un nom unique
-                $nomFichier=md5(uniqid()).'.'.$image->guessExtension();
-
-                // On copie le fichier dans le dossier upload
-                $image->move(
-                    $this->getParameter('images_entreprises_directory'), $nomFichier);
-
-                //On stocke le chemin d'accès en base de données
-                $fichier = new Fichier();
-                $fichier->setUrlFichier($nomFichier);
-                $fichier->setTypeFichier('Photos_presentation_entreprise');
-
-                //on ajoute le fichier a notre entreprise
-                $entreprise->addFichier($fichier);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($entreprise);
-                $entityManager->flush();
-
-            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($entreprise);
+            $entityManager->flush();
 
             return $this->redirectToRoute('Partenaire');
         }
-
         return $this->render('Entreprise/Partenaire.html.twig', ['utilisateur'=>$utilisateur, 'entreprise'=>$entreprise, 'fichiers'=>$fichiers, 'photoAjoutForm' => $formAjoutPhoto->createView() ])  ;
     }
 

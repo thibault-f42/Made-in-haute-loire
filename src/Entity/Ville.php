@@ -53,12 +53,6 @@ class Ville
     private $latitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $departement;
-
-    /**
      * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="ville")
      */
     private $entreprises;
@@ -180,18 +174,6 @@ class Ville
     public function setLatitude(int $latitude): self
     {
         $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getDepartement(): ?Departement
-    {
-        return $this->departement;
-    }
-
-    public function setDepartement(?Departement $departement): self
-    {
-        $this->departement = $departement;
 
         return $this;
     }
