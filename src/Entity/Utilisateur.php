@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\ConfigRepository;
+use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -119,11 +121,23 @@ class Utilisateur implements UserInterface
      */
     private $Actif;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Conversation::class, mappedBy="user")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="utilisateur")
+     */
+    private $messages;
+
 
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
         $this->sousCommandes = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function isAuthorProduit (Produit $produit){
@@ -421,6 +435,79 @@ class Utilisateur implements UserInterface
     public function setActif(?bool $Actif): self
     {
         $this->Actif = $Actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+
+
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            $conversation->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function findConversationByParticipants(Utilisateur $otherUser )
+    {
+        $conversation = null;
+        foreach ($this->getConversations() as $conversationUser){
+            foreach ($otherUser->getConversations() as $conversationOtherUser){
+                if ($conversationUser === $conversationOtherUser){
+                    $conversation = $conversationUser;
+                    return $conversation;
+                }
+            }
+        }
+        return $conversation;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUtilisateur() === $this) {
+                $message->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
