@@ -51,7 +51,7 @@ class CommandeController extends AbstractController
 
         if (isset($total) && $total != 0) {
 
-            //On instancie STRIPE
+            //On instancie Stripe
             \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
 
             //on crée l'intention de paiment stripe
