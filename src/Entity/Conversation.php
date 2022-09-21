@@ -121,4 +121,14 @@ class Conversation
         }
         return false;
     }
+
+    public function getOtherUser(Utilisateur $utilisateur)
+    {
+        foreach ($this->getUser() as $user){
+            if ($user != $utilisateur){
+                return $user;
+            }
+        }
+        return null;
+    }
 }

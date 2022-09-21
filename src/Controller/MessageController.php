@@ -9,8 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/messages", name="messages_")
@@ -55,18 +58,24 @@ class MessageController extends AbstractController
      */
     public function newMessage(Request $request,
                                Conversation $conversation,
-                               UtilisateurRepository $utilisateurRepository,EntityManagerInterface $entityManager)
+                               UtilisateurRepository $utilisateurRepository,
+                               EntityManagerInterface $entityManager,
+                               SerializerInterface $serializer,
+                               PublisherInterface $publisher)
     {
-        //todo Les commentaires sont uniquement là pour la phase de dev 
-       //$utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+
+
+
+        $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+
+        $recipient = $conversation->getOtherUser($utilisateur);
         $content = $request->get('content', null);
 
         $message = new Message();
         $message->setCorps($content);
         $message->setDate(new \DateTime());
-        //$message->setUtilisateur($utilisateur);
+        $message->setUtilisateur($utilisateur);
         $message->setUtilisateur($utilisateurRepository->find(1));
-        $message->setMine(true);
 
         $conversation->addMessage($message);
         $conversation->setLastMessage($message);
@@ -82,6 +91,20 @@ class MessageController extends AbstractController
             throw $e;
         }
 
+        $message->setMine(false);
+        $messageSerialized = $serializer->serialize($message,'json',[
+            'attributes' => ['id', 'corps', 'date','mine', 'conversation '=> ['id']]
+        ]);
+        $update = new Update(
+            [
+                sprintf("/conversations/%d",$conversation->getId()),
+                sprintf("/conversations/%s",$recipient->getUsername()),
+            ],
+            $messageSerialized
+        );
+        $publisher->__invoke($update);
+
+        $message->setMine(true);
         return $this->json($message, Response::HTTP_CREATED, [],[
             'attributes' => self::ATTRIBUT_TO_SERIALIZE
 

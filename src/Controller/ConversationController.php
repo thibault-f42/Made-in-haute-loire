@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\WebLink\Link;
 
 /**
  * @Route("/conversation", name="conversation_")
@@ -80,11 +81,15 @@ class ConversationController extends AbstractController
          );
     }
 
-    /**
+    /**    Z
      * @Route ("/",name= "getConversation" ,methods={"POST"})
+     * @return JsonResponse
      */
-    public function getConvs(){
+    public function getConvs(Request $request){
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $hubUrl = $this->getParameter('mercure.default_hub');
+        $this->addLink($request, new Link('mercure',$hubUrl));
 
         $conversation = $this->utilisateur->getConversations();
         return $this->json($conversation);
