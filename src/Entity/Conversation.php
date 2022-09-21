@@ -31,6 +31,7 @@ class Conversation
 
     /**
      * @ORM\OneToOne(targetEntity=Message::class, inversedBy="lastMessageInConversation", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"order" = "DESC", "date" = "DESC"})
      */
     private $lastMessage;
 
@@ -109,5 +110,15 @@ class Conversation
         $this->lastMessage = $lastMessage;
 
         return $this;
+    }
+
+    public function isParticipant(Utilisateur $utilisateur)
+    {
+        foreach ($this->getUser() as $participant){
+            if ($participant === $utilisateur){
+                return true ;
+            }
+        }
+        return false;
     }
 }

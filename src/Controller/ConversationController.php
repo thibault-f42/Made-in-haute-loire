@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Conversation;
+use App\Entity\Utilisateur;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +27,10 @@ class ConversationController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var Utilisateur
+     */
+    private $utilisateur;
 
     public function __construct(UtilisateurRepository  $utilisateurRepository,
                                 EntityManagerInterface $entityManager)
@@ -33,15 +38,17 @@ class ConversationController extends AbstractController
 
         $this->utilisateurRepository = $utilisateurRepository;
         $this->entityManager = $entityManager;
+        $this->utilisateur = $this->utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
     }
 
     /**
-     * @Route("/newConversation/{id}", name="nexConversation")
+     * @Route("/newConversation/{id}", name="nexConversation", methods={"POST"})
      * @throws \Exception
      * @return JsonResponse
      */
     public function index(Request $request , int $id): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
          $otherUser = $this->utilisateurRepository->find($id);
          $utilisateur = $this->utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
 
@@ -71,5 +78,15 @@ class ConversationController extends AbstractController
              'id' => $conversation->getId()
          ],Response::HTTP_CREATED,[],[]
          );
+    }
+
+    /**
+     * @Route ("/",name= "getConversation" ,methods={"POST"})
+     */
+    public function getConvs(){
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $conversation = $this->utilisateur->getConversations();
+        return $this->json($conversation);
     }
 }

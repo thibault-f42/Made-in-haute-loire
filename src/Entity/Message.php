@@ -43,6 +43,11 @@ class Message
      */
     private $lastMessageInConversation;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $mine;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -114,6 +119,18 @@ class Message
         }
 
         $this->lastMessageInConversation = $lastMessageInConversation;
+
+        return $this;
+    }
+
+    public function getMine(): ?bool
+    {
+        return $this->mine;
+    }
+
+    public function setMine(?bool $mine): self
+    {
+        $this->mine = $mine;
 
         return $this;
     }
