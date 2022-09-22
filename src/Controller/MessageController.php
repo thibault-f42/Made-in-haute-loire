@@ -63,9 +63,7 @@ class MessageController extends AbstractController
                                SerializerInterface $serializer,
                                PublisherInterface $publisher)
     {
-
-
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
 
         $recipient = $conversation->getOtherUser($utilisateur);
