@@ -1,6 +1,6 @@
 window.onload = () => {
     //variables a définire
-    let stripe = Stripe('METTRE LA CLE PUBLIQUE')
+    let stripe = Stripe('pk_test_51LiGzfIKG6NL7lD7iHD8E7ZISJ0YUhDc9DyvIvnBhkemMpuMLrDYmLsXY8hP7YJkSOGn3jI2RQcEZSVWo0yxVKLh00UWtKYyHo');
     let elements = stripe.elements()
 
     // TODO : CHANGER LE LIEN LORS DU PASSAGE ONLINE POUR PAGE ACCUEIL

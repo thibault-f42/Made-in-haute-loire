@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commande
 {
+    const DEVISE = 'eur';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

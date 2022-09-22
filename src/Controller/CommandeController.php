@@ -17,11 +17,13 @@ use App\Repository\EtatCommandeRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SousCommandeRepository;
 use App\Repository\UtilisateurRepository;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/commande")
@@ -35,28 +37,28 @@ class CommandeController extends AbstractController
     public function validationCommande(Session $session, Request $request, ProduitRepository $produitRepository)
     {
 
-        $panier= $session->get("panier", []);
+        $panier = $session->get("panier", []);
 
         //on initialise le tableau de produits
         $dataPanier = [];
-        $total = 0 ;
+        $total = 0;
 
-        foreach ($panier as $id => $quantite)
-        {
+        foreach ($panier as $id => $quantite) {
             $produit = $produitRepository->find($id);
-            $dataPanier[]= ["produit" => $produit, "quantite" => $quantite];
-            $total  += $produit->getPrix() * $quantite;
+            $dataPanier[] = ["produit" => $produit, "quantite" => $quantite];
+            $total += $produit->getPrix() * $quantite;
         }
-
 
         if (isset($total) && $total != 0) {
 
             //On instancie Stripe
-            \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
+        \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
 
             //on crée l'intention de paiment stripe
-            $intent = \Stripe\PaymentIntent::create(['amount'=>$total*100, 'currency'=>'eur']);
-
+        $intent = \Stripe\PaymentIntent::create([
+        'amount'=>$total*100,
+        'currency'=>'eur',
+        'payment_method' => 'pm_card_visa']);
 
         }
         else
@@ -68,7 +70,9 @@ class CommandeController extends AbstractController
 
 
         return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
-    }
+        }
+
+
 
     /**
      * @Route("/commandesBoard/", name="afficheSousCommandes")
@@ -150,7 +154,6 @@ class CommandeController extends AbstractController
         return $this->render('commande/listeCommandesClient.html.twig', ['commandes'=>$commandes]);
 
     }
-
 
 
     /**
@@ -241,8 +244,23 @@ class CommandeController extends AbstractController
         $commande->setUtilisateur($utilisateur);
         $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
 
+
+
         $commande->setDescriptif('Commande passée avec succès');
 
+//        //On instancie Stripe
+//        \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
+//
+//        //on crée l'intention de paiment stripe
+//        $intent = \Stripe\PaymentIntent::create([
+//            'amount'=>$total*100,
+//            'currency'=>'eur',
+//            'payment_method' => 'pm_card_visa']);
+//
+//        $intent ->confirm([
+//            'amount'=>$total*100,
+//            'currency'=>'eur',
+//            'payment_method' => 'pm_card_visa']);
 
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -254,6 +272,7 @@ class CommandeController extends AbstractController
         return $this->redirectToRoute('Accueil');
 
     }
+
     /**
      * @Route("/", name="commande_index", methods={"GET"})
      */
