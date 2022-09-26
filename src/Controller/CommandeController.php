@@ -33,8 +33,8 @@ class CommandeController extends AbstractController
     /**
      * @Route("/validation/", name="commandeValidation")
      */
-
-    public function validationCommande(Session $session, Request $request, ProduitRepository $produitRepository)
+    public function validationCommande(Session $session, Request $request,
+                                       ProduitRepository $produitRepository)
     {
 
         $panier = $session->get("panier", []);
@@ -49,6 +49,7 @@ class CommandeController extends AbstractController
             $total += $produit->getPrix() * $quantite;
         }
 
+
         if (isset($total) && $total != 0) {
 
             //On instancie Stripe
@@ -60,7 +61,7 @@ class CommandeController extends AbstractController
         'currency'=>'eur',
         'payment_method' => 'pm_card_visa']);
 
-        }
+       }
         else
         {
             $this->addFlash('danger','une erreur est survenue lors du paiement, annulation de la transaction');
@@ -69,9 +70,8 @@ class CommandeController extends AbstractController
 
 
 
-        return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
-        }
-
+       return $this->render('Security/Paiement.html.twig', ['intent'=>$intent]);
+   }
 
 
     /**
@@ -199,12 +199,13 @@ class CommandeController extends AbstractController
     /**
      * @Route("/CommandeValidee", name="generationCommande", methods={"GET","POST"})
      */
-    public function generationCommande(Request $request, Session $session, ProduitRepository $produitRepository, EtatCommandeRepository $etatCommandeRepository): Response
+    public function generationCommande(Request $request, Session $session,
+                                       ProduitRepository $produitRepository,
+                                       EtatCommandeRepository
+                                       $etatCommandeRepository):
+    Response
     {
         $commande = new Commande();
-
-
-
         $panier= $session->get("panier", []);
 
         //on initialise le tableau de produits
@@ -226,6 +227,7 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('panier_index');
         }
 
+
         $commande->setPrix($total);
         $jourCommande = date_create();
         //création d'une deuxieme variable pour le délai de livraison
@@ -241,26 +243,11 @@ class CommandeController extends AbstractController
         $codeCommande  = $this->creerCodeCommande();
         $commande->setCodeCommande($codeCommande);
         $utilisateur = $this->getUser();
-        $commande->setUtilisateur($utilisateur);
         $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
-
 
 
         $commande->setDescriptif('Commande passée avec succès');
 
-//        //On instancie Stripe
-//        \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
-//
-//        //on crée l'intention de paiment stripe
-//        $intent = \Stripe\PaymentIntent::create([
-//            'amount'=>$total*100,
-//            'currency'=>'eur',
-//            'payment_method' => 'pm_card_visa']);
-//
-//        $intent ->confirm([
-//            'amount'=>$total*100,
-//            'currency'=>'eur',
-//            'payment_method' => 'pm_card_visa']);
 
 
         $entityManager = $this->getDoctrine()->getManager();

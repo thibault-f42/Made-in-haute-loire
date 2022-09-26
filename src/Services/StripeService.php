@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Commande;
 use App\Entity\Produit;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeService
 {
@@ -51,7 +52,9 @@ class StripeService
         if($stripeParameter['stripeIntentStatus'] === 'succeeded') {
             //TODO
         } else {
-            $payment_intent->cancel();
+//            $payment_intent->cancel();
+//            $this->addFlash('danger','une erreur est survenue lors du paiement, annulation de la transaction');
+//            return $this->redirectToRoute('Accueil');
         }
 
         return $payment_intent;
@@ -71,4 +74,6 @@ class StripeService
             $stripeParameter
         );
     }
+
+
 }
