@@ -17,6 +17,7 @@ use App\Repository\EtatCommandeRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SousCommandeRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\StripeService;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +54,7 @@ class CommandeController extends AbstractController
         if (isset($total) && $total != 0) {
 
             //On instancie Stripe
-        \Stripe\Stripe::setApiKey('sk_test_51LiGzfIKG6NL7lD76dkjsaykpkzl5VnRW5UzH3r9PppxLgOmOnw6RKAUELQDxtL1hD1usdDSwa3KQvdETq69uTDn0096MNLLri');
+        \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY_TEST']);
 
             //on crée l'intention de paiment stripe
         $intent = \Stripe\PaymentIntent::create([
@@ -202,7 +203,7 @@ class CommandeController extends AbstractController
     public function generationCommande(Request $request, Session $session,
                                        ProduitRepository $produitRepository,
                                        EtatCommandeRepository
-                                       $etatCommandeRepository):
+                                       $etatCommandeRepository,StripeService $stripeService):
     Response
     {
         $commande = new Commande();
@@ -246,13 +247,29 @@ class CommandeController extends AbstractController
         $commande->setAdresseLivraison($utilisateur->getAdresseLivraison());
 
 
+//       Gestion des erreurs Strike :
+        // todo pas fini
+        try{
+            $stripeService->controlePaiement();
+        }catch (\Exception $e) {
+            $this->addFlash('warning', "Une erreur est survenue" . $e->getMessage());
+            return $this->redirectToRoute('Accueil');
+        }
+
         $commande->setDescriptif('Commande passée avec succès');
 
 
+        // Gère les erreurs lors de l'enregistrement en base de données.
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commande);
+            $entityManager->flush();
+        }catch (\Exception $e) {
+            $this->addFlash('warning', "Une erreur est survenue lors de l'enregistrement de votre commande veuillez contacter le service technique ");
+            return $this->redirectToRoute('Accueil');
+        }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($commande);
-        $entityManager->flush();
+
 
         $this->addFlash('message', "Commande validée avec succès");
 

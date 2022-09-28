@@ -55,7 +55,9 @@ class SecurityController extends AbstractController
         \Swift_Mailer $mailer,
         TokenGeneratorInterface $tokenGenerator )
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        if ($this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('Accueil');
+        }
         $form=$this->createForm(MotDePasseResetType::class);
         $form->handleRequest($request);
 

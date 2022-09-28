@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Commande;
 use App\Entity\Produit;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeService
@@ -74,6 +75,15 @@ class StripeService
             $stripeParameter
         );
     }
+// todo pas fini
+    public function controlePaiement (){
+        if (false){
+
+        }else{
+            throw new Exception('Classe inexistante');
+        }
+    }
+
 
 
 }
