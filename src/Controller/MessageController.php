@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\MercureServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\Jwt\StaticJwtProvider;
 use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,7 +64,7 @@ class MessageController extends AbstractController
                                UtilisateurRepository $utilisateurRepository,
                                EntityManagerInterface $entityManager,
                                SerializerInterface $serializer,
-                               PublisherInterface $publisher)
+                               PublisherInterface $publisher,MercureServices $mercureServices )
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
@@ -89,18 +92,15 @@ class MessageController extends AbstractController
             throw $e;
         }
 
+
+
         $message->setMine(false);
         $messageSerialized = $serializer->serialize($message,'json',[
             'attributes' => ['id', 'corps', 'date','mine', 'conversation '=> ['id']]
         ]);
-        $update = new Update(
-            [
-                sprintf("/conversations/%d",$conversation->getId()),
-                sprintf("/conversations/%s",$recipient->getUsername()),
-            ],
-            $messageSerialized
-        );
-        $publisher->__invoke($update);
+
+
+        $mercureServices->Post($conversation,$messageSerialized);
 
         $message->setMine(true);
         return $this->json($message, Response::HTTP_CREATED, [],[
@@ -108,4 +108,5 @@ class MessageController extends AbstractController
 
         ]);
     }
+
 }
