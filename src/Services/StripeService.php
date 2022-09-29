@@ -25,6 +25,7 @@ class StripeService
      * @return \Stripe\PaymentIntent
      * @throws \Stripe\Exception\ApiErrorException
      */
+
     public function paymentIntent(Produit $produit)
     {
         \Stripe\Stripe::setApiKey($this->privateKey);
@@ -75,6 +76,7 @@ class StripeService
             $stripeParameter
         );
     }
+
 // todo pas fini
     public function controlePaiement (){
         if (false){
@@ -83,7 +85,5 @@ class StripeService
             throw new Exception('Classe inexistante');
         }
     }
-
-
 
 }

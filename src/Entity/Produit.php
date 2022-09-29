@@ -85,6 +85,11 @@ class Produit
      */
     private $sousCommandes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="annonce", orphanRemoval=true)
+     */
+    private $commentaires;
+
 
 
     
@@ -94,6 +99,7 @@ class Produit
         $this->fichiers = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->sousCommandes = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -291,6 +297,36 @@ class Produit
             // set the owning side to null (unless already changed)
             if ($sousCommande->getProduit() === $this) {
                 $sousCommande->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAnnonce() === $this) {
+                $commentaire->setAnnonce(null);
             }
         }
 

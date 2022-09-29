@@ -258,7 +258,6 @@ class CommandeController extends AbstractController
 
         $commande->setDescriptif('Commande passée avec succès');
 
-
         // Gère les erreurs lors de l'enregistrement en base de données. 
         try {
             $entityManager = $this->getDoctrine()->getManager();
