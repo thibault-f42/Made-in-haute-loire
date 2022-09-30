@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\MercureServices;
 use Lcobucci\JWT\Encoding\ChainedFormatter;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
@@ -11,6 +13,8 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\Mercure\Publisher;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/chat", name="app_chat_")
@@ -18,9 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChatController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="index",methods={"GET"})
      */
-    public function index(UtilisateurRepository $utilisateurRepository): \Symfony\Component\HttpFoundation\Response
+    public function index(UtilisateurRepository $utilisateurRepository): \Symfony\Component\HttpFoundation\Response // todo temporaire
     {
 
         $username =  $this->getUser()->getUsername();
@@ -40,7 +44,19 @@ class ChatController extends AbstractController
             )
         );
         return $response;
+    }
+    /**
+     * @Route("/ping", name="ping",methods={"POST"})
+     */
+    public function ping(MercureServices $mercureServices, ConversationRepository $conversationRepository){// todo temporaire
 
+        $conversation = $conversationRepository->find(1);
 
+        $route = [
+            "http://localhost/Made-in-haute-loire/public/messages/"
+        ];
+        $mercureServices->Post($conversation,"test de mesage",$route);
+
+        return $this->redirectToRoute('app_chat_index');
     }
 }
