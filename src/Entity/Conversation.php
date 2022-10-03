@@ -31,7 +31,7 @@ class Conversation
 
     /**
      * @ORM\OneToOne(targetEntity=Message::class, inversedBy="lastMessageInConversation", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"order" = "DESC", "date" = "DESC"})
+     * @ORM\OrderBy({"date" = "DESC"})
      */
     private $lastMessage;
 

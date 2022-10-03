@@ -43,7 +43,7 @@ class ConversationController extends AbstractController
     }
 
     /**
-     * @Route("/newConversation/{id}", name="nexConversation", methods={"POST"})
+     * @Route("/newConversation/{id}", name="newConversation", methods={"POST"})
      * @throws \Exception
      * @return JsonResponse
      */
@@ -81,8 +81,8 @@ class ConversationController extends AbstractController
          );
     }
 
-    /**    Z
-     * @Route ("/",name= "getConversation" ,methods={"POST"})
+    /**
+     * @Route ("/",name= "Conversation" ,methods={"POST"})
      * @return JsonResponse
      */
     public function getConvs(Request $request){

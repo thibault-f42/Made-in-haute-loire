@@ -2,17 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Conversation;
+use App\Entity\Utilisateur;
 use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
 use App\Services\MercureServices;
+use Doctrine\ORM\EntityManager;
 use Lcobucci\JWT\Encoding\ChainedFormatter;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token\Builder;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use phpDocumentor\Reflection\Types\String_;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\Publisher;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,18 +32,32 @@ class ChatController extends AbstractController
     /**
      * @Route("/", name="index",methods={"GET"})
      */
-    public function index(UtilisateurRepository $utilisateurRepository): \Symfony\Component\HttpFoundation\Response // todo temporaire
+    public function index(UtilisateurRepository $utilisateurRepository, ConversationRepository $conversationRepository): Response // todo temporaire
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $username =  $this->getUser()->getUsername();
         $token = (new Builder(new JoseEncoder(),ChainedFormatter::default()))
             ->withClaim('mercure',['subscribe' => [sprintf("/%s",$username)]])
             ->getToken(
                 new Sha256(),InMemory::plainText($this->getParameter('mercure_secrete_key'))
             );
+        /**
+         * @var $utilisateur Utilisateur
+         */
+        $utilisateur = $this->getUser();
+
+        $conversations = $utilisateur->getConversations()->getValues();
+        /**
+         * @var $conversatios Conversation
+         */
+
         $response = $this->render('chat/index.html.twig', [
-            'controller_name' => 'ChatController',
+            'conversations' => $conversations,
+            'user' => $utilisateur
         ]);
+
+
+        //todo utile ??
         $response->headers->setCookie(
             new Cookie('mercureAuthorization',
                 $token->toString(),
@@ -45,11 +67,56 @@ class ChatController extends AbstractController
         );
         return $response;
     }
+
+    /**
+     * @Route("/newConversation/{id}", name="newConversation", methods={"get"})
+     */
+    public function newConversation(
+        int $id,
+        Request $request,
+        UtilisateurRepository $utilisateurRepository ): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        try {
+            $otherUser = $utilisateurRepository->findOneBy(array('id' => $id));
+            if (!$utilisateurRepository->findOneBy(array('id' => $id))){ // L'utilitaire choisi n'existe pas
+                throw new \Exception("L'utilisateur n'a pas été trouvé ");
+
+            }
+            $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+            if ($otherUser->getid() === $utilisateur->getId() ){ // Il est impossible de créer avec soi-même
+                throw new \Exception("Vous ne pouvez pas créer de conversation avec vous-même ");
+            }
+        }catch (\Exception $e){
+            $this->addFlash('warnig', $e->getMessage());
+
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+
+        if ($utilisateur->findConversationByParticipants($otherUser)) {
+            $id = $utilisateur->findConversationByParticipants($otherUser)->getId();
+        }else{
+            $conversation = new Conversation();
+            $conversation->addUser($otherUser);
+            $conversation->addUser($utilisateur);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($conversation);
+            $entityManager->flush();
+            $id = $conversation->getId();
+        }
+        return $this->redirectToRoute('app_chat_Conversation', ['id' => $id]);
+    }
+
+
+    // todo a ne pas conserver
     /**
      * @Route("/ping", name="ping",methods={"POST"})
      */
-    public function ping(MercureServices $mercureServices, ConversationRepository $conversationRepository){// todo temporaire
-
+    public function ping(MercureServices $mercureServices, ConversationRepository $conversationRepository): RedirectResponse
+    {
         $conversation = $conversationRepository->find(1);
 
         $route = [
@@ -58,5 +125,44 @@ class ChatController extends AbstractController
         $mercureServices->Post($conversation,"test de mesage",$route);
 
         return $this->redirectToRoute('app_chat_index');
+    }
+
+
+
+    // todo work in progress
+    /**
+     * @Route("/{id}", name="Conversation")
+     */
+    public function conversation(int $id,
+                                 ConversationRepository $conversationRepository): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $mesages = $conversationRepository->findOneBy(['id'=>$id])->getMessages()->toArray();
+
+        /**
+         * @var $utilisateur Utilisateur
+         */
+        $utilisateur = $this->getUser();
+        /**
+         * @var $conversatios Conversation
+         */
+        $conversations = $utilisateur->getConversations()->getValues();
+
+
+        return $this->render('chat/chat.twig', [
+            'user' => $utilisateur,
+            'conversations' => $conversations,
+            'mesages' => $mesages,
+        ]);
+
+        //todo utile ??
+//        $response->headers->setCookie(
+//            new Cookie('mercureAuthorization',
+//                $token->toString(),
+//                (new \DateTime())->add(new \DateInterval('PT2H')),
+//                '/.well-known/mercure',null, false,true,false,'strict'
+//            )
+//        );
     }
 }

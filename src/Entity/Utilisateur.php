@@ -123,7 +123,7 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Conversation::class, mappedBy="user")
-     * @ORM\OrderBy({"order" = "DESC", "$lastMessage" = "DESC"})
+     * @ORM\OrderBy({"lastMessage" = "DESC"})
      */
     private $conversations;
 

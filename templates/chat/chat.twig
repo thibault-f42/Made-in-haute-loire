@@ -1,0 +1,15 @@
+{% extends '/chat/index.html.twig' %}
+
+{% block title %}Hello ChatController!{% endblock %}
+
+{% block message %}
+    <div class="col-10">
+        {% for mesage in mesages %}
+            <div>{{ mesage.corps }} {{ mesage.date|date("m/d/Y") }}</div>
+        {% endfor %}
+    </div>
+{% endblock%}
+
+{% block javascripts %}
+    <script src="{{ asset('Javascripts/mercure/test.js') }}"> </script>
+{% endblock %}
