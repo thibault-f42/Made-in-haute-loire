@@ -24,7 +24,9 @@ class CommentairesType extends AbstractType
             ->add('pseudo' , TextType::class, [
                 'label' => 'Votre pseudonyme :',
             ])
-            ->add('content', TextType::class)
+            ->add('content', TextType::class,  [
+                'label' => 'Votre commentaire :'
+            ])
 
             ->add('rgpd', CheckboxType::class)
 
