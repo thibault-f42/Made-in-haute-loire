@@ -5,44 +5,52 @@
 {% block body %}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-    <div class="container">
+    <div class="container card chat-app">
         <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card chat-app container">
-                    <div id="plist" class="people-list col-lg-4">
-                        <div class="input-group">
+            <div class="col-lg-4">
+                <div class="card chat-app ">
+                    <div id="plist" class=" container">
+                        <div class="input-group col-12">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
 
-                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                        <ul class="list-unstyled chat-list ">
                             {% for conversation in conversations %}
 
-                                <li class="clearfix col-12">
+                                <li class="clearfix col-10 ">
                                     {% for utilisateur in conversation.user %}
                                         {% if utilisateur != user %}
                                             <a class="col-12" href="{{ path('app_chat_Conversation', {'id': conversation.id}) }}">
                                                 <div class="col-3">
                                                     <img class="rounded-circle" src="https://thispersondoesnotexist.com/image" alt="avatar">
                                                 </div>
-                                                <div class="about col-9">
+                                                <div class="about col-8">
                                                     <div class="name">{{ utilisateur.nom}} {{ utilisateur.prenom}}</div>
+                                                    {% if conversation.lastMessage != null %}
+                                                        <div class="name"> {{ conversation.lastMessage.corps|length > 10? conversation.lastMessage.corps|slice(0, 10) ~ '...' : conversation.lastMessage.corps}}</div>
+                                                    {% endif %}
                                                 </div>
+
                                             </a>
+                                            <form class="col-3" action="{{ path('app_chat_ping',{ utilisateur : utilisateur.id}) }}" method="post">
+                                                <button class="btn btn-primary"> Ping !</button>
+                                            </form>
                                         {% endif %}
                                     {% endfor %}
                                 </li>
                             {% endfor %}
                         </ul>
+                    </div>
 
-                    </div>
-                    <div class="col-lg-6">
-                        {% block message %}
-                        {% endblock %}
-                    </div>
                 </div>
+
+            </div>
+            <div class="col-8">
+                {% block message %}
+                {% endblock %}
             </div>
         </div>
     </div>
@@ -55,5 +63,26 @@
 
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('Javascripts/mercure/test.js') }}"> </script>
+{#    <script src="{{ asset('Javascripts/mercure/test.js') }}">#}
+{#    </script>#}
+    <script>
+
+        const url = new URL('http://localhost:3000/.well-known/mercure');
+        url.searchParams.append('topic','http://localhost/Made-in-haute-loire/public/utilisateur/{{user.id}}');
+        const eventSource = new EventSource(url);
+        // Message pophup
+        eventSource.onmessage = e => {
+            const data = JSON.parse(e.data)
+            let message = 'Ping !'
+            if (data.username){
+                message = data.username
+            }
+            document.querySelector('header').insertAdjacentHTML('afterend', '<div class="alert alert-success">message</div>')
+            console.log(message);
+            window.setTimeout(() => {
+                const $alert = document.querySelector('.alert')
+                $alert.parentNode.removeChild($alert)
+            }, 2000);
+        }
+    </script>
 {% endblock %}

@@ -15,7 +15,6 @@ class MercureServices
 
         foreach ($targets as $cible ){
             $postData = http_build_query([
-//            'topic' => "http://localhost/Made-in-haute-loire/public/messages/{$conversation->getId()}", todo À réactiver
                 'topic' => $cible,
                 'data' => json_encode($mesage)
             ]);

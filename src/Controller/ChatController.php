@@ -32,15 +32,10 @@ class ChatController extends AbstractController
     /**
      * @Route("/", name="index",methods={"GET"})
      */
-    public function index(UtilisateurRepository $utilisateurRepository, ConversationRepository $conversationRepository): Response // todo temporaire
+    public function index(MercureServices $mercureServices): Response // todo temporaire
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $username =  $this->getUser()->getUsername();
-        $token = (new Builder(new JoseEncoder(),ChainedFormatter::default()))
-            ->withClaim('mercure',['subscribe' => [sprintf("/%s",$username)]])
-            ->getToken(
-                new Sha256(),InMemory::plainText($this->getParameter('mercure_secrete_key'))
-            );
+
         /**
          * @var $utilisateur Utilisateur
          */
@@ -56,15 +51,8 @@ class ChatController extends AbstractController
             'user' => $utilisateur
         ]);
 
-
         //todo utile ??
-        $response->headers->setCookie(
-            new Cookie('mercureAuthorization',
-                $token->toString(),
-                (new \DateTime())->add(new \DateInterval('PT2H')),
-                '/.well-known/mercure',null, false,true,false,'strict'
-            )
-        );
+//        $response->headers->set('set-cookie',$mercureServices->CookieGenerator($utilisateur));
         return $response;
     }
 
@@ -113,17 +101,17 @@ class ChatController extends AbstractController
 
     // todo a ne pas conserver
     /**
-     * @Route("/ping", name="ping",methods={"POST"})
+     * @Route("/ping/{utilisateur}", name="ping",methods={"POST"})
      */
-    public function ping(MercureServices $mercureServices, ConversationRepository $conversationRepository): RedirectResponse
+    public function ping(MercureServices $mercureServices,
+                         ConversationRepository $conversationRepository,
+                         ?Utilisateur $utilisateur = null): RedirectResponse
     {
-        $conversation = $conversationRepository->find(1);
-
-        $route = [
-            "http://localhost/Made-in-haute-loire/public/messages/"
-        ];
-        $mercureServices->Post($conversation,"test de mesage",$route);
-
+        if ($utilisateur !== null){
+            $route = ["http://localhost/Made-in-haute-loire/public/utilisateur/{$utilisateur->getid()}"];
+        }else{
+            $route = ["http://localhost/Made-in-haute-loire/public/messages/"];
+        }        $mercureServices->Post("test de mesage",$route);
         return $this->redirectToRoute('app_chat_index');
     }
 
@@ -155,14 +143,5 @@ class ChatController extends AbstractController
             'conversations' => $conversations,
             'mesages' => $mesages,
         ]);
-
-        //todo utile ??
-//        $response->headers->setCookie(
-//            new Cookie('mercureAuthorization',
-//                $token->toString(),
-//                (new \DateTime())->add(new \DateInterval('PT2H')),
-//                '/.well-known/mercure',null, false,true,false,'strict'
-//            )
-//        );
     }
 }
