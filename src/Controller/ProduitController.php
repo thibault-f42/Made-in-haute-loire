@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaires;
 use App\Entity\Fichier;
 use App\Entity\Produit;
+use App\Form\CommentairesType;
 use App\Form\FiltreType;
 use App\Form\Produit1Type;
 use App\Form\ProduitType;
@@ -14,6 +16,7 @@ use App\Repository\SousCategorieRepository;
 use App\Repository\UtilisateurRepository;
 use App\Services\FromAdd;
 use App\Services\Redirect;
+use DateTime;
 use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Data\SearchData;
 
 /**
@@ -46,10 +50,50 @@ class ProduitController extends AbstractController
      */
     public function afficheDetailProduit(Request $request, Produit $produit): Response
     {
+        // Ajout des commentaires
+
+        $commentaire = new Commentaires;
+
+        $commentaireForm = $this->createForm(CommentairesType::class,
+            $commentaire);
+
+        $commentaireForm->handleRequest($request);
+
+        // Traitement du formulaire
+
+        if($commentaireForm->isSubmitted() && $commentaireForm->isValid())
+        {
+            $commentaire->setCreatedAt(new \DateTimeImmutable());
+            $commentaire->setAnnonce($produit);
+
+            // On récupère le contenu du champ parentid
+            $parentid = $commentaireForm->get("parentid")->getData();
+
+            // On va chercher le commentaire correspondant
+            $em = $this->getDoctrine()->getManager();
+
+            if($parentid != null){
+                $parent = $em->getRepository(Commentaires::class)->find($parentid);
+            }
+
+            // On définit le parent
+            $commentaire->setParent(($parent ?? null));
+
+            $em->persist($commentaire);
+            $em->flush();
+
+            $this->addFlash('message', 'Votre commentaire a bien été envoyé.');
+            return $this->redirectToRoute('produit_detail', ['id' =>
+                $produit-> getId()]);
+        }
+
         return $this->render('produit/detailProduit.html.twig', [
+            'commentaire'=>$commentaire,
             'produit' => $produit,
+            'commentaireForm' => $commentaireForm->createView()
         ]);
     }
+
 
     /**
      * @Route("/mes-produit", name="produitPartenaire", methods={"GET"})

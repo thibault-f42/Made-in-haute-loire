@@ -332,4 +332,13 @@ CSS DetailProduit
     height: 40%;
 }
 
+.commentaire {
+
+    background-color: rgba(222, 220, 221, 0.64);
+    position: center;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
 

@@ -71,16 +71,47 @@
                             {% endif %}
                     </div>
                 </div>
+
+            <div class="commentaire">
+                <h2>Liste des commentaires</h2>
+                {% for commentaire in produit.commentaires %}
+                    {% if commentaire.parent == null %}
+                        <h3>Commentaire de {{commentaire.pseudo}}</h3>
+                        <p>Publié le {{ commentaire.createdAt |date("d/m/Y H:i") }} </p>
+                        <div>{{ commentaire.content | raw }}</div>
+                        <p><a href="#repondre" data-reponse data-id="{{commentaire.id}}" class="btn button">Répondre</a></p>
+
+                        {# On affiche les réponses #}
+                        {% for reponse in commentaire.reponses %}
+                            <p>Réponse publiée par {{reponse.pseudo}} le {{reponse.createdAt|date("d/m/Y H:i") }}</p>
+                            <div>{{reponse.content | raw}}</div>
+                        {% endfor %}
+
+                    {% endif %}
+                {% endfor %}
+
+                    <div id="ajout_commentaire">
+                        <h2 id="repondre">Ajouter un commentaire</h2>
+                        {{ form_start(commentaireForm) }}
+                            {{ form_row(commentaireForm.email) }}
+                            {{ form_row(commentaireForm.pseudo) }}
+                        {{ form_end(commentaireForm) }}
+                    </div>
+            </div>
+
             </div>
         </div>
     </section>
+{% endblock %}
 
     {% block javascripts %}
+
+        <script src="{{ asset('Javascripts/commentaires.js') }}"></script>
+        <script src="{{ asset('Javascripts/rating.js') }}" async></script>
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
         <script src="{{ asset('Javascripts/carousel.js') }}" async></script>
-        <script src="{{ asset('Javascripts/rating.js') }}"></script>
+
     {% endblock %}
-{% endblock %}
 
 
 
