@@ -6,7 +6,7 @@ use App\Entity\Conversation;
 use App\Entity\Utilisateur;
 use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
-use App\Services\MercureServices;
+use App\Services\message;
 use Doctrine\ORM\EntityManager;
 use Lcobucci\JWT\Encoding\ChainedFormatter;
 use Lcobucci\JWT\Encoding\JoseEncoder;
@@ -32,7 +32,7 @@ class ChatController extends AbstractController
     /**
      * @Route("/", name="index",methods={"GET"})
      */
-    public function index(MercureServices $mercureServices): Response // todo temporaire
+    public function index(message $mercureServices): Response // todo temporaire
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -103,9 +103,9 @@ class ChatController extends AbstractController
     /**
      * @Route("/ping/{utilisateur}", name="ping",methods={"POST"})
      */
-    public function ping(MercureServices $mercureServices,
+    public function ping(message                $mercureServices,
                          ConversationRepository $conversationRepository,
-                         ?Utilisateur $utilisateur = null): RedirectResponse
+                         ?Utilisateur           $utilisateur = null): RedirectResponse
     {
         if ($utilisateur !== null){
             $route = ["http://localhost/Made-in-haute-loire/public/utilisateur/{$utilisateur->getid()}"];
@@ -142,6 +142,7 @@ class ChatController extends AbstractController
             'user' => $utilisateur,
             'conversations' => $conversations,
             'mesages' => $mesages,
+            'conversationId' => $conversationRepository->findOneBy(['id'=>$id])->getId(),
         ]);
     }
 }

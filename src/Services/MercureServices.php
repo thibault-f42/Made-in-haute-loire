@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class MercureServices
 {
-    public function Post(Conversation $conversation,string $mesage ,array $targets = []){
+    public function Post(string $mesage ,array $targets = []){
         define('JWT', $_ENV['MERCURE_JWT_SECRET']);
 
         foreach ($targets as $cible ){

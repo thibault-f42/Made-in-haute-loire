@@ -26,6 +26,7 @@ class Conversation
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="conversarion", orphanRemoval=true)
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     private $messages;
 

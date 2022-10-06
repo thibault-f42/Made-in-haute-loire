@@ -3,11 +3,9 @@
 {% block title %}Hello ChatController!{% endblock %}
 
 {% block body %}
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-
-    <div class="container card chat-app">
-        <div class="row clearfix">
-            <div class="col-lg-4">
+    <div class="container card chat-app ">
+        <div class="row clearfix  row vh-100">
+            <div class="col-lg-4 h-100 overflow-auto">
                 <div class="card chat-app ">
                     <div id="plist" class=" container">
                         <div class="input-group col-12">
@@ -48,10 +46,11 @@
                 </div>
 
             </div>
-            <div class="col-8">
+            <div class="col-8 h-100 overflow-auto" id="messages-chat" >
                 {% block message %}
                 {% endblock %}
             </div>
+
         </div>
     </div>
 
@@ -61,12 +60,16 @@
     </form>
 
 
+
 {% endblock %}
 {% block javascripts %}
-{#    <script src="{{ asset('Javascripts/mercure/test.js') }}">#}
-{#    </script>#}
+
+
+
     <script>
 
+        element = document.getElementById('messages-chat');
+        element.scrollTop = element.scrollHeight;
         const url = new URL('http://localhost:3000/.well-known/mercure');
         url.searchParams.append('topic','http://localhost/Made-in-haute-loire/public/utilisateur/{{user.id}}');
         const eventSource = new EventSource(url);
