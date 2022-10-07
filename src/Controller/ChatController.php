@@ -6,7 +6,7 @@ use App\Entity\Conversation;
 use App\Entity\Utilisateur;
 use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
-use App\Services\message;
+use App\Services\MercureServices;
 use Doctrine\ORM\EntityManager;
 use Lcobucci\JWT\Encoding\ChainedFormatter;
 use Lcobucci\JWT\Encoding\JoseEncoder;
@@ -32,7 +32,7 @@ class ChatController extends AbstractController
     /**
      * @Route("/", name="index",methods={"GET"})
      */
-    public function index(message $mercureServices): Response // todo temporaire
+    public function index(MercureServices $mercureServices): Response // todo temporaire
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -98,26 +98,6 @@ class ChatController extends AbstractController
         return $this->redirectToRoute('app_chat_Conversation', ['id' => $id]);
     }
 
-
-    // todo a ne pas conserver
-    /**
-     * @Route("/ping/{utilisateur}", name="ping",methods={"POST"})
-     */
-    public function ping(message                $mercureServices,
-                         ConversationRepository $conversationRepository,
-                         ?Utilisateur           $utilisateur = null): RedirectResponse
-    {
-        if ($utilisateur !== null){
-            $route = ["http://localhost/Made-in-haute-loire/public/utilisateur/{$utilisateur->getid()}"];
-        }else{
-            $route = ["http://localhost/Made-in-haute-loire/public/messages/"];
-        }        $mercureServices->Post("test de mesage",$route);
-        return $this->redirectToRoute('app_chat_index');
-    }
-
-
-
-    // todo work in progress
     /**
      * @Route("/{id}", name="Conversation")
      */
@@ -126,7 +106,8 @@ class ChatController extends AbstractController
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $mesages = $conversationRepository->findOneBy(['id'=>$id])->getMessages()->toArray();
+        $conversation = $conversationRepository->findOneBy(['id'=>$id]);
+        $mesages = $conversation->getMessages()->toArray();
 
         /**
          * @var $utilisateur Utilisateur
@@ -137,12 +118,20 @@ class ChatController extends AbstractController
          */
         $conversations = $utilisateur->getConversations()->getValues();
 
+        if ($conversation->getLastMessage() && $utilisateur !== $conversation->getLastMessage()->getUtilisateur()){
+            $conversation->setNMessageNonVue(0);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($conversation);
+            $entityManager->flush();
+        }
+
+
 
         return $this->render('chat/chat.twig', [
             'user' => $utilisateur,
             'conversations' => $conversations,
             'mesages' => $mesages,
-            'conversationId' => $conversationRepository->findOneBy(['id'=>$id])->getId(),
+            'conversationId' => $conversation->getId(),
         ]);
     }
 }

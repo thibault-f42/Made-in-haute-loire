@@ -37,8 +37,7 @@ class MessageController extends AbstractController
 
         $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
-        $content = $request->get('mesage', null);
-
+        $content = $request->get('mesage', "");
         $message = $messageService->envoi($content,$utilisateur,$conversation, $entityManager ,$serializer , $mercureServices);
         return $this->json($message, Response::HTTP_CREATED, [],[
             'attributes' => self::ATTRIBUT_TO_SERIALIZE

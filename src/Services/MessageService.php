@@ -27,6 +27,7 @@ class MessageService
 
         $conversation->addMessage($message);
         $conversation->setLastMessage($message);
+        $conversation->incrementNMessageNonVue();
         $entityManager->getConnection()->beginTransaction();
         try {
             $entityManager->persist($message);
@@ -39,7 +40,13 @@ class MessageService
         }
 
         // Envoie au serveur mercure
-        $route = ["http://localhost/Made-in-haute-loire/public/chat/{$message->getConversarion()->getId()}"];
+        foreach ($conversation->getUser() as $userConv){
+            if ($userConv !== $utilisateur){
+                $route = ["http://localhost/Made-in-haute-loire/public/chat/{$message->getConversarion()->getId()}",
+                    "http://localhost/Made-in-haute-loire/public/utilisateur/{$userConv->getid()}"
+                ];
+            }
+        }
         $messageSerialized = $serializer->serialize($message,'json',[
             'attributes' => ['id', 'corps', 'date', 'conversation '=> ['id']]
         ]);

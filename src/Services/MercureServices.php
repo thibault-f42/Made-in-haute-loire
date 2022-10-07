@@ -17,9 +17,9 @@ class MercureServices
             $postData = http_build_query([
                 'topic' => $cible,
                 'data' => json_encode($mesage)
+
             ]);
-
-
+            dump($cible);
             echo file_get_contents(
                 'http://localhost:3000/.well-known/mercure',
                 false,
@@ -32,28 +32,7 @@ class MercureServices
                 ])
             );
         }
-
-//        $postData = http_build_query([
-////            'topic' => "http://localhost/Made-in-haute-loire/public/messages/{$conversation->getId()}",
-//            'topic' => "http://localhost/Made-in-haute-loire/public/messages/",
-//            'data' => json_encode($mesage)
-//            ]);
-//
-//
-//        echo file_get_contents(
-//            'http://localhost:3000/.well-known/mercure',
-//            false,
-//            stream_context_create([
-//                'http' => [
-//                    'method'  => 'POST',
-//                    'header'  => "Content-type: application/x-www-form-urlencoded\r\nAuthorization: Bearer ".JWT,
-//                    'content' => $postData,
-//                ]
-//            ])
-//        );
-
-
-
+dd('fin');
     }
 
 

@@ -36,6 +36,16 @@ class Conversation
      */
     private $lastMessage;
 
+    /**
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    private $nMessageNonVue;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -131,5 +141,35 @@ class Conversation
             }
         }
         return null;
+    }
+
+    public function getNMessageNonVue(): ?int
+    {
+        return $this->nMessageNonVue;
+    }
+
+    public function setNMessageNonVue(int $nMessageNonVue): self
+    {
+        $this->nMessageNonVue = $nMessageNonVue;
+
+        return $this;
+    }
+    public function incrementNMessageNonVue(): self
+    {
+        $this->nMessageNonVue += 1;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
     }
 }

@@ -49,11 +49,12 @@
 {% endblock%}
 
 {% block javascripts %}
-    <script>
-        messages = document.getElementById('messages-chat');
-        messages.scrollTop = messages.scrollHeight;
+    <script src="{{ asset('Javascripts/chat.js') }}">
     </script>
-    <script src="{{ asset('Javascripts/chat.js') }}"></script>
-    <script>requeteAjaxPost('#send-message','#submit-chat', 'click','{{ path('messages_newMessage',{'id': conversationId}) }}')</script>
-    <script> </script>
+    <script>
+        requeteAjaxPost('#send-message','#submit-chat', 'click','{{ path('messages_newMessage',{'id': conversationId}) }}');
+        scroll();
+        mercure('chat/{{ conversationId }}')
+        mercure('utilisateur/{{ user.id }}')
+    </script>
 {% endblock %}
