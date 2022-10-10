@@ -52,11 +52,19 @@ class Conversation
      */
     private $produit;
 
+    /**
+     * @ORM\OneToMany(targetEntity=sousCommande::class, mappedBy="conversation")
+     */
+    private $sousCommande;
+
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->produit = new ArrayCollection();
+        $this->commande = new ArrayCollection();
+        $this->sousCommande = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +212,36 @@ class Conversation
             // set the owning side to null (unless already changed)
             if ($produit->getConversation() === $this) {
                 $produit->setConversation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, sousCommande>
+     */
+    public function getSousCommande(): Collection
+    {
+        return $this->sousCommande;
+    }
+
+    public function addSousCommande(sousCommande $sousCommande): self
+    {
+        if (!$this->sousCommande->contains($sousCommande)) {
+            $this->sousCommande[] = $sousCommande;
+            $sousCommande->setConversation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSousCommande(sousCommande $sousCommande): self
+    {
+        if ($this->sousCommande->removeElement($sousCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($sousCommande->getConversation() === $this) {
+                $sousCommande->setConversation(null);
             }
         }
 

@@ -2,22 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Conversation;
+use App\Entity\Produit;
+use App\Entity\SousCommande;
 use App\Entity\Utilisateur;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\SousCommandeRepository;
 use App\Repository\UtilisateurRepository;
 use App\Services\MessageService;
-use ContainerVq3QuPe\getUtilisateurService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\WebLink\Link;
 
 /**
  * @Route("/conversation", name="conversation_")
@@ -37,24 +34,24 @@ class ConversationController extends AbstractController
      */
     private $produitRepository;
     /**
-     * @var CommandeRepository
-     */
-    private $commandeRepository;
-    /**
      * @var Utilisateur
      */
     private $utilisateur;
+    /**
+     * @var SousCommandeRepository
+     */
+    private $sousCommandeRepository;
 
     public function __construct(UtilisateurRepository $utilisateurRepository,
                                 MessageService $messageService,
                                 ProduitRepository $produitRepository,
-                                CommandeRepository $commandeRepository
+                                SousCommandeRepository $sousCommandeRepository
                                )
     {
         $this->utilisateurRepository = $utilisateurRepository;
         $this->messageService = $messageService;
         $this->produitRepository = $produitRepository;
-        $this->commandeRepository = $commandeRepository;
+        $this->sousCommandeRepository = $sousCommandeRepository;
     }
 
     /**
@@ -118,9 +115,54 @@ class ConversationController extends AbstractController
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
 
+        $utilisateurs = [$this->utilisateur, $produit->getEntreprise()->getUtilisateur()];
+        $conversation = $this->messageService->newConversation($utilisateurs, false);
+        $conversation->addProduit($produit);
+        $conversation->setNom($produit->getNomArticle());
+        $conversationNumber = $this->messageService->save($conversation);
+
+        return $this->redirectToRoute('app_chat_Conversation', ['id' => $conversationNumber]);
+    }
+
+    /**
+     * @Route("/newConversationBySousCommande/{numCommande}/{numProduit}", name="newConversationBySousCommande", methods={"get"})
+     */
+    public function newConversationBySousCommande(int $numCommande, int $numProduit): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->utilisateur = $this->getUser();
+        try {
+
+            /**
+             * @var $produit Produit
+             */
+            /**
+             * @var $commande SousCommande
+             */
+            $produit = $this->produitRepository->findOneBy(array('id'=>$numProduit));
+            $commande = $this->sousCommandeRepository->findOneBy(array('id'=>$numCommande));
+
+            if (!$produit){
+                throw new \Exception("Le produit n'existe pas.");
+            }
+            if (!$commande){
+                throw new \Exception("La commande n'existe pas.");
+            }
+
+            if ($produit->getEntreprise()->getUtilisateur() === $this->utilisateur ){
+                throw new \Exception("Vous ne pouvez pas créer de conversation avec vous-même ");
+            }
+        }catch (\Exception $e){
+            $this->addFlash('warnig', $e->getMessage());
+
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+        /**
+         * @var $conversation Conversation
+         */
         if ($this->utilisateur->findConversationByParticipants($produit->getEntreprise()->getUtilisateur())){
             foreach ($this->utilisateur->findConversationByParticipants($produit->getEntreprise()->getUtilisateur()) as $conversation) {
-                if ($conversation->getProduit()) {
+                if ($conversation->getProduit() === $produit AND $conversation->getSousCommande() === $commande ) {
                     $conversationNumber = $conversation->getId();
                 }
             }
@@ -129,10 +171,10 @@ class ConversationController extends AbstractController
             $utilisateurs = [$this->utilisateur, $produit->getEntreprise()->getUtilisateur()];
             $conversation = $this->messageService->newConversation($utilisateurs, false);
             $conversation->addProduit($produit);
-            $conversation->setNom($produit->getNomArticle());
+            $conversation->addSousCommande($commande);
+            $conversation->setNom("litige {$produit->getNomArticle()}");
             $conversationNumber = $this->messageService->save($conversation);
         }
         return $this->redirectToRoute('app_chat_Conversation', ['id' => $conversationNumber]);
     }
-
 }

@@ -31,7 +31,11 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="about col-8">
-                                                    <div class="name">{{ utilisateur.nom}} {{ utilisateur.prenom}}</div>
+                                                    {% if conversation.nom %}
+                                                        <div class="name">{{ conversation.nom}}</div>
+                                                    {% else %}
+                                                        <div class="name">{{ utilisateur.nom}} {{ utilisateur.prenom}}</div>
+                                                    {% endif %}
                                                     {% if conversation.lastMessage != null %}
                                                         <div class="name"> {{ conversation.lastMessage.corps|length > 10? conversation.lastMessage.corps|slice(0, 10) ~ '...' : conversation.lastMessage.corps}}</div>
                                                     {% endif %}
