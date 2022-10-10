@@ -51,14 +51,17 @@
                         </li>
                     </div>
                     <div >
-                        {% if app.user %}
-                        {% if app.user.entreprise != produit.entreprise %}
-                            <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
+                        {% if true %}
+                            {% if app.user.entreprise != produit.entreprise %}
+                                <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
                                    class="btn button">
                                     Ajouter au panier
                                 </a>
-                        {% endif %}
+                                <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
+                                    <button class="btn btn-primary ">contacter</button>
+                                </a>
                             {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

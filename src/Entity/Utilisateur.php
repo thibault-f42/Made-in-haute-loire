@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ConfigRepository;
-use App\Repository\ConversationRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -468,19 +466,21 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-
+    /**
+     * @return array
+     */
     public function findConversationByParticipants(Utilisateur $otherUser )
     {
-        $conversation = null;
+        $conversations = null;
         foreach ($this->getConversations() as $conversationUser){
             foreach ($otherUser->getConversations() as $conversationOtherUser){
                 if ($conversationUser === $conversationOtherUser){
                     $conversation = $conversationUser;
-                    return $conversation;
+                    $conversations[] = $conversation;
                 }
             }
         }
-        return $conversation;
+        return $conversations;
     }
 
     /**
@@ -497,7 +497,6 @@ class Utilisateur implements UserInterface
             $this->messages[] = $message;
             $message->setUtilisateur($this);
         }
-
         return $this;
     }
 

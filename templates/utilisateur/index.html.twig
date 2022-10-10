@@ -68,7 +68,7 @@
                                 <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">Consulter</a>
                             </ul>
                             <ul class="col-lg-1">
-                                <a href="{{ path('app_chat_newConversation', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">contacter</a>
+                                <a href="{{ path('conversation_newConversation', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">contacter</a>
                             </ul>
                         </li>
                     {% else %}

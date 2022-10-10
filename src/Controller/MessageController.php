@@ -29,16 +29,15 @@ class MessageController extends AbstractController
     public function newMessage(Request                $request,
                                Conversation           $conversation,
                                UtilisateurRepository  $utilisateurRepository,
-                               EntityManagerInterface $entityManager,
-                               SerializerInterface $serializer,
-                               MercureServices $mercureServices,
                                MessageService $messageService)
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
         $content = $request->get('mesage', "");
-        $message = $messageService->envoi($content,$utilisateur,$conversation, $entityManager ,$serializer , $mercureServices);
+        $message = $messageService->envoi($content,$utilisateur,$conversation);
+
+
         return $this->json($message, Response::HTTP_CREATED, [],[
             'attributes' => self::ATTRIBUT_TO_SERIALIZE
         ]);
