@@ -42,7 +42,7 @@ CAROUSEL
   position: absolute;
   width: 30px;
   height: 30px;
-  background: white url(arrow_right.svg) center center no-repeat;
+  background: white url("../css/arrow_right.svg") center center no-repeat;
   background-size: 20px 20px;
   border-radius: 50%;
   top: 50%;
@@ -58,7 +58,7 @@ CAROUSEL
 }
 
 .carousel__prev {
-  background-image: url(arrow_left.svg);
+  background-image: url("../css/arrow_left.svg");
   right: auto;
   left: 0px;
 }

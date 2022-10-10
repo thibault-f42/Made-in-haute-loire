@@ -78,6 +78,7 @@
 .btn {
     flex-wrap: nowrap;
     justify-content: center;
+
 }
 
 .informationDuCompte {
@@ -339,6 +340,25 @@ CSS DetailProduit
     text-align: center;
     margin: auto;
     border-radius: 10px;
+    margin-bottom: 3em;
 }
+
+.commentaire1{
+    background-color: rgba(222, 220, 221, 0.64);
+    position: center;
+    text-align: center;
+    border-radius: 10px;
+    margin-top:5em;
+    padding-bottom: 1em;
+}
+
+.comment-scroll{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    white-space: nowrap;
+
+    max-height: 25em;
+}
+
 
 

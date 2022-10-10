@@ -12,10 +12,10 @@
 
         {% block extrastyle %}
             <link rel="stylesheet" href="{{ asset('css/made-in-loire.css') }}">
-            <link rel="stylesheet" href="{{ asset('scss/base.scss') }}">
-            <link rel="stylesheet" href="{{ asset('scss/nav.scss') }}">
-            <link rel="stylesheet" href="{{ asset('scss/layout.scss') }}">
-            <link rel="stylesheet" href="{{ asset('scss/Module.scss') }}">
+            <link rel="stylesheet" href="{{ asset('scss/base.css') }}">
+            <link rel="stylesheet" href="{{ asset('scss/nav.css') }}">
+            <link rel="stylesheet" href="{{ asset('scss/layout.css') }}">
+            <link rel="stylesheet" href="{{ asset('scss/Module.css') }}">
         {% endblock %}
 
     </head>
@@ -35,7 +35,9 @@
 
 {% include ('inc/__footer.html.twig') %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
 
     </body>
 

@@ -17,6 +17,7 @@ use App\Repository\UtilisateurRepository;
 use App\Services\FromAdd;
 use App\Services\Redirect;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,7 +49,9 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{id}/detail-produit", name="produit_detail", methods={"GET","POST"})
      */
-    public function afficheDetailProduit(Request $request, Produit $produit): Response
+    public function afficheDetailProduit(Request $request, Produit $produit,
+                                         EntityManagerInterface $em)
+    : Response
     {
         // Ajout des commentaires
 
@@ -68,9 +71,6 @@ class ProduitController extends AbstractController
 
             // On récupère le contenu du champ parentid
             $parentid = $commentaireForm->get("parentid")->getData();
-
-            // On va chercher le commentaire correspondant
-            $em = $this->getDoctrine()->getManager();
 
             if($parentid != null){
                 $parent = $em->getRepository(Commentaires::class)->find($parentid);

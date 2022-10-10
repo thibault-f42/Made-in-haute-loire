@@ -20,7 +20,7 @@ class AdresseLivraison
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="adresse")
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="adresseLivraison")
      * @ORM\JoinColumn(nullable=false)
      */
     private $ville;

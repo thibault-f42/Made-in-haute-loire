@@ -32,7 +32,7 @@ class Commentaires
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $email =false;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,6 +41,7 @@ class Commentaires
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @ORM\OrderBy({"date" = "DESC"})
      */
     private $created_at;
 

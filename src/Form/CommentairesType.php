@@ -18,9 +18,9 @@ class CommentairesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Votre adresse mail :',
-            ])
+//            ->add('email', EmailType::class, [
+//                'label' => 'Votre adresse mail :', 'mapped' => false
+//            ])
             ->add('pseudo' , TextType::class, [
                 'label' => 'Votre pseudonyme :',
             ])
@@ -28,12 +28,16 @@ class CommentairesType extends AbstractType
                 'label' => 'Votre commentaire :'
             ])
 
-            ->add('rgpd', CheckboxType::class)
+            ->add('rgpd', CheckboxType::class, [
+               'label' => "J'ai lu et j'accepte le Règlement Général sur la Protection des Données"
+            ])
 
             ->add('parentid', HiddenType::class, [
                 'mapped' => false
             ])
-            ->add('envoyer', SubmitType::class)
+            ->add('envoyer', SubmitType::class, [
+                'attr' => ['class'=>'btn-success']
+            ])
         ;
     }
 

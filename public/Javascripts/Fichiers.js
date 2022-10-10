@@ -1,4 +1,3 @@
-
 window.onload = () => {
     //Gestion des liens supprimer
     let balises = document.querySelectorAll("[data-delete]")
