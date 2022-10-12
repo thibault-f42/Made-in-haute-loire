@@ -42,8 +42,8 @@ class Conversation
     private $nMessageNonVue;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     private $nom;
 

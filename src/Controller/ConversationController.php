@@ -78,6 +78,8 @@ class ConversationController extends AbstractController
         /**
          * @var $conversation Conversation
          */
+        $conversationNumber = null ;
+
         if ($this->utilisateur->findConversationByParticipants($otherUser)) {
             foreach ($this->utilisateur->findConversationByParticipants($otherUser) as $conversation){
                 if (!$conversation->getProduit()){
