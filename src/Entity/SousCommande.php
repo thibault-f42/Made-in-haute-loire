@@ -56,6 +56,11 @@ class SousCommande
      */
     private $produit;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="sousCommande")
+     */
+    private $conversation;
+
 
     public function __construct()
     {
@@ -136,6 +141,18 @@ class SousCommande
     public function setProduit(?Produit $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): self
+    {
+        $this->conversation = $conversation;
 
         return $this;
     }

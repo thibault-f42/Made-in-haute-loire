@@ -14,6 +14,8 @@
                                 <div class="col-1"> {{ sousCommande.quantite }}</div>
                                 <div class="col-3"> {{ sousCommande.quantite * sousCommande.produit.prix}} € </div>
                                 <div class="col-4"> {{ sousCommande.etat.etat}} € </div>
+                                <a class="col-1"
+                                   href="{{ path('conversation_newConversationBySousCommande',{'numCommande': sousCommande.id , 'numProduit': sousCommande.produit.id})}}">litige</a>
                             </div>
                         {% endif %}
                     {% endfor %}
