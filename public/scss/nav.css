@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+
 .logo {
     position: relative;
     margin-left: 1.5em;
@@ -51,8 +53,6 @@
 }
 /*==============================*/
 
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
-
 .navbar {
     font-family: 'Raleway', Arial, sans-serif;
     text-align: center;
@@ -97,9 +97,9 @@
     width: 100% !important;
 }
 
-//.navbar-nav a:hover{
-//    color: #4f99b9;
-//}
+/*//.navbar-nav a:hover{*/
+/*//    color: #4f99b9;*/
+/*//}*/
 .navbar a:hover:before,
 .navbar a:hover:after{
     width: 100%;

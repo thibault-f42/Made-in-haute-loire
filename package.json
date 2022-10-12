@@ -1,0 +1,22 @@
+{
+  "name": "writting-sass",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss/main.scss:./public/css/style.css --style compressed"
+  },
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thibault-f42/Made-in-haute-loire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thibault-f42/Made-in-haute-loire/issues"
+  },
+  "homepage": "https://github.com/thibault-f42/Made-in-haute-loire#readme",
+  "description": ""
+}
