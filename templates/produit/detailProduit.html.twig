@@ -62,7 +62,7 @@
                         </ul>
                     </div>
                     <div >
-                        {% if true %}
+                        {% if produit.activeChat %}
                             {% if app.user.entreprise != produit.entreprise %}
                                 <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
                                    class="btn button">
