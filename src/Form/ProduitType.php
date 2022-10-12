@@ -29,6 +29,7 @@ class ProduitType extends AbstractType
                 'choice_label' => 'libelle', 'placeholder' => 'Catégorie', 'required'=>false ])
 
             ->add('photos', FileType::class, ['label' => 'Photos', 'multiple' => true, 'mapped' => false, 'required' => false])
+            ->add('activeChat')
 
         ;
         ;

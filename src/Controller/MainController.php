@@ -23,7 +23,11 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     /**
      * @Route ("/", name = "Accueil")
      */
-    public function home (UtilisateurRepository $utilisateurRepository, AuthenticationUtils $authenticationUtils,Request $request, ProduitRepository $produitRepository, SousCategorieRepository $sousCategorieRepository)  {
+    public function home (UtilisateurRepository $utilisateurRepository,
+                          AuthenticationUtils $authenticationUtils,
+                          Request $request,
+                          ProduitRepository $produitRepository,
+                          SousCategorieRepository $sousCategorieRepository)  {
 
 
         // if ($this->getUser()) {

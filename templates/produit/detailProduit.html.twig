@@ -61,6 +61,18 @@
                             <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Ma vitrine</a></li>
                         </ul>
                     </div>
+                    <div >
+                        {% if true %}
+                            {% if app.user.entreprise != produit.entreprise %}
+                                <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
+                                   class="btn button">
+                                    Ajouter au panier
+                                </a>
+                                <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
+                                    <button class="btn btn-primary ">contacter</button>
+                                </a>
+                            {% endif %}
+                        {% endif %}
 
 
 
