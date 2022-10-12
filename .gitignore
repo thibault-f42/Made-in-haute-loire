@@ -60,4 +60,6 @@
 
 .idea/php.xml
 
-updates.db
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

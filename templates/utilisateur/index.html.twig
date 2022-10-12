@@ -7,78 +7,43 @@
           xmlns="http://www.w3.org/1999/html" title="Acceuil" xmlns="http://www.w3.org/1999/html"/>
     <h1>Utilisateur index</h1>
 
-
-    <div class="container">
-        <div class="row clearfix">
-
-                <div class="card chat-app">
-                        <li class=" col-12">
-                            <ul class="col-lg-1">
-                            </ul>
-                            <ul class="col-lg-1">
-                                <div class="name">nom</div>
-                            </ul>
-                            <ul class="col-lg-1">
-                                <div class="name">prenom </div>
-                            </ul>
-                            {% if (is_granted("ROLE_ADMIN")) %}
-                                <ul class="col-lg-2">
-                                    <div class="name">email</div>
-                                </ul>
-                                <ul class="col-lg-2">
-                                    <div class="name">telephone</div>
-                                </ul>
-                                <ul class="col-lg-2">
-                                    <div class="name">adresse</div>
-                                </ul>
-                                <ul class="col-lg-1">
-                                </ul>
-                            {% endif %}
-                            <ul class="col-lg-1">
-                            </ul>
-                            <ul class="col-lg-1">
-                            </ul>
-                        </li>
-                    {% for utilisateur in utilisateurs %}
-                        <li class=" col-12">
-                            <ul class="col-lg-1">
-                                <img src="https://thispersondoesnotexist.com/image" alt="avatar">
-                            </ul>
-                            <ul class="col-lg-1">
-                                <div class="name">{{ utilisateur.nom }}</div>
-                            </ul>
-                            <ul class="col-lg-1">
-                                <div class="name">{{ utilisateur.prenom }}</div>
-                            </ul>
-                            {% if (is_granted("ROLE_ADMIN")) %}
-                                <ul class="col-lg-2">
-                                    <div class="name">{{ utilisateur.email }}</div>
-                                </ul>
-                                <ul class="col-lg-2">
-                                    <div class="name">{{ utilisateur.telephone }}</div>
-                                </ul>
-                                <ul class="col-lg-2">
-                                    <div class="name"{{ utilisateur.adresse }}</div>
-                                </ul>
-                                <ul class="col-lg-1">
-                                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">Modifier</a>
-                                </ul>
-                            {% endif %}
-                            <ul class="col-lg-1">
-                                <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">Consulter</a>
-                            </ul>
-                            <ul class="col-lg-1">
-                                <a href="{{ path('conversation_newConversation', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm active">contacter</a>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <tr>
-                            <td colspan="12">Aucun utilisateur trouvé</td>
-                        </tr>
-                    {% endfor %}
-                </div>
-
-
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Telephone</th>
+                <th>Vendeur</th>
+                <th>Adresse</th>
+                <th>IsVerified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.telephone }}</td>
+                <td>{{ utilisateur.vendeur ? 'Yes' : 'No' }}</td>
+                <td>{{ utilisateur.adresse }}</td>
+                <td>{{ utilisateur.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Consulter</a>
+                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Aucun utilisateur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -1,1 +1,0 @@
-$env:JWT_KEY='konshensx' ;$env:ADDR='localhost:3000'; $env:ALLOW_ANONYMOUS=1 ;$env:CORS_ALLOWED_ORIGINS='*' ;./mercure/mercure.exe
