@@ -212,5 +212,4 @@ class Commande
 
         return $this;
     }
-
 }

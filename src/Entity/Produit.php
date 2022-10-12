@@ -90,17 +90,6 @@ class Produit
      */
     private $commentaires;
 
-    /**
-     * @ORM\Column(type="boolean",options={"default"=false})
-     *
-     */
-    private $activeChat;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="produit")
-     */
-    private $conversation;
-
 
 
     
@@ -340,30 +329,6 @@ class Produit
                 $commentaire->setAnnonce(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getActiveChat(): ?bool
-    {
-        return $this->activeChat;
-    }
-
-    public function setActiveChat(bool $activeChat): self
-    {
-        $this->activeChat = $activeChat;
-
-        return $this;
-    }
-
-    public function getConversation(): ?Conversation
-    {
-        return $this->conversation;
-    }
-
-    public function setConversation(?Conversation $conversation): self
-    {
-        $this->conversation = $conversation;
 
         return $this;
     }

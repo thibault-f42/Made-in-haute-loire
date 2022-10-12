@@ -8,7 +8,9 @@
  * @param {boolean} modificationUrl (facultatif) Affiche la requête dans l'Url. Par default à false.
  */
 function requeteAjaxPost(selectorFormulaire, selectorElementAction, typeAction, selectorReponse, modificationUrl= false) {
+
     document.querySelector(selectorElementAction).addEventListener(typeAction, (event) => {
+
         event.preventDefault();
 
         const Form = new FormData(document.querySelector(selectorFormulaire));
@@ -64,7 +66,12 @@ function requeteAjaxGet(selectorElementAction, typeAction, selectorReponse, modi
 
     document.querySelector(selectorElementAction).addEventListener(typeAction, (event) => {
 
+
+
+
                 event.preventDefault();
+
+                console.log(document.querySelector(selectorElementAction).value);
                 const Params = new URLSearchParams();
         if ( document.querySelector(selectorElementAction).value !== "" ) {
             Params.append(document.querySelector(selectorElementAction).name, document.querySelector(selectorElementAction).value);
