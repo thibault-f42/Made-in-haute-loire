@@ -3,29 +3,39 @@
   margin:auto;
   padding: 1rem;
   width:60em;
-  height:100vh;
+  height:80vh;
   border-radius:$border-radius;
   background:$color-windows-background;
-  overflow:auto;
-
   display: grid;
   grid-template-columns: 1fr 2fr;
-
+  grid-template-rows: 1fr 3rem;
+overflow: hidden;
   &__conversations{
+    grid-column: 1/2;
+    grid-row: 1/3;
     overflow: auto;
-    //overflow-x: hidden;
+    height: 100%;
     border-radius:$border-radius;
-    order: 0;
-  }
 
+  }
   &__messages{
-    order: 1;
+    padding: 2rem;
+    grid-column: 2/3;
+
+    grid-row: 1/2;
+    overflow: auto;
+
     border-radius: $border-radius;
-    border-color: $color-border-windows;
+  }
+  &__input{
+    grid-column: 2/3;
+    grid-row: 2/3;
+
+    border-radius: $border-radius;
+
   }
 }
 .conversation{
-  position:relative;
   border-radius: $border-radius;
   margin: 0 0 0.25rem 0;
   width:100%;
@@ -59,12 +69,53 @@
       color: white;
     }
   }
-
   &__info {
-    overflow: hidden;
     margin: auto 0;
 
     text-align: left;
     grid-column: 2/3;
+  }
+}
+.message{
+  display: grid;
+  margin: 0;
+  &__this{
+    @include message-aligne(right);
+  }
+  &__other{
+    @include message-aligne(left);
+  }
+}
+.input-area {
+  border-radius: $border-radius;
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: grid;
+  background-color: #fff3d9;
+  grid-template-columns: 1fr 5rem;
+  label {
+    grid-column: 1/2;
+    textarea {
+      margin: 0 0.4rem;
+      border: none;
+      border-radius: $border-radius 0 0 $border-radius;
+      width: 100%;
+      height: 3rem;
+      resize: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  button {
+    border: none;
+    background-color: $color-btn-green;
+    border-radius: $border-radius;
+    grid-column: 2/3;
+
+    &:hover {
+      background-color: lighten($color-btn-green, 15%);
+    }
   }
 }

@@ -1,11 +1,10 @@
-@import "../scss/base/typographie";
+@import "./base/typographie";
 
-@import "../scss/utils/variable";
+@import "./utils/variable";
+@import "./utils/mixin";
 
-@import "../scss/layout/nav";
-@import "../scss/layout/footer";
+@import "./layout/nav";
+@import "./layout/footer";
 
-@import "utils/variable";
-@import "utils/mixin";
-
-@import "./pages/chat";
+@import "pages/chat";
+@import "pages/messages";

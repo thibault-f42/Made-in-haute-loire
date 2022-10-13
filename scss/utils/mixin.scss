@@ -5,3 +5,27 @@
     background-position: center;
     border-radius: 50%;
 }
+@mixin message-aligne ($aligned: left){
+    @if ($aligned == right) {
+        margin-left: auto;
+    }@else {
+        margin-right: auto;
+    }
+    &__corp{
+        margin-top: 2rem;
+        padding: 0.5rem;
+        border-radius: $border-radius;
+        @if ($aligned == right) {
+            background-color: $color-green;
+        }@else {
+            background-color: darken($color-windows-background , 15%);
+        }
+    }
+    &__time{
+        @if ($aligned == right) {
+            text-align: end;
+        }@else {
+            text-align: start;
+        }
+    }
+}
