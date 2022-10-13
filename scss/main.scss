@@ -4,3 +4,8 @@
 
 @import "../scss/layout/nav";
 @import "../scss/layout/footer";
+
+@import "utils/variable";
+@import "utils/mixin";
+
+@import "./pages/chat";
