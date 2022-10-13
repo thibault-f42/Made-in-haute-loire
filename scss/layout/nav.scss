@@ -9,15 +9,17 @@
 
 .titre
 {
-
+  display: flex;
+  margin-left: 2%;
 }
 
-.nav-link{
-  font-size: 20px;
+.navbar{
+  border-bottom: 5px solid #b69126;
+  background-color: rgba(254, 244, 215, 0.3);
 }
 
-#dropdownMenu2{
-  font-size: 20px;
+.nav-link, #dropdownMenu2{
+  font-size: 1.5em;
 }
 
 .banniere{
@@ -28,8 +30,12 @@
 
 .bouton-submit
 {
-  background-color: #6bb26b ;
-  border-radius: $border-radius ;
+  background-color: #6bb26b;
+  border-radius: $border-radius;
+  &:hover{
+    background-color: #6dc46d ;
+    color: whitesmoke;
+  }
 }
 
 .container-btn{
@@ -37,33 +43,17 @@
   justify-content: center;
 }
 
-.bouton-submit:hover {
-  background-color: #6dc46d ;
-  color: whitesmoke ;
-}
-
-.header__left{
- //display: flex;
- // align-content: space-evenly;
-}
-
-.header__right{
-  //display: flex;
-  //align-content: space-evenly;
-}
-
-
 /*===========================
     Navigation du header
 =============================*/
 
+
+
 .navbar {
   font-family: 'Raleway', Arial, sans-serif;
-  //text-align: center;
+  text-align: center;
   font-weight: 500;
   letter-spacing: 1px;
-  border-bottom: 5px solid #b69126;
-  background-color: rgba(254, 244, 215, 0.3);
 
     *{
       -webkit-box-sizing: border-box;
@@ -118,18 +108,18 @@
   width: 100%;
 }
 
-//@media only screen and (max-width: 768px){
-//  h1{
-//    visibility: hidden;
-//  }
-//
-//  .slogan{
-//    margin: 50px;
-//  }
-//}
-//
-//@media all and (orientation: portrait){
-//  h1{
-//    margin-right: 3em;
-//  }
-//}
+@media only screen and (max-width: 768px){
+  h1{
+    visibility: hidden;
+  }
+
+  .slogan{
+    margin: 50px;
+  }
+}
+
+@media all and (orientation: portrait){
+  h1{
+    margin-right: 3em;
+  }
+}
