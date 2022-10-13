@@ -1,0 +1,7 @@
+@mixin profile-picture ($size: $profile-picture-size){
+    width: $size;
+    height: $size;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}

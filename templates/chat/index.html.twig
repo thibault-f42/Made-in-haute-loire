@@ -3,63 +3,45 @@
 {% block title %}Hello ChatController!{% endblock %}
 
 {% block body %}
-    <div class="container card chat-app ">
-        <div class="row clearfix  row vh-100">
-            <div class="col-lg-4 h-100 overflow-auto">
-                <div class="card chat-app ">
-                    <div id="plist" class=" container">
-                        <div class="input-group col-12">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+{#  todo work in progress  #}
+    <div class="window-chat">
+        <div class="window-chat__conversations">
+            {% for conversation in conversations %}
+                <a class="conversation" href="{{ path('app_chat_Conversation', {'id': conversation.id}) }}">
+                    {% for utilisateur in conversation.user %}
+                        {% if utilisateur != user %}
+                            <div class="conversation__image">
+                                {% if conversation.lastMessage != null %}
+                                    {% if  user != conversation.lastMessage.utilisateur and  conversation.nMessageNonVue != 0%}
+                                        <span class="conversation__image__puce">{{ conversation.nMessageNonVue|length > 2? conversation.nMessageNonVue|slice(0, 0) ~ '99+' : conversation.nMessageNonVue }}</span>
+                                    {% endif %}
+                                {% endif %}
+                                <img class="conversation__image__picture" src="https://thispersondoesnotexist.com/image" alt="avatar">
                             </div>
-                            <input type="text" class="form-control" placeholder="Search...">
-                        </div>
+                            <div class="conversation__info">
+                                {% if conversation.nom %}
+                                   {{ conversation.nom}}
+                                {% else %}
+                                   <h3>{{ utilisateur.nom}} {{ utilisateur.prenom}}</h3>
+                                {% endif %}
+                                {% if conversation.lastMessage != null %}
+                                    <br>{{ conversation.lastMessage.corps|length > 20? conversation.lastMessage.corps|slice(0, 20) ~ '...' : conversation.lastMessage.corps}}
+                                {% endif %}
+                            </div>
 
-                        <ul class="list-unstyled chat-list ">
-                            {% for conversation in conversations %}
-
-                                <li class="clearfix col-10 ">
-                                    {% for utilisateur in conversation.user %}
-                                        {% if utilisateur != user %}
-                                            <a class="col-12" href="{{ path('app_chat_Conversation', {'id': conversation.id}) }}">
-                                                <div class="col-3">
-                                                    <img class="rounded-circle" src="https://thispersondoesnotexist.com/image" alt="avatar">
-                                                    {% if conversation.lastMessage != null %}
-                                                        {% if  user != conversation.lastMessage.utilisateur and  conversation.nMessageNonVue != 0%}
-                                                            <span class="badge bg-danger float-end">{{ conversation.nMessageNonVue }}</span>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="about col-8">
-                                                    {% if conversation.nom %}
-                                                        <div class="name">{{ conversation.nom}}</div>
-                                                    {% else %}
-                                                        <div class="name">{{ utilisateur.nom}} {{ utilisateur.prenom}}</div>
-                                                    {% endif %}
-                                                    {% if conversation.lastMessage != null %}
-                                                        <div class="name"> {{ conversation.lastMessage.corps|length > 10? conversation.lastMessage.corps|slice(0, 10) ~ '...' : conversation.lastMessage.corps}}</div>
-                                                    {% endif %}
-                                                </div>
-                                            </a>
-
-                                        {% endif %}
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="col-8 h-100 overflow-auto" id="messages-chat" >
-                {% block message %}
-                {% endblock %}
-            </div>
-
+                        {% endif %}
+                    {% endfor %}
+                </a>
+            {% endfor%}
+        </div>
+        <div class="window-chat__messages">
+            {% block message %}
+            {% endblock %}
         </div>
     </div>
 
+
+{#todo a supr#}
 
 
 {% endblock %}
