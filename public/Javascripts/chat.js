@@ -37,8 +37,6 @@ function scroll() {
  * @param {string} chemin Adresse du topique mercure
  */
 function mercure(chemin) {
-    element = document.getElementById('messages-chat');
-    element.scrollTop = element.scrollHeight;
     const url = new URL('http://localhost:3000/.well-known/mercure');
 
     url.searchParams.append('topic','http://localhost/Made-in-haute-loire/public/'+ chemin);
