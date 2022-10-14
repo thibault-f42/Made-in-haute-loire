@@ -29,7 +29,7 @@ function requeteAjaxPost(selectorFormulaire, selectorElementAction, typeAction, 
     });
 }
 function scroll() {
-   let messages = document.getElementById('messages-chat');
+   let messages = document.getElementById('messages');
    messages.scrollTop = messages.scrollHeight;
 }
 

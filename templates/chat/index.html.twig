@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-        {% block extrastyle %}
-        {% endblock %}
 {% block title %}Hello ChatController!{% endblock %}
-
+{% block extrastyle %}
+    <link rel="stylesheet" href="{{ asset('css/backgoud-1.css') }}">
+{% endblock %}
 {% block body %}
 {#  todo work in progress  #}
     <div class="window-chat">
@@ -21,12 +21,12 @@
                             </div>
                             <div class="conversation__info">
                                 {% if conversation.nom %}
-                                   {{ conversation.nom}}
+                                    {{ conversation.nom}}
                                 {% else %}
-                                   <h3>{{ utilisateur.nom}} {{ utilisateur.prenom}}</h3>
+                                   {{ utilisateur.nom}} {{ utilisateur.prenom}}
                                 {% endif %}
                                 {% if conversation.lastMessage != null %}
-                                    <h6>{{ conversation.lastMessage.corps|length > 20? conversation.lastMessage.corps|slice(0, 20) ~ '...' : conversation.lastMessage.corps}}
+                                    <h6>{{ conversation.lastMessage.corps|length > 20? conversation.lastMessage.corps|slice(0, 20) ~ '...' : conversation.lastMessage.corps}} </h6>
                                 {% endif %}
                             </div>
 

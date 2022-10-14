@@ -3,7 +3,7 @@
 {% block title %}Hello ChatController!{% endblock %}
 
 {% block message %}
-    <div class="window-chat__messages message">
+    <div class="window-chat__messages message" id="messages">
         {% for mesage in mesages %}
             {% if mesage.utilisateur == user %}
                 <div class="message__this">
