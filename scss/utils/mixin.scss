@@ -3,7 +3,7 @@
     height: $size;
     background-size: cover;
     background-position: center;
-    border-radius: 50%;
+    border-radius: $border-radius;
 }
 @mixin message-aligne ($aligned: left){
     @if ($aligned == right) {
