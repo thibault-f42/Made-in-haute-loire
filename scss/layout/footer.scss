@@ -10,5 +10,6 @@ footer{
   display : table-row;
   text-align: center;
   width: 100vw;
-  background-color: red;
+  height: 5em;
+  background-color: $color-footer-background;
 }
