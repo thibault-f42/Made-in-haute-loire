@@ -1,20 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0; padding: 0;
+}
+body {
+  display : table;
+  width: 100%;
+}
 footer{
-  height: 6em;
-  ul {
-    list-style-type: none;
-  }
-
-  li{
-    display: inline-block;
-    align-items: center;
-  }
-  a{
-    position: relative;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .CGV, ML{
-    padding: 10px;
-  }
+  display : table-row;
+  text-align: center;
+  width: 100vw;
+  background-color: red;
 }
