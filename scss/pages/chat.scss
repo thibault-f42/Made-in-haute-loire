@@ -16,25 +16,21 @@ overflow: hidden;
     overflow: auto;
     height: 100%;
     border-radius:$border-radius;
-
   }
   &__messages{
     padding: 2rem;
     grid-column: 2/3;
-
     grid-row: 1/2;
     overflow: auto;
-
     border-radius: $border-radius;
   }
   &__input{
     grid-column: 2/3;
     grid-row: 2/3;
-
     border-radius: $border-radius;
-
   }
 }
+
 .conversation{
   border-radius: $border-radius;
   margin: 0 0 0.25rem 0;
@@ -48,7 +44,6 @@ overflow: hidden;
     background-color: darken($color-windows-background,5%);
   }
   &__image{
-
     margin: auto;
     &__picture{
       grid-column: 1/2;
@@ -65,17 +60,19 @@ overflow: hidden;
       padding-top: 0.125rem;
       border-radius: 1rem;
       top: 0;
-      background: #e00000;
       color: white;
     }
   }
   &__info {
     margin: auto 0;
-
     text-align: left;
     grid-column: 2/3;
+    h6{
+      color: lighten($color-text , 30%);
+    }
   }
 }
+
 .message {
   display: grid;
   margin: 0;
@@ -83,11 +80,11 @@ overflow: hidden;
   &__this {
     @include message-aligne(right);
   }
-
   &__other {
     @include message-aligne(left);
   }
 }
+
 .input-area {
   border-radius: $border-radius;
   position: relative;
@@ -115,7 +112,6 @@ overflow: hidden;
     background-color: $color-btn-green;
     border-radius: $border-radius;
     grid-column: 2/3;
-
     &:hover {
       background-color: lighten($color-btn-green, 15%);
     }

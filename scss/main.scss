@@ -1,7 +1,11 @@
-@import "./base/typographie";
+
 
 @import "./utils/variable";
 @import "./utils/mixin";
+
+@import "./base/typographie";
+@import "./base/lien";
+@import "./base/background";
 
 @import "./layout/nav";
 @import "./layout/footer";

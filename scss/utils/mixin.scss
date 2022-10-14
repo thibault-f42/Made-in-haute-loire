@@ -22,6 +22,7 @@
         }
     }
     &__time{
+        color: lighten($color-text , 30%);
         @if ($aligned == right) {
             text-align: end;
         }@else {

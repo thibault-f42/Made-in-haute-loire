@@ -1,0 +1,9 @@
+a {
+  color: $color-text;
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  &:hover{
+    color: lighten($color-text , 20%);
+  }
+}

@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-
+        {% block extrastyle %}
+        {% endblock %}
 {% block title %}Hello ChatController!{% endblock %}
 
 {% block body %}
@@ -25,7 +26,7 @@
                                    <h3>{{ utilisateur.nom}} {{ utilisateur.prenom}}</h3>
                                 {% endif %}
                                 {% if conversation.lastMessage != null %}
-                                    <br>{{ conversation.lastMessage.corps|length > 20? conversation.lastMessage.corps|slice(0, 20) ~ '...' : conversation.lastMessage.corps}}
+                                    <h6>{{ conversation.lastMessage.corps|length > 20? conversation.lastMessage.corps|slice(0, 20) ~ '...' : conversation.lastMessage.corps}}
                                 {% endif %}
                             </div>
 
@@ -47,7 +48,6 @@
     <script src="{{ asset('Javascripts/chat.js') }}">
     </script>
     <script>
-
         mercure('utilisateur/{{ user.id }}');
     </script>
 {% endblock %}

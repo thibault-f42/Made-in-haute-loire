@@ -9,9 +9,9 @@
         <link rel="icon" href="{{ asset('img/logo/Logo-final.svg') }}">
 
         <title>{% block title %}Made in Loire / Haute-Loire{% endblock %}</title>
-
+        {% include('inc/__head.html.twig') %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% block extrastyle %}
-            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
 
     </head>
@@ -19,7 +19,6 @@
 <header>
 
     {% block nav %}
-        {% include('inc/__head.html.twig') %}
         {% include('inc/nav.html.twig') %}
     {%  endblock %}
 </header>
