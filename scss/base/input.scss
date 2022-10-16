@@ -1,0 +1,11 @@
+input{
+  border-radius: $border-radius;
+  border: none;
+  padding: $border-radius $border-radius*2;
+  background-color: rgb(255, 255, 255);
+  &:focus{
+    text-decoration:none;
+    border: none;
+    outline: none
+  }
+}

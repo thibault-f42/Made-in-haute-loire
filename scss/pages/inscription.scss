@@ -1,0 +1,6 @@
+.window-inscriprion{
+  @include window;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #fff3d9;
+}

@@ -1,15 +1,8 @@
 .window-chat{
-  position:relative;
-  margin: 2rem auto;
-  padding: 1rem;
-  width:60em;
-  height:80vh;
-  border-radius:$border-radius;
-  background:$color-windows-background;
+  @include window(80vh);
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 3rem;
-overflow: hidden;
   &__conversations{
     grid-column: 1/2;
     grid-row: 1/3;

@@ -8,7 +8,7 @@ $color-btn-green : lighten($color-green,0%);
 $color-text : #000000;
 
 $btn-color:(
-        green: #008000FF,
+        green: $color-green,
         red: #ff0000,
         yellow  : #FFFF00FF,
 );

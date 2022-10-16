@@ -30,3 +30,18 @@
         }
     }
 }
+@mixin window($height :false ,$width :60em){
+    position:relative;
+    margin: 2rem auto;
+    padding: 1rem;
+    width:$width;
+    @if ($height != false){
+        height:$height;
+    }@else {
+        height:auto;
+    }
+
+    border-radius:$border-radius;
+    background:$color-windows-background;
+    overflow: hidden;
+}

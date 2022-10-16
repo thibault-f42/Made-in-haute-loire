@@ -4,7 +4,6 @@
 
 {% block body %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/made-in-loire.css') }}"/>
-<form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -13,31 +12,24 @@
         <div class="mb-3">
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
+    {% else %}
+        <form method="post" class="window-connexion">
+            <div class="Connexion">
+                <h1 class="" >Connectez-vous</h1>
+                <label for="inputEmail">email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="" autocomplete="email" placeholder="E-Mail" required autofocus>
+                <label for="inputPassword">password</label>
+                <input type="password" name="password" id="inputPassword" class="" autocomplete="current-password" placeholder="Mot de Passe" required>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+                <label>  Se Souvenir de Moi
+                    <input type="checkbox" name="_remember_me">
+                </label>
+                <br>
+                <button class="button button--green" type="submit">
+                    Connexion
+                </button>
+            </div>
+        </form>
     {% endif %}
-<div class="Connexion">
-    <div class="Connectez-Vous">
-    <h1 class="h3 mb-3 font-weight-normal" >Connectez-vous</h1>
-
-
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="E-Mail" required autofocus>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de Passe" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}">
-    </div>
-</div>
-    <div class="SeSouvenirDeMoi">
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Se Souvenir de Moi </label>
-        </div>
-    </div>
-<div class="buttonConnexion">
-    <div class="d-grid gap-2">
-    <button class="btn btn-outline-success" type="submit">
-        Connexion
-    </button>
-    </div>
-</div>
-</form>
 {% endblock %}
