@@ -7,37 +7,34 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
+<div class="window-inscriprion">
     <h1>Inscription</h1>
-
-    <div class="register">
-        <div class="col-3">
-            {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.nom) }}
-            {{ form_row(registrationForm.prenom) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.telephone) }}
-        </div>
-        <div class="col-1">
-
-        </div>
-        <div class="col-3">
-            {{ form_row(registrationForm.adresse) }}
-            {{ form_row(registrationForm.codePostal) }}
-            {{ form_row(registrationForm.ville) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Mot de passe : '
-            }) }}
-        </div>
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.telephone) }}
+    {{ form_row(registrationForm.adresse) }}
+    {{ form_row(registrationForm.codePostal) }}
+    {{ form_row(registrationForm.ville) }}
+    <div class="form-group">
+        <label for="registration_form_plainPassword_first" class="required">Mot de passe</label>
+        <input type="password" id="registration_form_plainPassword_first" name="registration_form[plainPassword][first]" required="required" class="password-field form-control">
     </div>
-    <div class="col-12 agree">
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="form-group center"><div class="form-check">
+            <input type="checkbox" id="registration_form_agreeTerms" name="registration_form[agreeTerms]" required="required" class="" value="1">
+            <label class="form-check-label required" for="registration_form_agreeTerms">Agree terms</label></div>
     </div>
-    <div>
-        <button type="submit" class="btn button">Inscription</button>
-        {{ form_end(registrationForm) }}
+    <div class="form-group">
+        <label for="registration_form_plainPassword_second" class="required">Répétez le mot de passe</label>
+        <input type="password" id="registration_form_plainPassword_second" name="registration_form[plainPassword][second]" required="required" class="password-field form-control">
     </div>
 
+    <button type="submit" class="button button--green">Inscription</button>
+    {{ form_end(registrationForm, {'render_rest': false}) }}
+
+
+</div>
 
     {% block javascripts %}
         <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
