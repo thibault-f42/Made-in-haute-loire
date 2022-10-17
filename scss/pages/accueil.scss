@@ -1,4 +1,23 @@
-.slogan{
-  display: flex;
-  justify-content: center;
+.window-accueil{
+  @include window(auto, 80rem);
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 15rem 1fr;
+  &__menu{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    *{
+      margin-left: 0.8rem;
+      text-align: center;
+    }
+     button{
+       margin-top: 1.6rem;
+       margin-left: 1.6rem;
+     }
+    form{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
 }

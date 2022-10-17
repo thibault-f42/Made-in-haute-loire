@@ -1,20 +1,14 @@
 .window-inscriprion{
   @include window( auto ,40rem);
-
   *{
     padding: 0.5rem;
-    order: 1;
   }
 
   form{
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  .registration_form_plainPassword_second{
-    order: 1;
-  }
   .center{
     margin: auto;
   }
-
 }
