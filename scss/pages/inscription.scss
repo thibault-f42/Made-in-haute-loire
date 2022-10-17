@@ -1,6 +1,20 @@
 .window-inscriprion{
-  @include window;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background-color: #fff3d9;
+  @include window( auto ,40rem);
+
+  *{
+    padding: 0.5rem;
+    order: 1;
+  }
+
+  form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .registration_form_plainPassword_second{
+    order: 1;
+  }
+  .center{
+    margin: auto;
+  }
+
 }
