@@ -6,24 +6,32 @@
 
 {% block body %}
 
-    <div>
-        <a href="{{ path('categorie_index') }}"> categories </a>
-    </div>
-    <div>
-    <a href="{{ path('sous_categorie_index') }}"> sous-categories </a>
-    </div>
-    <div>
-        <a href="{{ path('utilisateur_index') }}"> Gestion Utilisateur </a>
-    </div>
-    <div>
-        <a href="{{ path('produit_index') }}"> Gestion Produits </a>
-    </div>
-    <div>
-        <a href="{{ path('commande_index') }}"> Gestion Commandes </a>
-    </div>
+    <div class="admin_categories">
 
-    <div>
-        <a href="{{ path('entreprise_index') }}"> Gestion Entreprise </a>
+        <div class="admin_choices">
+            <a href="{{ path('categorie_index') }}"> Categories </a>
+        </div>
+
+        <div class="admin_choices">
+            <a href="{{ path('sous_categorie_index') }}"> Sous-categories </a>
+        </div>
+
+        <div class="admin_choices">
+            <a href="{{ path('utilisateur_index') }}"> Gestion Utilisateur </a>
+        </div>
+
+        <div class="admin_choices">
+            <a href="{{ path('produit_index') }}"> Gestion Produits </a>
+        </div>
+
+        <div class="admin_choices">
+            <a href="{{ path('commande_index') }}"> Gestion Commandes </a>
+        </div>
+
+        <div class="admin_choices">
+            <a href="{{ path('entreprise_index') }}"> Gestion Entreprises </a>
+        </div>
+
     </div>
 {% endblock %}
 
