@@ -24,88 +24,32 @@
             {{ form_row(filtreFormulaire.prixMax) }}
                 <button class="btn button bouton-submit orm-control">{{ button_label|default('Rechercher ') }}</button>
             {{ form_end(filtreFormulaire) }}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert" role="alert">
+                        <div class="flash flash-{{ label }}">
+                            {{ message }}
+
+                            <button type="button" class="btn close"
+                                    data-dismiss="alert" aria-label="Close">
+
+                                <span class="cross" aria-hidden="true"><img class="close" src="{{ asset('img/Tools/close.png') }}" alt="close"></span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
-
-    </div>
-
-
-{#    <div class="row">#}
-
-
-{#            <div class="slogan">#}
-{#                <h2 >Des produits responsables et 100% fabriqués en Loire et Haute-Loire</h2>#}
-{#            </div>#}
-
-{#            <div class="col-12">#}
-{#                <div class="container">#}
-{#                    {{ form_start(filtreFormulaire) }}#}
-
-{#                    <div class="row mb-2">#}
-{#                        <div class="col-2">#}
-{#                            {{ form_row(filtreFormulaire.departement) }}#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            {{ form_row(filtreFormulaire.canton) }}#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            {{ form_row(filtreFormulaire.categorie) }}#}
-{#                        </div>#}
-{#                        <div class="col-2" id="sousCategorieDiv">#}
-{#                            {{ form_row(filtreFormulaire.sousCategorie) }}#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            {{ form_row(filtreFormulaire.prixMin) }}#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            {{ form_row(filtreFormulaire.prixMax) }}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-1">#}
-{#                        <button class="btn button bouton-submit">{{ button_label|default('Rechercher ') }}</button>#}
-{#                    </div>#}
-{#                    {{ form_end(filtreFormulaire) }}#}
-{#                </div>#}
-{#            </div>#}
-{#    </div>#}
-
-    <div class="test">
-        {% for label, messages in app.flashes %}
-        {% for message in messages %}
-        <div class="alert" role="alert">
-            <div class="flash flash-{{ label }}">
-                {{ message }}
-
-                <button type="button" class="btn close"
-                        data-dismiss="alert" aria-label="Close">
-
-                    <span class="cross" aria-hidden="true"><img class="close" src="{{ asset('img/Tools/close.png') }}"></span>
-                </button>
+        <div class="window-accueil__article">
+            <h3>Tous nos produits</h3>
+            <div class="articles">
+                {{ include('inc/__card.html.twig') }}
             </div>
         </div>
-                {% endfor %}
-                {% endfor %}
+        <div class="window-accueil__cart">
+            <div id="maCarte" class="maps"> </div>
+        </div>
     </div>
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col-5">#}
-{#                <div class="colorTitle3">#}
-{#                    <div class="allProduits">#}
-{#                        <h3>Tous nos produits</h3>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="cadre_scroll">#}
-{#                    {{ include('inc/__card.html.twig') }}#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class=col-7>#}
-{#                <div id="maCarte" class="maps">#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-
-
 
 
     <script src="{{ asset('Javascripts/Categorie.js') }}"></script>
