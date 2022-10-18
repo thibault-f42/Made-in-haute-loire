@@ -28,6 +28,6 @@
 }
 @each $size, $sizes in $btn-sizes{
   .button--#{$size}{
-    padding:$sizes $sizes*3;
+    padding:$sizes $sizes*3 ;
   }
 }

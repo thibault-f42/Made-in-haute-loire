@@ -5,38 +5,28 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(EntrepriseForm) }}
-        <div class="creationProduit">
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <div class="window-inscriprion">
+        <h1>Inscription Partenaire</h1>
+        {{ form_start(EntrepriseForm) }}
+        {{ form_row(EntrepriseForm.nom) }}
+        {{ form_row(EntrepriseForm.siret) }}
+        {{ form_row(EntrepriseForm.email) }}
+        {{ form_row(EntrepriseForm.telephone) }}
+        {{ form_row(EntrepriseForm.adresse) }}
+        {{ form_row(EntrepriseForm.codePostal) }}
+        {{ form_row(EntrepriseForm.ville) }}
 
-                    <div class="wrapper wrapper--w680 justify-content-center">
-                        <div class="row">
-                            <div class=" ">
-                                <div class="row sm-10" >
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.nom) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.siret) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.email) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.telephone) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.adresse) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.codePostal) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.ville) }}</div>
-                                    <div class="col-sm-6">{{ form_row(EntrepriseForm.description) }}</div>
-                                    <div class="col-sm-4">{{ form_row(EntrepriseForm.justificatifSiret) }}</div>
-                                    <div class="col-sm-4">{{ form_row(EntrepriseForm.carteIdentite) }}</div>
-                                    <div class="col-sm-4"> {{ form_row(EntrepriseForm.photos) }}</div>
-                                    </div>
-                                </div>
-                          </div>
-                        </div>
-                        </div>
-                    </div>
+        {{ form_row(EntrepriseForm.justificatifSiret) }}
+        {{ form_row(EntrepriseForm.carteIdentite) }}
+        {{ form_row(EntrepriseForm.photos) }}
+        {{ form_row(EntrepriseForm.description) }}
+        <button type="submit" class="button button--green center button--lg" >Inscription</button>
 
-
-        </div>
-
-        <div class="boutonPublier">
-            <button class="bouton-submit" type="submit">Publier</button>
-        </div>
-    {{ form_end(EntrepriseForm) }}
+        {{ form_end(EntrepriseForm, {'render_rest': false}) }}
+    </div>
     {% block javascripts %}
         <div class="boutonPhoto">
             <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
