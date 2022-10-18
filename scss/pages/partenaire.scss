@@ -1,0 +1,19 @@
+.window-partenaire{
+
+  @include window(auto, 30rem);
+  display: grid;
+  grid-template-rows: 14rem repeat(5 , 1fr);
+  text-align: center;
+  &__photos{    overflow: auto;
+    &__image{
+      white-space: nowrap;
+      margin: auto;
+    }
+    img{overflow: auto;
+      object-fit: cover;
+      object-position: center;
+      height: 10rem;
+
+    }
+  }
+}

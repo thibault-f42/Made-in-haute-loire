@@ -2,56 +2,42 @@
 
 {% block body %}
 
-    {% if app.user.entreprise %}
-        <div class="row">
-            <div class="col-3">
-                <p> Nom : {{ app.user.entreprise.nom }} </p>
-                <p> Tel : {{ app.user.entreprise.telephone }} </p>
-                <p> Adresse : {{ app.user.entreprise.adresse }} </p>
-                <p> Ville : {{ app.user.entreprise.ville }} </p>
-                <p> Email : {{ app.user.entreprise.email }} </p>
-                <div class="btn button">
-                    <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">Modifier mes informations</a>
+  {% if app.user.entreprise %}
+    <div class="window-partenaire">
+        <div class="window-partenaire__photos">
+            {% if app.request.attributes.get('_route') == 'Partenaire' %}
+                <h3> Photos de votre entreprise</h3>
+                <div class="window-partenaire__photos__image">
+                    {% for fichier in  fichiers %}
+                        {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
+                            <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" alt="photo_entreprise">
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            </div>
-            <div class="col-5">
-                <div class="row">
-                    {# verifier si la route est "/partenaire" #}
-                    {% if app.request.attributes.get('_route') == 'Partenaire' %}
-                        <h3> Photos de votre entreprise</h3>
-                        <div class="col-4">
-                            {% for fichier in  fichiers %}
-                                <div class="imgEntreprise">
-                                    {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
-                                        <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} alt="photo_entreprise"
-                                             class="rounded">
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-4">
-                {% if app.user.vendeur %}
 
-                {% else %}
-                    <div>
-                        <p> Votre demande est en cours d'examination, vous recevrez une confirmation par email au plus
-                            vite ! </p>
-                        <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
-                    </div>
-                {% endif %}
-            </div>
-
+            {% endif %}
         </div>
+        <div> Nom : {{ app.user.entreprise.nom }} </div>
+        <div> Tel : {{ app.user.entreprise.telephone }} </div>
+        <div> Adresse : {{ app.user.entreprise.adresse }} </div>
+        <div> Ville : {{ app.user.entreprise.ville }} </div>
+        <div> Email : {{ app.user.entreprise.email }} </div>
+        {% if app.user.vendeur %}
+        {% else %}
+            <div>
+                <p> Votre demande est en cours d'examination, vous recevrez une confirmation par email au plus
+                    vite ! </p>
+                <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
+            </div>
+        {% endif %}
+        <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">
+            <button class="button button--green">
+                Modifier mes informations
+            </button>
+        </a>
 
-    {% else %}
-
-        <a href="{{ path('InscriptionFournisseur') }}">Faire ma demande d'inscription</a>
-
-    {% endif %}
-
+    </div>
+  {% endif %}
     {% block javascripts %}
         <script src="{{ asset('Javascripts/Fichiers.js') }}"></script>
     {% endblock %}
@@ -61,3 +47,53 @@
 {% block title %}
 {% endblock %}
 
+{#  {% if app.user.entreprise %}#}
+
+{#      <div class="row">#}
+{#          <div class="col-3">#}
+{#              <p> Nom : {{ app.user.entreprise.nom }} </p>#}
+{#              <p> Tel : {{ app.user.entreprise.telephone }} </p>#}
+{#              <p> Adresse : {{ app.user.entreprise.adresse }} </p>#}
+{#              <p> Ville : {{ app.user.entreprise.ville }} </p>#}
+{#              <p> Email : {{ app.user.entreprise.email }} </p>#}
+{#              <div class="btn button">#}
+{#                  <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">Modifier mes informations</a>#}
+{#              </div>#}
+{#          </div>#}
+{#          <div class="col-5">#}
+{#              <div class="row">#}
+{#                  #}{# verifier si la route est "/partenaire" #}
+{#                  {% if app.request.attributes.get('_route') == 'Partenaire' %}#}
+{#                      <h3> Photos de votre entreprise</h3>#}
+{#                      <div class="col-4">#}
+{#                          {% for fichier in  fichiers %}#}
+{#                              <div class="imgEntreprise">#}
+{#                                  {% if fichier.typeFichier == "Photos_presentation_entreprise" %}#}
+{#                                      <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} alt="photo_entreprise"#}
+{#                                           class="rounded">#}
+{#                                  {% endif %}#}
+{#                              </div>#}
+{#                          {% endfor %}#}
+{#                      </div>#}
+{#                  {% endif %}#}
+{#              </div>#}
+{#          </div>#}
+{#          <div class="col-4">#}
+{#              {% if app.user.vendeur %}#}
+
+{#              {% else %}#}
+{#                  <div>#}
+{#                      <p> Votre demande est en cours d'examination, vous recevrez une confirmation par email au plus#}
+{#                          vite ! </p>#}
+{#                      <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>#}
+{#                  </div>#}
+{#              {% endif %}#}
+{#          </div>#}
+
+{#      </div>#}
+
+{#  {% else %}#}
+
+{#      <a href="{{ path('InscriptionFournisseur') }}">Faire ma demande d'inscription</a>#}
+
+{#  {% endif %}#}
