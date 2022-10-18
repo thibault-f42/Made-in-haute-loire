@@ -1,14 +1,13 @@
 .window-inscriprion{
-  @include window( auto ,40rem);
-  *{
+  @include window( auto ,45rem);
+  .form-group{
     padding: 0.5rem;
   }
 
   form{
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-  .center{
-    margin: auto;
+
   }
 }

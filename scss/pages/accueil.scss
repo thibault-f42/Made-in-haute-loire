@@ -2,7 +2,7 @@
   @include window(auto, 80rem);
   background-color: transparent;
   display: grid;
-  grid-template-columns: 30rem 2fr;
+  grid-template-columns: 30rem 1fr;
   grid-template-rows: 10rem 1fr;
 
   &__menu{
@@ -39,6 +39,14 @@
     }
   }
   &__cart{
+    h3{
+      border-radius:  $border-radius;
+      background-color: $color-windows-background;
+      margin: 1rem auto ;
+      width: 20rem;
+      padding: 1rem;
+    }
+    margin-top: 6rem;
     grid-column: 2/3;
     grid-row: 2/3;
     padding: 0 2rem;
