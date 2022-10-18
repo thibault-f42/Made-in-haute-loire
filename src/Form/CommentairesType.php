@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,9 +24,11 @@ class CommentairesType extends AbstractType
 //            ])
             ->add('pseudo' , TextType::class, [
                 'label' => 'Votre pseudonyme :',
+                'attr' => ['class'=>'pseudo_input']
             ])
-            ->add('content', TextType::class,  [
-                'label' => 'Votre commentaire :'
+            ->add('content', TextareaType::class,  [
+                'label' => 'Votre commentaire :',
+                'attr' => ['class'=>'commentaire_input']
             ])
 
             ->add('rgpd', CheckboxType::class, [
@@ -36,7 +39,7 @@ class CommentairesType extends AbstractType
                 'mapped' => false
             ])
             ->add('envoyer', SubmitType::class, [
-                'attr' => ['class'=>'btn-success']
+                'attr' => ['class'=>'commentaire_envoyer']
             ])
         ;
     }

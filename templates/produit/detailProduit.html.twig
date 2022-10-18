@@ -12,7 +12,7 @@
 
 {% block body %}
 
-    <section>
+    <section class="details_section">
 
         <h3> Chez {{ produit.entreprise }}</h3>
 
@@ -58,73 +58,76 @@
                         <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Ma vitrine</a></li>
                     </ul>
 
-                <div>
-                    {% if produit.activeChat %}
-                        {% if app.user.entreprise != produit.entreprise %}
-                            <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
-                               class="btn button">
-                                Ajouter au panier
-                            </a>
-                            <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
-                                <button class="btn btn-primary ">contacter</button>
-                            </a>
-                        {% endif %}
-                    {% endif %}
-
-                    {% if app.user %}
-                        {% if app.user.entreprise != produit.entreprise %}
-
-                            <div class="stars">
-                                <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i>
-                                <input type="hidden" name="note" id="note" value="0">
-                                <button type="submit">Valider</button>
-                            </div>
-
-                            <div>
+                    <div>
+                        {% if produit.activeChat %}
+                            {% if app.user.entreprise != produit.entreprise %}
                                 <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
                                    class="btn button">
                                     Ajouter au panier
                                 </a>
-                            </div>
-
+                                <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
+                                    <button class="btn btn-primary ">Contacter</button>
+                                </a>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+
+                        {% if app.user %}
+                            {% if app.user.entreprise != produit.entreprise %}
+
+                                <div class="stars">
+                                    <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i>
+                                    <input type="hidden" name="note" id="note" value="0">
+                                    <button type="submit">Valider</button>
+                                </div>
+
+                                <div>
+                                    <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
+                                       class="btn button">
+                                        Ajouter au panier
+                                    </a>
+                                </div>
+
+                            {% endif %}
+                        {% endif %}
                     </div>
 
+                </div>
             </div>
-            <div class="grid_3">
-{#                <div class="commentaire">#}
-{#                    <h2>Liste des commentaires</h2>#}
 
-{#                    <div class="comment-scroll">#}
-{#                        {% for commentaire in produit.commentaires %}#}
-{#                            {% if commentaire.parent == null %}#}
-{#                                <h3>Commentaire de {{commentaire.pseudo}}</h3>#}
-{#                                <p>Publié le {{ commentaire.createdAt |date("d/m/Y H:i") }} </p>#}
-{#                                <div>{{ commentaire.content | raw }}</div>#}
-{#                                <p><a href="#repondre" data-reponse data-id="{{commentaire.id}}" class="btn-success">Répondre</a></p>#}
+            <div class="grid_3">
+                <div class="commentaire_liste">
+                    <h2>Liste des commentaires</h2>
+
+                    <div class="comment-scroll">
+                        {% for commentaire in produit.commentaires %}
+                            {% if commentaire.parent == null %}
+                                <h3>Commentaire de <pre> </pre><strong class="commentaire_pseudo">{{commentaire.pseudo}}</strong></h3>
+                                <p>Publié le {{ commentaire.createdAt |date("d/m/Y H:i") }} </p>
+                                <div>{{ commentaire.content | raw }}</div>
+                                <p class="padding"><a href="#repondre" data-reponse data-id="{{commentaire.id}}" class="commentaire_répondre">Répondre</a></p>
 
 {#                                 On affiche les réponses#}
-{#                                {% for reponse in commentaire.reponses %}#}
+                                {% for reponse in commentaire.reponses %}
 
-{#                                    <p>Réponse publiée par {{reponse.pseudo}} le {{reponse.createdAt|date("d/m/Y H:i") }}</p>#}
-{#                                    <div>{{reponse.content | raw}}</div>#}
+                                    <p>Réponse publiée par <strong class="commentaire_pseudo">{{reponse.pseudo}}</strong> le {{reponse.createdAt|date("d/m/Y H:i") }}</p>
+                                    <div>{{reponse.content | raw}}</div>
 
-{#                                {% endfor %}#}
+                                {% endfor %}
 
-{#                            {% endif %}#}
-{#                        {% endfor %}#}
-{#                    </div>#}
+                            {% endif %}
+                        {% endfor %}
                     </div>
+                </div>
 
-{#                  <div class="commentaire1">#}
-{#                    <div id="ajout_commentaire">#}
-{#                        <h2 id="repondre">Ajouter un commentaire</h2>#}
-{#                            {{ form_start(commentaireForm) }}#}
-{#                                {{ form_row(commentaireForm.pseudo) }}#}
-{#                            {{ form_end(commentaireForm) }}#}
-{#                    </div>#}
-{#                  </div>#}
+                <div class="commentaire_ajout">
+                    <div>
+                        <h2 id="repondre">Ajouter un commentaire</h2>
+                            {{ form_start(commentaireForm) }}
+                                {{ form_row(commentaireForm.pseudo) }}
+                            {{ form_end(commentaireForm) }}
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
