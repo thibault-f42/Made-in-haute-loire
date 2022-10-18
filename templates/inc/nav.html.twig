@@ -27,9 +27,13 @@
                         {{ 'Mon Compte' }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li class="animation"><a class="dropdown-item "href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">
+                                informations
+                            </a>
+                        </li>
                         <li class="animation"><a class="dropdown-item "
-                               href="{{ path('utilisateur_modification', {'id' : app.user.id} ) }}">Mes
-                                informations</a></li>
+                                                 href="{{ path('app_chat_index')}}">Mes
+                                chat</a></li>
                         {% if app.user.entreprise and app.user.vendeur %}
                             <li><a class="dropdown-item" href="{{ path('Partenaire') }}">Mon entreprise </a></li>
                             <li><a class="dropdown-item"
