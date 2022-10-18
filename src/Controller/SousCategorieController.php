@@ -51,17 +51,6 @@ class SousCategorieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="sous_categorie_show", methods={"GET"})
-     */
-    public function show(SousCategorie $sousCategorie): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        return $this->render('sous_categorie/show.html.twig', [
-            'sous_categorie' => $sousCategorie,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="sous_categorie_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, SousCategorie $sousCategorie): Response

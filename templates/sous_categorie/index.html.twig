@@ -3,33 +3,38 @@
 {% block title %}SousCategorie index{% endblock %}
 
 {% block body %}
-    <h1>SousCategorie index</h1>
+    <div class="window-categories">
+        <h1>Sous-catégorie index</h1>
+        <div class="window-categories__list">
+            <h4>ID</h4>
+            <h4>libelle</h4>
+            <h4></h4>
+            <h4></h4>
+            {% for sous_categorie in sous_categories %}
+                <div>{{ sous_categorie.id }}</div>
+                <div>{{ sous_categorie.nom }}</div>
+                <div>
+                    <a href="{{ path('sous_categorie_edit', {'id': sous_categorie.id}) }}">
+                        <button class="button button--green ">
+                            Modifier
+                        </button>
+                    </a>
+                </div>
+                <div>{{ include('sous_categorie/_delete_form.html.twig') }}
+                </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sous_categorie in sous_categories %}
-            <tr>
-                <td>{{ sous_categorie.id }}</td>
-                <td>{{ sous_categorie.nom }}</td>
-                <td>
-                    <a href="{{ path('sous_categorie_show', {'id': sous_categorie.id}) }}">Consulter</a>
-                    <a href="{{ path('sous_categorie_edit', {'id': sous_categorie.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Aucune sous-catégorie trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune sous-catégorie trouvée</td>
+                </tr>
+            {% endfor %}
+        </div>
+        <a href="{{ path('sous_categorie_new') }}" class="center">
+            <button class="button button--green button--lg ">
+                Creer une sous-catégorie
+            </button>
+        </a>
+    </div>
 
-    <a href="{{ path('sous_categorie_new') }}">Creer une sous-catégorie</a>
+
 {% endblock %}

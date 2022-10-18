@@ -3,33 +3,36 @@
 {% block title %}Categorie index{% endblock %}
 
 {% block body %}
-    <h1>Categorie index</h1>
+    <div class="window-categories">
+        <h1>Categorie index</h1>
+        <div class="window-categories__list">
+            <h4>ID</h4>
+            <h4>libelle</h4>
+            <h4></h4>
+            <h4></h4>
+            {% for categorie in categories %}
+                <div>{{ categorie.id }}</div>
+                <div>{{ categorie.libelle }}</div>
+                <div>
+                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">
+                        <button class="button button--green ">
+                            Modifier
+                        </button>
+                    </a>
+                </div>
+                <div>{{ include('categorie/_delete_form.html.twig') }}
+                </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.id }}</td>
-                <td>{{ categorie.libelle }}</td>
-                <td>
-                    <a href="{{ path('categorie_show', {'id': categorie.id}) }}">Consulter</a>
-                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Aucune catégorie trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('categorie_new') }}">Ajouter une Catégorie</a>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune catégorie trouvée</td>
+                </tr>
+            {% endfor %}
+        </div>
+        <a href="{{ path('categorie_new') }}" class="center">
+            <button class="button button--green button--lg ">
+                Ajouter une Catégorie
+            </button>
+        </a>
+    </div>
 {% endblock %}
