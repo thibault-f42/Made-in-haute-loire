@@ -1,0 +1,15 @@
+.window-categories{
+  @include window(30rem, 30rem);
+  display: grid;
+  grid-template-rows: 4rem 1fr 4rem;
+  &__list{
+    overflow: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(4,1fr) ;
+    *{
+      height: 2rem;
+      margin: 0.25rem;
+    }
+  }
+}

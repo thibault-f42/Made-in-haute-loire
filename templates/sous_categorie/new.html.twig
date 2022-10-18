@@ -3,9 +3,8 @@
 {% block title %}New SousCategorie{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une sous-catégorie</h1>
-
-    {{ include('sous_categorie/_form.html.twig') }}
-
-    <a href="{{ path('sous_categorie_index') }}">Retour</a>
+    <div class="window-inscriprion">
+        <h1>Ajouter une sous-catégorie</h1>
+        {{ include('sous_categorie/_form.html.twig') }}
+    </div>
 {% endblock %}

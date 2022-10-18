@@ -3,8 +3,8 @@
 {% block title %}Edit Categorie{% endblock %}
 
 {% block body %}
-    <h1>Modification</h1>
-    {{ include('categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
-    <a href="{{ path('categorie_index') }}">Retour</a>
-    {{ include('categorie/_delete_form.html.twig') }}
+    <div class="window-inscriprion">
+        <h1>Modification</h1>
+        {{ include('categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
 {% endblock %}

@@ -3,7 +3,9 @@
 {% block title %}New Categorie{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une catégorie</h1>
-    {{ include('categorie/_form.html.twig') }}
-    <a href="{{ path('categorie_index') }}">Retour</a>
+    <div class="window-inscriprion">
+        <h1>Ajouter une catégorie</h1>
+        {{ include('categorie/_form.html.twig') }}
+    </div>
+
 {% endblock %}
