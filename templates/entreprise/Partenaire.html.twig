@@ -4,9 +4,10 @@
 
   {% if app.user.entreprise %}
     <div class="window-partenaire">
+        <h3> Photos de votre entreprise</h3>
         <div class="window-partenaire__photos">
             {% if app.request.attributes.get('_route') == 'Partenaire' %}
-                <h3> Photos de votre entreprise</h3>
+
                 <div class="window-partenaire__photos__image">
                     {% for fichier in  fichiers %}
                         {% if fichier.typeFichier == "Photos_presentation_entreprise" %}

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
- * @UniqueEntity(fields={"$nom"}, message="Ce nom est déjà utilisé.")
+ * @UniqueEntity(fields={"nom"}, message="Ce nom est déjà utilisé.")
  * @UniqueEntity(fields={"siret"}, message="Ce numéro de SIRET est déjà utilisé")
  */
 class Entreprise

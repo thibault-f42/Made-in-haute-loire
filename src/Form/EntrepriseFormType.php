@@ -35,8 +35,8 @@ class EntrepriseFormType extends AbstractType
                 'label' => 'Code Postal',
                 'required' => true
             ])
-            ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => true ])
-            ->add('carteIdentite', FileType::class, ['label' => 'Carte d\'identité', 'multiple' => true, 'mapped' => false, 'required' => true ])
+            ->add('justificatifSiret', FileType::class, ['label' => 'Extrai de Kbis', 'multiple' => true, 'mapped' => false, 'required' => false ])
+            ->add('carteIdentite', FileType::class, ['label' => 'Carte d\'identité', 'multiple' => true, 'mapped' => false, 'required' => false ])
             ->add('description', TextareaType::class, ['required'=>true, 'label'=>'Description de votre entreprise'])
         ;
 
