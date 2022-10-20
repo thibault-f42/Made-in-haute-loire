@@ -164,7 +164,6 @@ class EntrepriseController extends AbstractController
                                         VilleRepository $villeRepository,
                                         UtilisateurRepository $utilisateurRepository,
                                         FromAdd $fromAdd)   {
-        //todo Tout le monde a accès à ça
 
         $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur= $utilisateurRepository->find($this->getUser());
@@ -176,12 +175,13 @@ class EntrepriseController extends AbstractController
 
         $form = $this->createForm(EntrepriseFormType::class, $entreprise);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             //On recupère le user
-            $utilisateur = $utilisateurRepository->findOneBy(array('email' => $this->getUser()->getUsername()));
+            $utilisateur = $this->getUser();
+            /**
+             * @var $utilisateur Utilisateur
+             */
             $entreprise->setUtilisateur($utilisateur);
 
             //On récupère les photos

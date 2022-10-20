@@ -5,78 +5,73 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-4 ">
-            <h3>Informations</h3>
-            <div class="col-6 modify">
-                <div class="col-12">
-                    {{ form_start(form) }}
-                    {{ form_row(form.nom) }}
-                    {{ form_row(form.siret) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.telephone) }}
-                </div>
-                <div class="col-10">
-                    {{ form_row(form.adresse) }}
-                    {{ form_row(form.codePostal) }}
-                    {{ form_row(form.ville) }}
-                </div>
-            </div>
-            <div class="col-12 description">
-                {{ form_row(form.description) }}
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="row">
-                {# verifier si la route est "/partenaire" #}
-                {% if app.request.attributes.get('_route') == 'modifierEntreprise' %}
-                    <h3> Photos</h3>
-                    <div class="col-4">
-                    {% for fichier in  entreprise.fichier %}
-                            {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
-                                <img src={{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }} alt="photo_entreprise"
-                                     class="rounded">
-                                <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete
-                                   data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
-                            {% endif %}
-                    {% endfor %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <div class="window-inscriprion">
+        <h1>Modification Partenaire</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.siret) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.telephone) }}
+        {{ form_row(form.adresse) }}
+        {{ form_row(form.codePostal) }}
+        {{ form_row(form.ville) }}
+        {{ form_row(form.description) }}
+        {% if app.request.attributes.get('_route') == 'modifierEntreprise' %}
+        <div class="images ">
+            {% for fichier in  entreprise.fichier %}
+                {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
+                    <div class="images__image">
+                        <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" alt="photo_entreprise">
+                        <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">
+                            <button class="button button--red center">
+                                Supprimer
+                            </button>
+                        </a>
                     </div>
-                    {{ form_row(form.photos) }}
                 {% endif %}
-            </div>
+            {% endfor %}
         </div>
-        <div class="col-4">
-            {% if app.request.attributes.get('_route') == 'modifierEntreprise' %}
-                <h3>Documents</h3>
+            {{ form_row(form.photos) }}
+        {% endif %}
+        {% if app.request.attributes.get('_route') == 'modifierEntreprise' %}
+            <div class="images ">
                 {% for fichier in  entreprise.fichier %}
-                    <div class="col-4">
-                        {% if fichier.typeFichier == "Document_Kbis_Entreprise" %}
-                            <img src={{ asset('img/KbisPhoto/'~fichier.urlFichier) }} alt="photo_entreprise"
-                                 class="rounded">
-                            <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete
-                               data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
-                        {% endif %}
-                    </div>
+                    {% if fichier.typeFichier == "Document_Kbis_Entreprise" %}
+                        <div class="images__image ">
+                            <img src="{{ asset('img/KbisPhoto/'~fichier.urlFichier) }}" alt="photo_entreprise">
+                            <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">
+                                <button class="button button--red center">
+                                    Supprimer
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
                 {% endfor %}
-                {{ form_row(form.justificatifSiret) }}
-                {% for fichier in  entreprise.fichier %}
-                    <div class="col-4">
-                        {% if fichier.typeFichier == "Document_carte_ID_Entreprise" %}
-                            <img src={{ asset('img/EntrepriseCarteID/'~fichier.urlFichier) }} alt="photo_entreprise"
-                                 class="rounded">
-                            <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete
-                               data-token="{{ csrf_token('delete'~fichier.id) }}">Supprimer</a>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                {{ form_row(form.carteIdentite) }}
-            {% endif %}
-            <div class="">
-                <button type="submit" class="btn button">Enregistrer</button>
-                {{ form_end(form) }}
             </div>
-        </div>
+            {{ form_row(form.justificatifSiret) }}
+            <div class="images ">
+                {% for fichier in  entreprise.fichier %}
+                    {% if fichier.typeFichier == "Document_carte_ID_Entreprise" %}
+                        <div class="images__image ">
+                            <img src="{{ asset('img/EntrepriseCarteID/'~fichier.urlFichier) }}" alt="photo_entreprise">
+                            <a href="{{ path('supprimePhotoEntreprise' , {'id' : fichier.id}) }}" data-delete data-token="{{ csrf_token('delete'~fichier.id) }}">
+                                <button class="button button--red center">
+                                    Supprimer
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {{ form_row(form.carteIdentite) }}
+        {% endif %}
 
+        <button type="submit" class="button button--green center button--lg" >mise a jour</button>
+
+        {{ form_end(form) }}
     </div>
     {% block javascripts %}
         <script src="{{ asset('Javascripts/CodePostal.js') }}"></script>
