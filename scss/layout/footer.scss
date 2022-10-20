@@ -13,3 +13,12 @@ footer{
   height: 5em;
   background-color: $color-footer-background;
 }
+
+.administratif{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.copyright{
+  padding-top: 1em;
+}
