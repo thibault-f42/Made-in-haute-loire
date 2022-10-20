@@ -3,11 +3,23 @@ h3{
   justify-content: center;
 }
 #img__full{
-  padding-bottom: 2em;
+  margin-bottom: 2em;
+  border: solid 5px;
+  border-color: #b69126;
+  border-radius: 25px;
+  box-shadow: 12px 12px 2px 1px rgba(black, .2);
+}
+
+
+.card-img-top{
+  border: solid 3px;
+  border-color: #b69126;
+  border-radius: 15px;
 }
 .img__full, #img__full {
   width: 300px;
   height: 50%;
+
 }
 
 .details_section{
