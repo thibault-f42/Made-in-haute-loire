@@ -1,6 +1,7 @@
 h3{
   display: flex;
   justify-content: center;
+  padding-top: 1em;
 }
 #img__full{
   margin-bottom: 2em;
@@ -8,13 +9,32 @@ h3{
   border-color: #b69126;
   border-radius: 25px;
   box-shadow: 12px 12px 2px 1px rgba(black, .2);
+  transition: transform .1s;
+  &:hover{
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.1);
+  }
+  .card-title{
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+  }
 }
 
+.card-title{
+  margin-bottom: 1em;
+}
 
 .card-img-top{
   border: solid 3px;
   border-color: #b69126;
   border-radius: 15px;
+  transition: transform .1s;
+  &:hover{
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.1);
+  }
 }
 .img__full, #img__full {
   width: 300px;
