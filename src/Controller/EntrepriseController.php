@@ -238,8 +238,20 @@ class EntrepriseController extends AbstractController
      */
     public function show(Entreprise $entreprise): Response
     {
+        $produits = $entreprise->getProduits();
+        $produitMap= [];
+        $i=0;
+        foreach ($produits as $produit) {
+
+            $produitMap[$i] = ['nomArticle'=>$produit->getNomarticle(), 'longitude'=>$produit->getEntreprise()->getVille()->getLongitude(), 'latitude'=> $produit->getEntreprise()->getVille()->getLatitude()
+                , 'urlFichier'=>!empty($produit->getFichiers()[0])?$produit->getFichiers()[0]->getUrlFichier():"notFound.png"] ;
+
+            $i++;
+        }
         return $this->render('entreprise/show.html.twig', [
             'entreprise' => $entreprise,
+            'produits' => $produits,
+            'produitMap' => $produitMap,
         ]);
     }
 
@@ -268,6 +280,7 @@ class EntrepriseController extends AbstractController
      */
     public function delete(Request $request, Entreprise $entreprise): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');//todo Pas de contrôle sur qui peut supprimer
         if ($this->isCsrfTokenValid('delete'.$entreprise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($entreprise);

@@ -3,64 +3,51 @@
 {% block title %}Entreprise{% endblock %}
 
 {% block body %}
-    <h1>Entreprise</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entreprise.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ entreprise.nom }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ entreprise.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ entreprise.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entreprise.email }}</td>
-            </tr>
-            <tr>
-                <th>Siret</th>
-                <td>{{ entreprise.siret }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entreprise.description }}</td>
-            </tr>
-            <tr>
-            <th>Extrait de Kbis</th>
-                {% if entreprise.fichier is not empty %}
-                {% for fichier in entreprise.fichier %}
-                    {% if fichier.typeFichier == 'Document_Kbis_Entreprise'  %}
-                        <td><img src="{{ asset('img/KbisPhoto/'~fichier.urlFichier) }}" alt="kbis" height="auto"</td>
+    <div class="window-entreprise">
+        <h1>{{ entreprise.nom }}</h1>
+        <div class="window-entreprise__photos ">
+            <div class="window-entreprise__photos__image ">
+                {% for fichier in  entreprise.fichier %}
+                    {% if fichier.typeFichier == "Photos_presentation_entreprise" %}
+                        <img src="{{ asset('img/EntreprisePhoto/'~fichier.urlFichier) }}" alt="photo_entreprise" >
                     {% endif %}
                 {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="window-entreprise__description">
+            {{ entreprise.description }}
+        </div>
+        <div class="window-entreprise__produits articles">
+            {{ include('inc/__card.html.twig') }}
+        </div>
+        <div class="window-entreprise__info">
+            <div> Nom : {{ entreprise.nom }} </div>
+            <div> Tel : {{ entreprise.telephone }} </div>
+            <div> Adresse : {{ entreprise.adresse }} </div>
+            <div> Ville : {{ entreprise.ville }} </div>
+            <div> Email : {{ entreprise.email }} </div>
+            {% if app.user %}
+                 {% if app.user.vendeur %}
+                {% else %}
+                    <div>
+                        <p> Votre demande est en cours d'examination, vous recevrez une confirmation par email au plus
+                            vite ! </p>
+                        <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
+                    </div>
+                 {% endif %}
+            {% endif %}
+            {% if app.user %}
+                {% if app.user.entreprise == produit.entreprise %}
+                    <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">
+                        <button class="button button--green">
+                            Modifier mes informations
+                        </button>
+                    </a>
                 {% endif %}
-            </tr>
-            <tr>
-            <th>Carte d'identité</th>
-                {% if entreprise.fichier is not empty %}
-                    {% for fichier in entreprise.fichier %}
-                        {% if fichier.typeFichier == 'Document_carte_ID_Entreprise'  %}
-                            <td><img src="{{ asset('img/EntrepriseCarteID/'~fichier.urlFichier) }}" alt="kbis" height="auto"</td>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </tr>
-        </tbody>
-    </table>
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{{ path('entreprise_index') }}">Retour</a>
-
-    <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}">Modifier</a>
-
-    {{ include('entreprise/_delete_form.html.twig') }}
 {% endblock %}

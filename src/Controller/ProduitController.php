@@ -100,7 +100,7 @@ class ProduitController extends AbstractController
      */
     public function afficheProduitsPartenaire(UtilisateurRepository $utilisateurRepository, FichierRepository $fichierRepository, ProduitRepository $produitRepository, Request $request): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $utilisateur= $utilisateurRepository->find($this->getUser());
         if (!$utilisateur->getEntreprise()){
             return $this->redirectToRoute('InscriptionFournisseur');

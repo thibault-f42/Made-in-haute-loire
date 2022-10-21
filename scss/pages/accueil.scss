@@ -1,5 +1,6 @@
 .window-accueil{
   @include window(auto, 80rem);
+  min-height: 46.25rem;
   background-color: transparent;
   display: grid;
   grid-template-columns: 30rem 1fr;
@@ -44,6 +45,7 @@
       background-color: $color-windows-background;
       margin: 1rem auto ;
       width: 20rem;
+      min-height: 20rem;
       padding: 1rem;
     }
     margin-top: 6rem;
