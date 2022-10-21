@@ -24,9 +24,11 @@
 
 
                     <a href="{{ path('produit_detail', {'id' : produit.id } ) }}" class="item__image">
-                        <img id="img__full"
+                        <figure>
+                            <img id="img__full"
                              src="{{ asset('img/ProduitPhoto/'~produit.fichiers[0].urlFichier) }}" class="card-img-top"
                              alt="photo-produit" height="auto">
+                        </figure>
                     </a>
                     <div class="">
                         <div id="carousel1">
@@ -55,7 +57,7 @@
                     <p class="card-text">Description du produit : {{ produit.description }}</p>
                     <p class=""> Prix à l'unité : {{ produit.prix ~ ' €' }}</p>
                     <ul>
-                        <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Ma vitrine</a></li>
+                        <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Voir la vitrine de cette personne</a></li>
                     </ul>
 
                     <div>

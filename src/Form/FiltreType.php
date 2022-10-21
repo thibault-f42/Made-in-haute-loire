@@ -27,9 +27,15 @@ class FiltreType extends AbstractType
     {
         $builder
 
-            ->add('categorie', EntityType::class,['class' => Categorie::class,
-                'choice_label' => 'libelle', 'placeholder' => 'Catégorie', 'required'=>false ])
-            ->add('departement', EntityType::class,['class' => Departement::class,
+            ->add('categorie', EntityType::class,[
+                'class' => Categorie::class,
+                'choice_label' => 'libelle',
+                'label' => 'Catégorie',
+                'placeholder' => 'Catégorie',
+                'required'=>false ])
+            ->add('departement', EntityType::class,[
+                'class' => Departement::class,
+                'label' => 'Département',
                 'choice_label' => 'nom'])
             ->add('canton', EntityType::class,['class' => Canton::class,
                 'choice_label' => 'nom', 'placeholder' => 'Zone géographique', 'required'=>false ])
