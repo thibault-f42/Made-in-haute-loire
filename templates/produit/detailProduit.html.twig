@@ -63,16 +63,18 @@
 
                     <div>
                         {% if produit.activeChat %}
-                            {% if app.user.entreprise != produit.entreprise %}
-                                <div >
-                                    <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
-                                       class="btn button">
-                                        Ajouter au panier
-                                    </a>
-                                    <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
-                                        <button class="btn btn-primary ">Contacter</button>
-                                    </a>
-                                </div>
+                            {% if app.user %}
+                                {% if app.user.entreprise != produit.entreprise %}
+                                    <div >
+                                        <a href="{{ path('panier_add', {'id' : produit.id , 'provenance' : "Accueil"}  ) }}"
+                                           class="btn button">
+                                            Ajouter au panier
+                                        </a>
+                                        <a href="{{ path('conversation_newConversationByProduit',{'id' : produit.id}) }}">
+                                            <button class="btn btn-primary ">Contacter</button>
+                                        </a>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
 

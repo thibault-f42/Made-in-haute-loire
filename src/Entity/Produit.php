@@ -96,15 +96,17 @@ class Produit
      */
     private $activeChat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="produit")
-     */
-    private $conversation;
 
     /**
      * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="Produit")
      */
     private $signalements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="produit")
+     */
+    private $conversations;
+    
 
 
 
@@ -117,6 +119,7 @@ class Produit
         $this->sousCommandes = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->signalements = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -362,18 +365,6 @@ class Produit
         return $this;
     }
 
-    public function getConversation(): ?Conversation
-    {
-        return $this->conversation;
-    }
-
-    public function setConversation(?Conversation $conversation): self
-    {
-        $this->conversation = $conversation;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Signalement>
      */
@@ -398,6 +389,36 @@ class Produit
             // set the owning side to null (unless already changed)
             if ($signalement->getProduit() === $this) {
                 $signalement->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getProduit() === $this) {
+                $conversation->setProduit(null);
             }
         }
 

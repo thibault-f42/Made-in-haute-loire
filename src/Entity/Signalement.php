@@ -75,7 +75,7 @@ class Signalement
         return $this;
     }
 
-    public function getProduit(): ?Produit
+    public function getProduit(): ArrayCollection
     {
         return $this->Produit;
     }
