@@ -1,11 +1,13 @@
 .window-entreprise{
   @include window(auto, 50rem);
   //background-color: transparent;
+  text-align: center;
   overflow: hidden;
   display: grid;
   grid-template-rows: 4rem 12rem 1fr 20rem 10rem;
   grid-row-gap : 1rem;
   h1{
+    text-align: left;
   }
   &__photos{
     height: auto;
