@@ -75,7 +75,11 @@ class MainController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
     }
 
 
-        return $this->render('Accueil.html.twig', ['produits' => $produits, 'filtreFormulaire' => $filtreFormulaire->createView(), 'produitMap' => $produitMap] );
+        return $this->render('Accueil.html.twig', [
+            'produits' => $produits,
+            'filtreFormulaire' => $filtreFormulaire->createView(),
+            'produitMap' => $produitMap
+        ] );
 
     }
 

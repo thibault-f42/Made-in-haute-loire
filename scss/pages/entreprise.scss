@@ -1,0 +1,38 @@
+.window-entreprise{
+  @include window(auto, 50rem);
+  //background-color: transparent;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 4rem 12rem 1fr 20rem 10rem;
+  grid-row-gap : 1rem;
+  h1{
+  }
+  &__photos{
+    height: auto;
+    width: auto;
+    overflow: auto;
+    &__image{
+      margin: auto;
+      display: flex;
+    }
+    img{
+
+      margin: 0.25rem;
+      width: auto;
+      object-fit: cover;
+      object-position: center;
+      height: 10rem;
+      border-radius: $border-radius;
+    }
+  }
+  &__description{
+    text-align: center;
+  }
+  &__produits{
+    text-align: center;
+  }
+  &__info{
+    text-align: center;
+  }
+
+}
