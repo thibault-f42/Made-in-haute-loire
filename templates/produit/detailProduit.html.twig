@@ -58,7 +58,7 @@
                     <p class="card-text">Description du produit : {{ produit.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, asperiores at blanditiis commodi cumque enim eos est et fugiat iure magnam molestiae necessitatibus nisi non nostrum quae quasi quibusdam quo quos sequi! Amet animi consequuntur dicta id iusto officia tempora unde voluptatem! Amet architecto dolor doloremque eum facilis fugiat harum incidunt, ipsum, modi natus officia placeat qui sit tempore voluptate. Consequatur, ea harum maiores necessitatibus neque officia officiis ratione rerum ut voluptas? Adipisci aliquid aperiam asperiores aspernatur corporis, culpa cupiditate deserunt dolor eaque earum eius fugit ipsam maiores, modi mollitia nam nesciunt perspiciatis quae quis quod rerum sequi, sint sit?</p>
                     <p class=""> Prix à l'unité : {{ produit.prix ~ ' €' }}</p>
                     <ul>
-                        <li><a class="dropdown-item" href="{{ path('produitPartenaire', {'id' : produit.entreprise} ) }}">Voir la vitrine de cette personne</a></li>
+                        <li><a class="dropdown-item" href="{{ path('entreprise_show', {'id': produit.entreprise.id}) }}">Voir la vitrine de cette personne</a></li>
                     </ul>
 
                     <div>
