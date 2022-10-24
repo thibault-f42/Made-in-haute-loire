@@ -95,12 +95,9 @@ class Entreprise
     private $sousCommandes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="Entreprise")
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="Entreprise")
      */
-    private $signalement;
-
-
-
+    private $signalements;
 
     public function __construct()
     {
@@ -108,6 +105,7 @@ class Entreprise
         $this->fichier = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->sousCommandes = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
 
@@ -354,17 +352,33 @@ class Entreprise
         return $this;
     }
 
-    public function getSignalement(): ?Signalement
+    /**
+     * @return Collection<int, Signalement>
+     */
+    public function getSignalements(): Collection
     {
-        return $this->signalement;
+        return $this->signalements;
     }
 
-    public function setSignalement(?Signalement $signalement): self
+    public function addSignalement(Signalement $signalement): self
     {
-        $this->signalement = $signalement;
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setEntreprise($this);
+        }
 
         return $this;
     }
 
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getEntreprise() === $this) {
+                $signalement->setEntreprise(null);
+            }
+        }
 
+        return $this;
+    }
 }

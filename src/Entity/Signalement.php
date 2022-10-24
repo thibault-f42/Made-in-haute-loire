@@ -19,31 +19,35 @@ class Signalement
      */
     private $id;
 
-
     /**
-     * @ORM\OneToMany(targetEntity=message::class, mappedBy="signalement")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $message;
+    private $motif;
 
     /**
-     * @ORM\OneToMany(targetEntity=Entreprise::class, mappedBy="signalement")
-     */
-    private $Entreprise;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="signalement")
-     */
-    private $Commentaires;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="signalement")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="signalements")
      */
     private $Produit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="signalement")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="signalements")
      */
     private $Utilisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Commentaires::class, inversedBy="signalements")
+     */
+    private $Commentaires;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="signalements")
+     */
+    private $Entreprise;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Message::class, inversedBy="signalements")
+     */
+    private $Message;
 
     public function __construct()
     {
@@ -59,152 +63,74 @@ class Signalement
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, message>
-     */
-    public function getMessage(): Collection
+    public function getMotif(): ?string
     {
-        return $this->message;
+        return $this->motif;
     }
 
-    public function addMessage(message $message): self
+    public function setMotif(?string $motif): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->setSignalement($this);
-        }
+        $this->motif = $motif;
 
         return $this;
     }
 
-    public function removeMessage(message $message): self
-    {
-        if ($this->message->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getSignalement() === $this) {
-                $message->setSignalement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Entreprise>
-     */
-    public function getEntreprise(): Collection
-    {
-        return $this->Entreprise;
-    }
-
-    public function addEntreprise(Entreprise $entreprise): self
-    {
-        if (!$this->Entreprise->contains($entreprise)) {
-            $this->Entreprise[] = $entreprise;
-            $entreprise->setSignalement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEntreprise(Entreprise $entreprise): self
-    {
-        if ($this->Entreprise->removeElement($entreprise)) {
-            // set the owning side to null (unless already changed)
-            if ($entreprise->getSignalement() === $this) {
-                $entreprise->setSignalement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Commentaires>
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->Commentaires;
-    }
-
-    public function addCommentaire(Commentaires $commentaire): self
-    {
-        if (!$this->Commentaires->contains($commentaire)) {
-            $this->Commentaires[] = $commentaire;
-            $commentaire->setSignalement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaires $commentaire): self
-    {
-        if ($this->Commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getSignalement() === $this) {
-                $commentaire->setSignalement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduit(): Collection
+    public function getProduit(): ?Produit
     {
         return $this->Produit;
     }
 
-    public function addProduit(Produit $produit): self
+    public function setProduit(?Produit $Produit): self
     {
-        if (!$this->Produit->contains($produit)) {
-            $this->Produit[] = $produit;
-            $produit->setSignalement($this);
-        }
+        $this->Produit = $Produit;
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->Produit->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getSignalement() === $this) {
-                $produit->setSignalement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Utilisateur>
-     */
-    public function getUtilisateur(): Collection
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->Utilisateur;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function setUtilisateur(?Utilisateur $Utilisateur): self
     {
-        if (!$this->Utilisateur->contains($utilisateur)) {
-            $this->Utilisateur[] = $utilisateur;
-            $utilisateur->setSignalement($this);
-        }
+        $this->Utilisateur = $Utilisateur;
 
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function getCommentaires(): ?Commentaires
     {
-        if ($this->Utilisateur->removeElement($utilisateur)) {
-            // set the owning side to null (unless already changed)
-            if ($utilisateur->getSignalement() === $this) {
-                $utilisateur->setSignalement(null);
-            }
-        }
+        return $this->Commentaires;
+    }
+
+    public function setCommentaires(?Commentaires $Commentaires): self
+    {
+        $this->Commentaires = $Commentaires;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->Entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $Entreprise): self
+    {
+        $this->Entreprise = $Entreprise;
+
+        return $this;
+    }
+
+    public function getMessage(): ?Message
+    {
+        return $this->Message;
+    }
+
+    public function setMessage(?Message $Message): self
+    {
+        $this->Message = $Message;
 
         return $this;
     }

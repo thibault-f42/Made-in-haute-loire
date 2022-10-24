@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,9 +51,14 @@ class Message
     private $mine;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="message")
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="Message")
      */
-    private $signalement;
+    private $signalements;
+
+    public function __construct()
+    {
+        $this->signalements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -140,14 +147,32 @@ class Message
         return $this;
     }
 
-    public function getSignalement(): ?Signalement
+    /**
+     * @return Collection<int, Signalement>
+     */
+    public function getSignalements(): Collection
     {
-        return $this->signalement;
+        return $this->signalements;
     }
 
-    public function setSignalement(?Signalement $signalement): self
+    public function addSignalement(Signalement $signalement): self
     {
-        $this->signalement = $signalement;
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getMessage() === $this) {
+                $signalement->setMessage(null);
+            }
+        }
 
         return $this;
     }
