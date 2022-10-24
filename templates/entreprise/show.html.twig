@@ -28,17 +28,17 @@
             <div> Adresse : {{ entreprise.adresse }} </div>
             <div> Ville : {{ entreprise.ville }} </div>
             <div> Email : {{ entreprise.email }} </div>
-            {% if app.user %}
-                 {% if app.user.vendeur %}
+        </div>
+        {% if app.user %}
+            {% if app.user.entreprise %}
+                {% if app.user.vendeur %}
                 {% else %}
                     <div>
                         <p> Votre demande est en cours d'examination, vous recevrez une confirmation par email au plus
                             vite ! </p>
                         <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
                     </div>
-                 {% endif %}
-            {% endif %}
-            {% if app.user %}
+                {% endif %}
                 {% if app.user.entreprise == produit.entreprise %}
                     <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">
                         <button class="button button--green">
@@ -47,7 +47,7 @@
                     </a>
                 {% endif %}
             {% endif %}
+        {% endif %}
         </div>
-    </div>
 
 {% endblock %}

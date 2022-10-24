@@ -1,6 +1,6 @@
 window.onload = () => {
     // On va chercher toutes les étoiles
-    const stars = document.querySelectorAll(".la-star");
+    const stars = document.querySelectorAll(".star");
 
     // On va chercher l'input
     const note = document.querySelector("#note");
@@ -12,7 +12,7 @@ window.onload = () => {
             resetStars();
             this.style.color = "gold";
             this.classList.add("las");
-            this.classList.remove("lar");
+            this.classList.remove("shine");
             // L'élément précédent dans le DOM (de même niveau, balise soeur)
             let previousStar = this.previousElementSibling;
 
@@ -20,7 +20,7 @@ window.onload = () => {
                 // On passe l'étoile qui précède en rouge
                 previousStar.style.color = "gold";
                 previousStar.classList.add("las");
-                previousStar.classList.remove("lar");
+                previousStar.classList.remove("shine");
                 // On récupère l'étoile qui la précède
                 previousStar = previousStar.previousElementSibling;
             }
@@ -44,12 +44,12 @@ window.onload = () => {
         for(star of stars){
             if(star.dataset.value > note){
                 star.style.color = "black";
-                star.classList.add("lar");
+                star.classList.add("shine");
                 star.classList.remove("las");
             }else{
                 star.style.color = "gold";
                 star.classList.add("las");
-                star.classList.remove("lar");
+                star.classList.remove("shine");
             }
         }
     }
