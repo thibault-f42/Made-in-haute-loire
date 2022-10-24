@@ -48,6 +48,11 @@ class Message
      */
     private $mine;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="message")
+     */
+    private $signalement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -131,6 +136,18 @@ class Message
     public function setMine(?bool $mine): self
     {
         $this->mine = $mine;
+
+        return $this;
+    }
+
+    public function getSignalement(): ?Signalement
+    {
+        return $this->signalement;
+    }
+
+    public function setSignalement(?Signalement $signalement): self
+    {
+        $this->signalement = $signalement;
 
         return $this;
     }

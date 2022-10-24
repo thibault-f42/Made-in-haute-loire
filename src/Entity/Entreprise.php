@@ -94,6 +94,11 @@ class Entreprise
      */
     private $sousCommandes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="Entreprise")
+     */
+    private $signalement;
+
 
 
 
@@ -345,6 +350,18 @@ class Entreprise
                 $sousCommande->setEntreprise(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSignalement(): ?Signalement
+    {
+        return $this->signalement;
+    }
+
+    public function setSignalement(?Signalement $signalement): self
+    {
+        $this->signalement = $signalement;
 
         return $this;
     }

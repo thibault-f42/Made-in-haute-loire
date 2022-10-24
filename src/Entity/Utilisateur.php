@@ -130,6 +130,11 @@ class Utilisateur implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="Utilisateur")
+     */
+    private $signalement;
+
 
     public function __construct()
     {
@@ -508,6 +513,18 @@ class Utilisateur implements UserInterface
                 $message->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSignalement(): ?Signalement
+    {
+        return $this->signalement;
+    }
+
+    public function setSignalement(?Signalement $signalement): self
+    {
+        $this->signalement = $signalement;
 
         return $this;
     }

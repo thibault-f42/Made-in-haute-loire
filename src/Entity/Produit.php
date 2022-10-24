@@ -101,6 +101,11 @@ class Produit
      */
     private $conversation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="Produit")
+     */
+    private $signalement;
+
 
 
     
@@ -364,6 +369,18 @@ class Produit
     public function setConversation(?Conversation $conversation): self
     {
         $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    public function getSignalement(): ?Signalement
+    {
+        return $this->signalement;
+    }
+
+    public function setSignalement(?Signalement $signalement): self
+    {
+        $this->signalement = $signalement;
 
         return $this;
     }
