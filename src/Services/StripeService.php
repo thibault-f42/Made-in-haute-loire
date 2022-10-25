@@ -82,7 +82,7 @@ class StripeService
         if (false){
 
         }else{
-            throw new Exception('Classe inexistante');
+            throw new Exception('');
         }
     }
 

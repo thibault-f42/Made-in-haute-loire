@@ -80,7 +80,7 @@
                             {% if app.user.entreprise != produit.entreprise %}
 
                                 <div class="stars">
-                                    <i class="lar la-star shine star" data-value="1"></i><i class="lar la-star shine star" data-value="2"></i><i class="lar la-star shine star" data-value="3"></i><i class="lar la-star shine star" data-value="4"></i><i class="lar la-star shine star" data-value="5"></i>
+                                    <i class="lar la-star shine star" data-value="1"></i><i class="lar la-star shine star" data-value="2"></i><i class="lar la-star shine star" data-value="3"></i><i class="lar la-star shine star" data-value="4"></i><i class="lar la-star shine star" data-value="5"> </i>
                                     <input type="hidden" name="note" id="note" value="1.5">
                                     <button type="submit">Valider</button>
                                 </div>
@@ -107,13 +107,14 @@
                     <h2>Liste des commentaires</h2>
 
                     <div class="notation">
-                        <i class="lar la-star"></i><i class="lar la-star"></i><i class="lar la-star"></i><i class="lar la-star"></i><i class="lar la-star"></i><br/>
-                        <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i><br/>
-                        <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i><br/>
-                        <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i><br/>
-                        <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i><br/>
-                        <i class="lar la-star" data-value="1"></i><i class="lar la-star" data-value="2"></i><i class="lar la-star" data-value="3"></i><i class="lar la-star" data-value="4"></i><i class="lar la-star" data-value="5"></i><br/>
+                        <i><img src="{{ asset('img/Notation/rating-5.png') }}" class="star_img"></i><br/>
+                        <i><img src="{{ asset('img/Notation/rating-4.png') }}" class="star_img"></i><br/>
+                        <i><img src="{{ asset('img/Notation/rating-3.png') }}" class="star_img"></i><br/>
+                        <i><img src="{{ asset('img/Notation/rating-2.png') }}" class="star_img"></i><br/>
+                        <i><img src="{{ asset('img/Notation/rating-1.png') }}" class="star_img"></i><br/>
                     </div>
+
+                    <div class="total_vote">Total des votes : </div>
                     <div class="comment-scroll">
                         {% for commentaire in produit.commentaires %}
                             {% if commentaire.parent == null %}
