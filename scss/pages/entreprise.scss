@@ -4,11 +4,20 @@
   text-align: center;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 4rem 12rem 1fr 20rem 10rem;
+  grid-template-rows: 3rem 12rem 1fr 20rem 10rem;
   grid-row-gap : 1rem;
-  h1{
-    text-align: left;
+  border: solid #b69126;
+  .test{
+    display: flex;
+    justify-content: space-between;
+    h1{
+      text-align: start;
+    }
+    .dropdown{
+      text-align: end;
+    }
   }
+
   &__photos{
     height: auto;
     width: auto;

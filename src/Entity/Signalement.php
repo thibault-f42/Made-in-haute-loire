@@ -51,11 +51,6 @@ class Signalement
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
-        $this->Entreprise = new ArrayCollection();
-        $this->Commentaires = new ArrayCollection();
-        $this->Produit = new ArrayCollection();
-        $this->Utilisateur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,7 +70,7 @@ class Signalement
         return $this;
     }
 
-    public function getProduit(): ArrayCollection
+    public function getProduit(): ?Produit
     {
         return $this->Produit;
     }

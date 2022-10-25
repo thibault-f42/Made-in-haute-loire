@@ -8,6 +8,8 @@ use App\Repository\EntrepriseRepository;
 use App\Repository\MessageRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\FromAdd;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,21 +17,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 /**
- * @Route("/signalement", name="signalement_", methods={"POST"})
+ * @Route("/signalement", name="signalement_")
  */
 class SignalementController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="index" )
      */
     public function index(): Response
     {
+
         return $this->render('signalement/index.html.twig', [
             'controller_name' => 'SignalementController',
         ]);
     }
     /**
-     * @Route("/new", name="new")
+     * @Route("/new", name="new", methods={"POST"})
      */
     public function new(Request $request,
                         EntrepriseRepository $entrepriseRepository,
@@ -37,7 +40,8 @@ class SignalementController extends AbstractController
                         UtilisateurRepository $utilisateurRepository,
                         CommentairesRepository $commentairesRepository,
                         MessageRepository $messageRepository,
-                        EntityManagerInterface $entityManager): Response
+                        EntityManagerInterface $entityManager,
+                        FromAdd $fromAdd): RedirectResponse
     {
         $type = $request->get('type', "");
         $numero = $request->get('numero', "");
@@ -72,14 +76,14 @@ class SignalementController extends AbstractController
                 $entityManager->persist($signalement);
                 $entityManager->flush();
                 $entityManager->commit();
+                $this->addFlash('message', "Signalement envoyé avec succès ");
 //            }catch (\Exception $e){
 //                $entityManager->rollback();
 //                dd($e);
 //                $this->addFlash('warning', "Une erreur est survenue lors de l'enregistrement de votre signalement veuillez contacter le service technique ");
 //            }
-            $this->addFlash('message', "Signalement envoyé avec succès ");
         }
-        $last = $request->headers->get('referer');
-        return $this->redirectToRoute($last);
+        $last = $fromAdd->getLastPage($request);
+        return new RedirectResponse($last);
     }
 }
