@@ -119,7 +119,7 @@ class ConversationController extends AbstractController
 
         $utilisateurs = [$this->utilisateur, $produit->getEntreprise()->getUtilisateur()];
         $conversation = $this->messageService->newConversation($utilisateurs, false);
-        $conversation->addProduit($produit);
+        $conversation->setProduit($produit);
         $conversation->setNom($produit->getNomArticle());
         $conversationNumber = $this->messageService->save($conversation);
 
@@ -172,8 +172,8 @@ class ConversationController extends AbstractController
         if (!isset($conversationNumber)){
             $utilisateurs = [$this->utilisateur, $produit->getEntreprise()->getUtilisateur()];
             $conversation = $this->messageService->newConversation($utilisateurs, false);
-            $conversation->addProduit($produit);
-            $conversation->addSousCommande($commande);
+            $conversation->setProduit($produit);
+            $conversation->setSousCommande($commande);
             $conversation->setNom("litige {$produit->getNomArticle()}");
             $conversationNumber = $this->messageService->save($conversation);
         }

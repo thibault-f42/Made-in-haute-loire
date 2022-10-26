@@ -1,0 +1,12 @@
+<div class="dropdown">
+    <button class="button button--red bi-exclamation-circle-fill " data-bs-toggle="dropdown"></button>
+    <form class="dropdown-menu" id="send-message" action="{{ path('signalement_new') }}" method="post">
+        <h6 class="dropdown-header">signalement</h6>
+        <label>
+            <textarea name="motif" rows="0" placeholder="Raison du signalement"></textarea>
+        </label>
+        <input type="hidden" value="{{ type }}" name="type">
+        <input type="hidden" value="{{ numero }}" name="numero">
+        <button type="submit" id="submit-chat"  class="dropdown-item button">signaller</button>
+    </form>
+</div>

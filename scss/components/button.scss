@@ -15,7 +15,7 @@
   }
 }
 @each $color, $colors in $btn-color{
-  .button--#{$color}{
+  .button--#{"" + $color}{
     background-color: $colors;
     &:hover {
       background:darken($colors,8%);

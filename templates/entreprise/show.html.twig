@@ -4,7 +4,14 @@
 
 {% block body %}
     <div class="window-entreprise">
-        <h1>{{ entreprise.nom }}</h1>
+        <div class="test">
+            <h1>{{ entreprise.nom }}
+
+            </h1>
+            {% set type = 1 %}
+            {% set numero = entreprise.id %}
+            {% include ('signalement/ signalement.twig') %}
+        </div>
         <div class="window-entreprise__photos ">
             <div class="window-entreprise__photos__image ">
                 {% for fichier in  entreprise.fichier %}
