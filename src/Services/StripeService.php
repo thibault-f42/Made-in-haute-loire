@@ -79,7 +79,7 @@ class StripeService
 
 // todo pas fini
     public function controlePaiement (){
-        if (false){
+        if (true){
 
         }else{
             throw new Exception('Actuellement nous ne comprenons pas que le paiement est bien été envoyé : StripeService, controlePaiement');

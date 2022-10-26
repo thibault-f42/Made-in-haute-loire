@@ -7,6 +7,7 @@ use App\Entity\Commande;
 use App\Entity\Entreprise;
 use App\Entity\Produit;
 use App\Entity\SousCommande;
+use App\Entity\Utilisateur;
 use App\Form\AdresseLivraisonType;
 use App\Form\CommandeType;
 use App\Form\EtatSousCommandeType;
@@ -207,6 +208,13 @@ class CommandeController extends AbstractController
     Response
     {
         $commande = new Commande();
+
+        /**
+         * @var $utilisateur Utilisateur
+         */
+        $utilisateur = $this->getUser();
+        $commande->setUtilisateur($utilisateur);
+
         $panier= $session->get("panier", []);
 
         //on initialise le tableau de produits
@@ -258,6 +266,8 @@ class CommandeController extends AbstractController
 
         $commande->setDescriptif('Commande passée avec succès');
 
+        $this->addFlash('message', "Commande validée avec succès");
+
         // Gère les erreurs lors de l'enregistrement en base de données. 
         try {
             $entityManager = $this->getDoctrine()->getManager();
@@ -267,13 +277,7 @@ class CommandeController extends AbstractController
             $this->addFlash('warning', "Une erreur est survenue lors de l'enregistrement de votre commande veuillez contacter le service technique ");
             return $this->redirectToRoute('Accueil');
         }
-
-
-
-        $this->addFlash('message', "Commande validée avec succès");
-
         return $this->redirectToRoute('Accueil');
-
     }
 
     /**
