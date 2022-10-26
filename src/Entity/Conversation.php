@@ -48,14 +48,15 @@ class Conversation
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="conversation")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="conversations")
      */
     private $produit;
 
     /**
-     * @ORM\OneToMany(targetEntity=sousCommande::class, mappedBy="conversation")
+     * @ORM\ManyToOne(targetEntity=SousCommande::class, inversedBy="conversations")
      */
     private $sousCommande;
+
 
 
     public function __construct()
@@ -188,63 +189,28 @@ class Conversation
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduit(): Collection
+    public function getProduit(): ArrayCollection
     {
         return $this->produit;
     }
 
-    public function addProduit(Produit $produit): self
+    public function setProduit(?Produit $produit): self
     {
-        if (!$this->produit->contains($produit)) {
-            $this->produit[] = $produit;
-            $produit->setConversation($this);
-        }
+        $this->produit = $produit;
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produit->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getConversation() === $this) {
-                $produit->setConversation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, sousCommande>
-     */
-    public function getSousCommande(): Collection
+    public function getSousCommande(): ?SousCommande
     {
         return $this->sousCommande;
     }
 
-    public function addSousCommande(sousCommande $sousCommande): self
+    public function setSousCommande(?SousCommande $sousCommande): self
     {
-        if (!$this->sousCommande->contains($sousCommande)) {
-            $this->sousCommande[] = $sousCommande;
-            $sousCommande->setConversation($this);
-        }
+        $this->sousCommande = $sousCommande;
 
         return $this;
     }
 
-    public function removeSousCommande(sousCommande $sousCommande): self
-    {
-        if ($this->sousCommande->removeElement($sousCommande)) {
-            // set the owning side to null (unless already changed)
-            if ($sousCommande->getConversation() === $this) {
-                $sousCommande->setConversation(null);
-            }
-        }
-
-        return $this;
-    }
 }

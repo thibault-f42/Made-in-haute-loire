@@ -130,6 +130,11 @@ class Utilisateur implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="Utilisateur")
+     */
+    private $signalements;
+
 
     public function __construct()
     {
@@ -137,6 +142,7 @@ class Utilisateur implements UserInterface
         $this->sousCommandes = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
     public function isAuthorProduit (Produit $produit){
@@ -506,6 +512,36 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($message->getUtilisateur() === $this) {
                 $message->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Signalement>
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): self
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getUtilisateur() === $this) {
+                $signalement->setUtilisateur(null);
             }
         }
 

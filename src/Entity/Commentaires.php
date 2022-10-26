@@ -66,6 +66,11 @@ class Commentaires
      */
     private $reponses;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Signalement::class, inversedBy="Commentaires")
+     */
+    private $signalement;
+
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
@@ -198,6 +203,18 @@ class Commentaires
                 $reponse->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSignalement(): ?Signalement
+    {
+        return $this->signalement;
+    }
+
+    public function setSignalement(?Signalement $signalement): self
+    {
+        $this->signalement = $signalement;
 
         return $this;
     }

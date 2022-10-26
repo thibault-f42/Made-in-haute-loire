@@ -57,14 +57,15 @@ class SousCommande
     private $produit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="sousCommande")
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="sousCommande")
      */
-    private $conversation;
+    private $conversations;
 
 
     public function __construct()
     {
         $this->Produit = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,14 +146,32 @@ class SousCommande
         return $this;
     }
 
-    public function getConversation(): ?Conversation
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
     {
-        return $this->conversation;
+        return $this->conversations;
     }
 
-    public function setConversation(?Conversation $conversation): self
+    public function addConversation(Conversation $conversation): self
     {
-        $this->conversation = $conversation;
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setSousCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getSousCommande() === $this) {
+                $conversation->setSousCommande(null);
+            }
+        }
 
         return $this;
     }

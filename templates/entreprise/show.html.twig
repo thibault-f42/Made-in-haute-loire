@@ -4,7 +4,14 @@
 
 {% block body %}
     <div class="window-entreprise">
-        <h1>{{ entreprise.nom }}</h1>
+        <div class="test">
+            <h1>{{ entreprise.nom }}
+
+            </h1>
+            {% set type = 1 %}
+            {% set numero = entreprise.id %}
+            {% include ('signalement/ signalement.twig') %}
+        </div>
         <div class="window-entreprise__photos ">
             <div class="window-entreprise__photos__image ">
                 {% for fichier in  entreprise.fichier %}
@@ -39,7 +46,7 @@
                         <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
                     </div>
                 {% endif %}
-                {% if app.user.entreprise == produit.entreprise %}
+                {% if app.user.entreprise == entreprise %}
                     <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">
                         <button class="button button--green">
                             Modifier mes informations

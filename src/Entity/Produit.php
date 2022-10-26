@@ -96,10 +96,17 @@ class Produit
      */
     private $activeChat;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="produit")
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="Produit")
      */
-    private $conversation;
+    private $signalements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="produit")
+     */
+    private $conversations;
+    
 
 
 
@@ -111,6 +118,8 @@ class Produit
         $this->commandes = new ArrayCollection();
         $this->sousCommandes = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -356,18 +365,63 @@ class Produit
         return $this;
     }
 
-    public function getConversation(): ?Conversation
+    /**
+     * @return Collection<int, Signalement>
+     */
+    public function getSignalements(): Collection
     {
-        return $this->conversation;
+        return $this->signalements;
     }
 
-    public function setConversation(?Conversation $conversation): self
+    public function addSignalement(Signalement $signalement): self
     {
-        $this->conversation = $conversation;
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setProduit($this);
+        }
 
         return $this;
     }
 
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getProduit() === $this) {
+                $signalement->setProduit(null);
+            }
+        }
 
-   
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getProduit() === $this) {
+                $conversation->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
 }
