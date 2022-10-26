@@ -46,7 +46,7 @@
                         <p>Profitez en pour choisir des photos de présentations et pour entrer une description</p>
                     </div>
                 {% endif %}
-                {% if app.user.entreprise == produit.entreprise %}
+                {% if app.user.entreprise == entreprise %}
                     <a href="{{ path('modifierEntreprise', {'id': entreprise.id}) }}">
                         <button class="button button--green">
                             Modifier mes informations
