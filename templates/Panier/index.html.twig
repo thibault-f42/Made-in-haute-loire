@@ -11,7 +11,7 @@
             <div class="row border-bot-rows imgPanier">
                 <div class="col-2">
                     {% if ligne.produit.fichiers is not empty %}
-                        <img src={{ asset('img/ProduitPhoto/'~ligne.produit.fichiers[0].urlFichier) }}>
+                        <img class="photo_produit_panier" src={{ asset('img/ProduitPhoto/'~ligne.produit.fichiers[0].urlFichier) }}>
                     {% else %}
                         <img src={{ asset('img/Erreurs/notFound.png') }} class="card-img-top" alt="photo-erreur">
                     {% endif %}
