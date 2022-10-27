@@ -256,7 +256,6 @@ class CommandeController extends AbstractController
 
 
 //       Gestion des erreurs Strike :
-        // todo pas fini
         try{
             $stripeService->controlePaiement();
         }catch (\Exception $e) {
