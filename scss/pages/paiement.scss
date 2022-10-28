@@ -1,0 +1,25 @@
+#validation_titre{
+  text-align: center;
+  padding-top: 1em;
+}
+
+.paiement{
+  background-color: $color-windows-background;
+  padding-top: 2em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+#cardholder-name{
+  margin-right: 2em;
+}
+
+.bouton-submit{
+  border: none;
+  color:white;
+}
