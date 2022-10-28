@@ -38,3 +38,13 @@ margin: auto;
     }
   }
 }
+@media screen and (max-width: 800px) {
+  .window-inscriprion {
+    z-index: 1;
+    width:30rem;
+    margin: 2rem 9rem;
+    form{
+      grid-template-columns: 1fr;
+    }
+  }
+}
