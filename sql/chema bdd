@@ -1,0 +1,323 @@
+
+Table "adresse_livraison" {
+  "id" int [pk, not null, increment]
+  "ville_id" int [not null]
+  "adresse" varchar(255) [not null]
+  "informations_importantes" longtext
+
+Indexes {
+  ville_id [name: "IDX_B0B09C9A73F0036"]
+}
+}
+
+Table "canton" {
+  "id" int [pk, not null, increment]
+  "departement_id" int [not null]
+  "nom" varchar(255) [not null]
+
+Indexes {
+  departement_id [name: "IDX_5B9EF921CCF9E01E"]
+}
+}
+
+Table "categorie" {
+  "id" int [pk, not null, increment]
+  "libelle" varchar(255) [not null]
+}
+
+Table "commande" {
+  "id" int [pk, not null, increment]
+  "utilisateur_id" int [not null]
+  "adresse_livraison_id" int [not null]
+  "prix" double [not null]
+  "date_commande" date [not null]
+  "date_livraison" date [not null]
+  "code_commande" varchar(255) [not null]
+  "descriptif" longtext [not null]
+  "etat" varchar(255) [default: NULL]
+
+Indexes {
+  utilisateur_id [name: "IDX_6EEAA67DFB88E14F"]
+  adresse_livraison_id [name: "IDX_6EEAA67DBE2F0A35"]
+}
+}
+
+Table "commentaires" {
+  "id" int [pk, not null, increment]
+  "annonce_id" int [not null]
+  "parent_id" int [default: NULL]
+  "content" longtext [not null]
+  "active" tinyint(1) [not null]
+  "email" varchar(255) [not null]
+  "pseudo" varchar(255) [not null]
+  "created_at" datetime [not null, note: '(DC2Type:datetime_immutable)']
+  "rgpd" tinyint(1) [not null]
+  "signalement_id" int [default: NULL]
+
+Indexes {
+  annonce_id [name: "IDX_D9BEC0C48805AB2F"]
+  parent_id [name: "IDX_D9BEC0C4727ACA70"]
+  signalement_id [name: "IDX_D9BEC0C465C5E57E"]
+}
+}
+
+Table "config" {
+  "id" int [pk, not null, increment]
+  "cle_publique_stripe" varchar(255) [default: NULL]
+  "cle_privee_stripe" varchar(255) [default: NULL]
+}
+
+Table "conversation" {
+  "id" int [pk, not null, increment]
+  "last_message_id" int [default: NULL]
+  "n_message_non_vue" int [not null, default: "0"]
+  "nom" varchar(255) [default: NULL]
+  "produit_id" int [default: NULL]
+  "sous_commande_id" int [default: NULL]
+
+Indexes {
+  last_message_id [unique, name: "UNIQ_8A8E26E9BA0E79C3"]
+  produit_id [name: "IDX_8A8E26E9F347EFB"]
+  sous_commande_id [name: "IDX_8A8E26E9C2D35D67"]
+}
+}
+
+Table "conversation_utilisateur" {
+  "conversation_id" int [not null]
+  "utilisateur_id" int [not null]
+
+Indexes {
+  conversation_id [name: "IDX_F3031EC39AC0396"]
+  utilisateur_id [name: "IDX_F3031EC3FB88E14F"]
+  (conversation_id, utilisateur_id) [pk]
+}
+}
+
+Table "departement" {
+  "id" int [pk, not null, increment]
+  "region_id" int [default: NULL]
+  "no_departement" int [not null]
+  "nom" varchar(255) [not null]
+
+Indexes {
+  region_id [name: "IDX_C1765B6398260155"]
+}
+}
+
+Table "doctrine_migration_versions" {
+  "version" varchar(191) [pk, not null]
+  "executed_at" datetime [default: NULL]
+  "execution_time" int [default: NULL]
+}
+
+Table "entreprise" {
+  "id" int [pk, not null, increment]
+  "ville_id" int [not null]
+  "nom" varchar(255) [not null]
+  "adresse" varchar(255) [not null]
+  "telephone" varchar(20) [not null]
+  "email" varchar(180) [not null]
+  "siret" varchar(14) [not null]
+  "description" longtext
+
+Indexes {
+  email [unique, name: "UNIQ_D19FA60E7927C74"]
+  siret [unique, name: "UNIQ_D19FA6026E94372"]
+  ville_id [name: "IDX_D19FA60A73F0036"]
+}
+}
+
+Table "etat_commande" {
+  "id" int [pk, not null, increment]
+  "etat" varchar(255) [not null]
+}
+
+Table "fichier" {
+  "id" int [pk, not null, increment]
+  "entreprise_id" int [default: NULL]
+  "produit_id" int [default: NULL]
+  "url_fichier" varchar(255) [not null]
+  "type_fichier" varchar(255) [not null]
+
+Indexes {
+  entreprise_id [name: "IDX_9B76551FA4AEAFEA"]
+  produit_id [name: "IDX_9B76551FF347EFB"]
+}
+}
+
+Table "message" {
+  "id" int [pk, not null, increment]
+  "utilisateur_id" int [default: NULL]
+  "conversarion_id" int [not null]
+  "corps" longtext [not null]
+  "date" datetime [not null]
+  "mine" tinyint(1) [default: NULL]
+
+Indexes {
+  utilisateur_id [name: "IDX_B6BD307FFB88E14F"]
+  conversarion_id [name: "IDX_B6BD307F6A7C36AC"]
+}
+}
+
+Table "produit" {
+  "id" int [pk, not null, increment]
+  "entreprise_id" int [not null]
+  "sous_categorie_id" int [not null]
+  "categorie_id" int [not null]
+  "nom_article" varchar(255) [not null]
+  "description" longtext [not null]
+  "prix" double [not null]
+  "etat_vente" varchar(255) [not null]
+  "stock" int [not null]
+  "code_produit" varchar(255) [not null]
+  "active_chat" tinyint(1) [not null, default: "0"]
+
+Indexes {
+  entreprise_id [name: "IDX_29A5EC27A4AEAFEA"]
+  sous_categorie_id [name: "IDX_29A5EC27365BF48"]
+  categorie_id [name: "IDX_29A5EC27BCF5E72D"]
+}
+}
+
+Table "region" {
+  "id" int [pk, not null, increment]
+  "nom" varchar(255) [not null]
+}
+
+Table "signalement" {
+  "id" int [pk, not null, increment]
+  "produit_id" int [default: NULL]
+  "utilisateur_id" int [default: NULL]
+  "commentaires_id" int [default: NULL]
+  "entreprise_id" int [default: NULL]
+  "message_id" int [default: NULL]
+  "motif" longtext
+
+Indexes {
+  produit_id [name: "IDX_F4B55114F347EFB"]
+  utilisateur_id [name: "IDX_F4B55114FB88E14F"]
+  commentaires_id [name: "IDX_F4B5511417C4B2B0"]
+  entreprise_id [name: "IDX_F4B55114A4AEAFEA"]
+  message_id [name: "IDX_F4B55114537A1329"]
+}
+}
+
+Table "sous_categorie" {
+  "id" int [pk, not null, increment]
+  "categorie_id" int [not null]
+  "nom" varchar(255) [not null]
+
+Indexes {
+  categorie_id [name: "IDX_52743D7BBCF5E72D"]
+}
+}
+
+Table "sous_commande" {
+  "id" int [pk, not null, increment]
+  "utilisateur_id" int [not null]
+  "commande_id" int [not null]
+  "entreprise_id" int [not null]
+  "etat_id" int [default: NULL]
+  "produit_id" int [not null]
+  "quantite" int [not null]
+
+Indexes {
+  utilisateur_id [name: "IDX_66A49228FB88E14F"]
+  commande_id [name: "IDX_66A4922882EA2E54"]
+  entreprise_id [name: "IDX_66A49228A4AEAFEA"]
+  etat_id [name: "IDX_66A49228D5E86FF"]
+  produit_id [name: "IDX_66A49228F347EFB"]
+}
+}
+
+Table "utilisateur" {
+  "id" int [pk, not null, increment]
+  "ville_id" int [not null]
+  "entreprise_id" int [default: NULL]
+  "adresse_livraison_id" int [default: NULL]
+  "email" varchar(180) [not null]
+  "roles" json [not null]
+  "password" varchar(255) [not null]
+  "nom" varchar(255) [not null]
+  "prenom" varchar(255) [not null]
+  "telephone" varchar(20) [not null]
+  "vendeur" tinyint(1) [not null]
+  "adresse" varchar(255) [not null]
+  "is_verified" tinyint(1) [not null]
+  "activation_token" varchar(255) [default: NULL]
+  "token_mdp" varchar(255) [default: NULL]
+  "actif" tinyint(1) [default: NULL]
+
+Indexes {
+  email [unique, name: "UNIQ_1D1C63B3E7927C74"]
+  entreprise_id [unique, name: "UNIQ_1D1C63B3A4AEAFEA"]
+  ville_id [name: "IDX_1D1C63B3A73F0036"]
+  adresse_livraison_id [name: "IDX_1D1C63B3BE2F0A35"]
+}
+}
+
+Table "ville" {
+  "id" int [pk, not null, increment]
+  "canton_id" int [not null]
+  "nom" varchar(255) [not null]
+  "code_postal" varchar(5) [not null]
+  "longitude" double [not null]
+  "latitude" double [not null]
+
+Indexes {
+  canton_id [name: "IDX_43C3D9C38D070D0B"]
+}
+}
+
+Ref:"ville"."id" < "adresse_livraison"."ville_id"
+
+Ref:"departement"."id" < "canton"."departement_id"
+
+Ref: "commande"."adresse_livraison_id" > "adresse_livraison"."id"
+
+Ref: "commande"."utilisateur_id" > "utilisateur"."id"
+
+Ref: "commentaires"."signalement_id" > "signalement"."id"
+Ref: "commentaires"."parent_id" > "commentaires"."id"
+Ref: "commentaires"."annonce_id" > "produit"."id"
+
+Ref: "conversation"."last_message_id" > "message"."id"
+Ref: "conversation"."sous_commande_id" > "sous_commande"."id"
+Ref: "conversation"."produit_id" > "produit"."id"
+
+Ref: "conversation_utilisateur"."conversation_id" > "conversation"."id"
+Ref: "conversation_utilisateur"."utilisateur_id" > "utilisateur"."id"
+
+Ref: "departement"."region_id" > "region"."id"
+
+Ref: "entreprise"."ville_id" > "ville"."id"
+
+Ref: "fichier"."entreprise_id" > "entreprise"."id"
+Ref: "fichier"."produit_id" > "produit"."id"
+
+Ref: "message"."conversarion_id" > "entreprise"."id"
+Ref: "message"."utilisateur_id" > "utilisateur"."id"
+
+Ref: "produit"."sous_categorie_id" > "sous_categorie"."id"
+Ref: "produit"."entreprise_id" > "entreprise"."id"
+Ref: "produit"."categorie_id" > "categorie"."id"
+
+Ref: "signalement"."commentaires_id" > "commentaires"."id"
+Ref: "signalement"."message_id" > "message"."id"
+Ref: "signalement"."entreprise_id" > "entreprise"."id"
+Ref: "signalement"."produit_id" > "produit"."id"
+Ref: "signalement"."utilisateur_id" > "utilisateur"."id"
+
+Ref:"categorie"."id" < "sous_categorie"."categorie_id"
+
+Ref:"sous_commande"."commande_id" > "commande"."id"
+Ref:"sous_commande"."entreprise_id" > "entreprise"."id"
+Ref:"sous_commande"."etat_id" > "etat_commande"."id"
+Ref:"sous_commande"."produit_id" > "produit"."id"
+Ref:"sous_commande"."utilisateur_id" > "produit"."id"
+
+Ref:"utilisateur"."entreprise_id" > "entreprise"."id"
+Ref:"utilisateur"."ville_id" > "ville"."id"
+Ref:"utilisateur"."adresse_livraison_id" > "adresse_livraison"."id"
+
+Ref:"canton"."id" < "ville"."canton_id"
